@@ -1,6 +1,6 @@
 module.exports = {
   singleQuote: true,
-  // bracketSpacing: false,
+  bracketSpacing: false,
   semi: false,
-  printWidth: 100
+  printWidth: 90
 };

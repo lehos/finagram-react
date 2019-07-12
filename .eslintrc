@@ -4,7 +4,7 @@
     "browser": true
   },
   "extends": ["airbnb", "prettier"],
-  "plugins": ["eslint-plugin-typescript"],
+  "plugins": ["@typescript-eslint/eslint-plugin"],
   "rules": {
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
@@ -27,6 +27,6 @@
     "no-underscore-dangle": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/no-static-element-interactions": "off",
-    "no-console": "error"
+    "no-console": "warn"
   }
 }

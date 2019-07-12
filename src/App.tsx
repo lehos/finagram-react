@@ -1,30 +1,52 @@
-import React, { Suspense } from 'react'
-import { BrowserRouter, Link, Switch, Route } from 'react-router-dom'
+import React, {ComponentType, Suspense} from 'react'
+import {Router, Switch, Route, Redirect} from 'react-router-dom'
+import { hot } from 'react-hot-loader/root';
+
+import {session, history} from './services'
+import {AuthLayout} from '@/layouts'
+
+import ClassifiersPage from '@/pages/ClassifiersPage'
 
 const IndexPage = React.lazy(() => import('./pages/IndexPage'))
-const AboutPage = React.lazy(() => import('./pages/AboutPage'))
 
-function App() {
+
+type RouteProps = {
+  path: string
+  exact?: boolean
+  component: ComponentType
+}
+
+function AuthRoute(props: RouteProps) {
   return (
-    <>
-      <BrowserRouter>
-        <>
-          <div>
-            <Link to="/">Index</Link>
-          </div>
-          <div>
-            <Link to="/about">About</Link>
-          </div>
-          <Suspense fallback={null}>
-            <Switch>
-              <Route exact path="/" component={IndexPage} />
-              <Route path="/about" component={AboutPage} />
-            </Switch>
-          </Suspense>
-        </>
-      </BrowserRouter>
-    </>
+    <Route
+      exact={props.exact}
+      path={props.path}
+      render={() =>
+        session.getToken() ? (
+          <AuthLayout>
+            <props.component />
+          </AuthLayout>
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
+    />
   )
 }
 
-export default App
+function App() {
+  return (
+    <Router history={history}>
+      <AuthLayout>
+        <Suspense fallback={null}>
+          <Switch>
+            <Route exact path="/" component={IndexPage} />
+            <Route path="/classifiers" component={ClassifiersPage} />
+          </Switch>
+        </Suspense>
+      </AuthLayout>
+    </Router>
+  )
+}
+
+export default process.env.NODE_ENV === 'production' ? App : hot(App);
