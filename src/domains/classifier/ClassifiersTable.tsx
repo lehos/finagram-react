@@ -37,23 +37,21 @@ type Props = {
 
 export const ClassifiersTable = view((props: Props) => {
   const {onRowClick} = props
+  const {classifiersArr} = classifierStore
 
-  if (classifierStore.classifiersArr.length === 0) {
-    classifierStore.fetchClassifiers()
+  if (classifiersArr.length === 0) {
     return <Icon type="loading" />
   }
 
   return (
     <Table<Classifier>
-      dataSource={classifierStore.classifiersArr}
+      dataSource={classifiersArr}
       columns={columns}
       size="middle"
       rowKey="id"
-      onRow={record => {
-        return {
-          onClick: e => onRowClick(record.id)
-        }
-      }}
+      onRow={record => ({
+        onClick: () => onRowClick(record.id)
+      })}
       pagination={false}
     />
   )

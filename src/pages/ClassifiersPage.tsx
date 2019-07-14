@@ -1,25 +1,18 @@
 import React, {useState} from 'react'
-import {Button, Modal, Icon} from 'antd'
+import {Button, Modal} from 'antd'
 
 import {Spacer, PageHeader} from '@/ui'
+import {useModal} from '@/hooks';
 
 import {ClassifiersTable, ClassifierForm} from '@/domains/classifier'
 
 export default function ClassifiersPage() {
-  const [isFormVisible, setIsFormVisible] = useState(false)
+  const {showModal, hideModal, isModalVisible} = useModal()
   const [classifierId, setClassifierId] = useState<string | null>(null)
-
-  function openModal() {
-    setIsFormVisible(true)
-  }
-
-  function hideModal() {
-    setIsFormVisible(false)
-  }
 
   function editClassifier(id: string) {
     setClassifierId(id)
-    openModal()
+    showModal()
   }
 
   function clearClassifierId() {
@@ -31,14 +24,14 @@ export default function ClassifiersPage() {
       <PageHeader>
         Классификаторы
         <Spacer width={20} />
-        <Button onClick={openModal} icon="plus">
+        <Button onClick={showModal} icon="plus">
           Добавить
         </Button>
       </PageHeader>
 
       <Modal
-        title={classifierId ? 'Редактировать классификатор' : 'Добавить классификатор'}
-        visible={isFormVisible}
+        title={`${classifierId ? 'Редактирование' : 'Создание'} классификатора`}
+        visible={isModalVisible}
         onCancel={hideModal}
         footer={null}
         afterClose={clearClassifierId}

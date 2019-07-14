@@ -2,10 +2,11 @@ import React, {ComponentType, Suspense} from 'react'
 import {Router, Switch, Route, Redirect} from 'react-router-dom'
 import {hot} from 'react-hot-loader/root'
 
-import {session, history} from './services'
+import {session, history, storeService} from './services'
 import {AuthLayout} from '@/layouts'
 
 import ClassifiersPage from '@/pages/ClassifiersPage'
+import AccountsPage from '@/pages/AccountsPage'
 
 const IndexPage = React.lazy(() => import('./pages/IndexPage'))
 
@@ -33,7 +34,16 @@ function AuthRoute(props: RouteProps) {
   )
 }
 
+
+let isInitialized = false
+
+// todo auth and non-auth routes
 function App() {
+  if (!isInitialized) {
+    storeService.initStores()
+    isInitialized = true
+  }
+
   return (
     <Router history={history}>
       <AuthLayout>
@@ -41,6 +51,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={IndexPage} />
             <Route path="/classifiers" component={ClassifiersPage} />
+            <Route path="/accounts" component={AccountsPage} />
           </Switch>
         </Suspense>
       </AuthLayout>

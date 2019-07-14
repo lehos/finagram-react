@@ -8,14 +8,13 @@ import * as A from './api'
 
 export const classifierStore = store({
   classifiers: {} as Record<string, Classifier>,
-
-  get classifiersIds(): string[] {
-    return Object.keys(classifierStore.classifiers)
-  },
-
   // todo (maybe) for perf it should be cached or moved to state
   get classifiersArr(): Classifier[] {
     return Object.values(classifierStore.classifiers)
+  },
+
+  init() {
+    return classifierStore.fetchClassifiers()
   },
 
   async fetchClassifiers() {

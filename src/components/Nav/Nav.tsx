@@ -20,6 +20,12 @@ function Nav(props: RouteComponentProps) {
         </Link>
       </Menu.Item>
 
+      <Menu.Item key="/accounts">
+        <Link to="/accounts">
+          <Icon type="cluster" /> Счета
+        </Link>
+      </Menu.Item>
+
       <Menu.Item key="/classifiers">
         <Link to="/classifiers">
           <Icon type="appstore" /> Классификаторы
