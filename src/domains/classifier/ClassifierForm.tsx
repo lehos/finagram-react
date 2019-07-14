@@ -11,6 +11,7 @@ type Props = {
 
   // может быть сюда лучше прокидывать сам объект, а не его id
   // тогда форма не будет ходить в стор
+  // с другой стороны, к такой форме легче будет прикрутить урл
   classifierId?: string | null
 }
 
@@ -23,13 +24,7 @@ function getInitialValues(classifierId: string | null | undefined): Values {
     return {name: ''}
   }
 
-  const classifier = classifierStore.classifiersMap[classifierId]
-
-  // because on delete store updates before form is closed
-  if (!classifier) {
-    return {name: ''}
-  }
-
+  const classifier = classifierStore.classifiers[classifierId]
   const {name, namePlural, split, useInTransfer} = classifier
 
   return {name, namePlural, split, useInTransfer}
@@ -53,12 +48,12 @@ export function ClassifierForm(props: Props) {
   async function onSubmit(values: Values) {
     const {action, ...rest} = values
 
-    if (action === 'update') {
-      await classifierStore.update({id: classifierId!, ...(rest as Required<Values>)})
+    if (action === 'delete') {
+      await classifierStore.delete(classifierId!)
     } else if (action === 'create') {
       await classifierStore.create(rest)
     } else {
-      await classifierStore.delete(classifierId!)
+      await classifierStore.update({id: classifierId!, ...(rest as Required<Values>)})
     }
 
     onOk()
@@ -68,13 +63,13 @@ export function ClassifierForm(props: Props) {
 
   return (
     <Form
-      validate={validate}
       initialValues={initialValues}
+      validate={validate}
       onSubmit={onSubmit}
+      // todo subscription and FormSpy
       // subscription={{submitting: true}}
       render={({handleSubmit, submitting, form, values}) => (
         <form onSubmit={handleSubmit}>
-          {values.action}
           <UI.FormRow>
             <UI.FormLabel>Название в единственном числе</UI.FormLabel>
             <UI.FormInput

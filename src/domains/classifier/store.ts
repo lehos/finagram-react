@@ -7,17 +7,21 @@ import {Classifier, ClassifierStub} from './classifier'
 import * as A from './api'
 
 export const classifierStore = store({
-  classifiers: [] as Classifier[],
+  classifiers: {} as Record<string, Classifier>,
 
-  get classifiersMap(): Record<string, Classifier> {
-    return arrayToMap(classifierStore.classifiers)
+  get classifiersIds(): string[] {
+    return Object.keys(classifierStore.classifiers)
   },
 
-  async getClassifiers() {
-    classifierStore.classifiers = await A.getClassifiers()
+  // todo (maybe) for perf it should be cached or moved to state
+  get classifiersArr(): Classifier[] {
+    return Object.values(classifierStore.classifiers)
   },
 
-  // todo this should be blocked unless classifiers are loaded
+  async fetchClassifiers() {
+    classifierStore.classifiers = arrayToMap(await A.getClassifiers())
+  },
+
   async create(classifierStub: ClassifierStub) {
     const id = nanoid()
     const {name, namePlural, split, useInTransfer} = classifierStub
@@ -32,30 +36,23 @@ export const classifierStore = store({
 
     await A.createClassifier(classifier)
 
-    classifierStore.classifiers.push(classifier)
+    classifierStore.classifiers[id] = classifier
   },
 
-  // todo this should be blocked unless classifiers are loaded
   async update(classifierStub: Required<ClassifierStub> & {id: string}) {
-    const {name, namePlural, split, useInTransfer} = classifierStub
+    await A.updateClassifier(classifierStub)
 
-    const classifier = classifierStore.classifiersMap[classifierStub.id]
-
-    // mutating classifier fields to preserve link to its object
-    // TODO: think about is, maybe it's not the best idea
-    // other option is to have classifiersMap directly in store (not in getter)
-    classifier.name = name
-    classifier.namePlural = namePlural
-    classifier.split = split
-    classifier.useInTransfer = useInTransfer
-
-    await A.updateClassifier()
+    classifierStore.classifiers[classifierStub.id] = {
+      ...classifierStore.classifiers[classifierStub.id],
+      ...classifierStub
+    }
   },
 
-  // todo this should be blocked unless classifiers are loaded
   async delete(id: string) {
-    const {classifiers} = classifierStore
     await A.deleteClassifier(id)
-    classifiers.splice(classifiers.findIndex(item => item.id === id), 1)
+
+    setTimeout(() => {
+      delete classifierStore.classifiers[id]
+    }, 0)
   }
 })

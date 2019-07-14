@@ -4,3 +4,7 @@ export function arrayToMap<T extends {id: string}>(obj: T[]): Record<string, T> 
     return acc
   }, {})
 }
+
+export function sleep(ms: number = 1000) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}

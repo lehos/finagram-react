@@ -38,14 +38,14 @@ type Props = {
 export const ClassifiersTable = view((props: Props) => {
   const {onRowClick} = props
 
-  if (classifierStore.classifiers.length === 0) {
-    classifierStore.getClassifiers()
+  if (classifierStore.classifiersArr.length === 0) {
+    classifierStore.fetchClassifiers()
     return <Icon type="loading" />
   }
 
   return (
     <Table<Classifier>
-      dataSource={classifierStore.classifiers}
+      dataSource={classifierStore.classifiersArr}
       columns={columns}
       size="middle"
       rowKey="id"

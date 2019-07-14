@@ -1,28 +1,26 @@
-import {Classifier} from './classifier'
-import {classifiersMock} from './mocks'
+import {sleep} from '@/utils'
 
-function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
+import {Classifier, ClassifierStub} from './classifier'
+import {classifiersMock} from './mocks'
 
 export function getClassifiers(): Promise<Classifier[]> {
   return new Promise(async resolve => {
-    await sleep(1000)
+    await sleep()
     resolve(classifiersMock)
   })
 }
 
 export function createClassifier(classifier: Classifier): Promise<null> {
   return new Promise(async resolve => {
-    await sleep(1000)
+    await sleep()
 
     resolve(null)
   })
 }
 
-export function updateClassifier(): Promise<null> {
+export function updateClassifier(classifierStub: ClassifierStub): Promise<null> {
   return new Promise(async resolve => {
-    await sleep(5000)
+    await sleep()
 
     resolve(null)
   })
@@ -30,7 +28,7 @@ export function updateClassifier(): Promise<null> {
 
 export function deleteClassifier(id: string): Promise<null> {
   return new Promise(async resolve => {
-    await sleep(5000)
+    await sleep()
 
     resolve(null)
   })
