@@ -51,9 +51,7 @@ export const ClassifiersTable = view((props: Props) => {
       rowKey="id"
       onRow={record => {
         return {
-          onClick: e => {
-            onRowClick(record.id)
-          } // click row
+          onClick: e => onRowClick(record.id)
         }
       }}
       pagination={false}

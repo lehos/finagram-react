@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react'
 import {styled} from 'linaria/react'
 
-const Label = styled.div`
+const SFormLabel = styled.div`
   margin-bottom: 10px;
 `
 
@@ -10,5 +10,5 @@ interface Props {
 }
 
 export function FormLabel(props: Props) {
-  return <Label>{props.children}</Label>
+  return <SFormLabel>{props.children}</SFormLabel>
 }

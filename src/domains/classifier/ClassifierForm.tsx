@@ -8,6 +8,9 @@ import * as UI from '@/ui'
 type Props = {
   onOk: () => any
   onCancel: () => any
+
+  // может быть сюда лучше прокидывать сам объект, а не его id
+  // тогда форма не будет ходить в стор
   classifierId?: string | null
 }
 
@@ -22,6 +25,7 @@ function getInitialValues(classifierId: string | null | undefined): Values {
 
   const classifier = classifierStore.classifiersMap[classifierId]
 
+  // because on delete store updates before form is closed
   if (!classifier) {
     return {name: ''}
   }
@@ -43,10 +47,7 @@ function validate(values: Partial<Values>) {
 
 export function ClassifierForm(props: Props) {
   const {onOk, onCancel, classifierId} = props
-  console.log('form')
-
   const initialValues = getInitialValues(classifierId)
-
   const isNew = !classifierId
 
   async function onSubmit(values: Values) {
@@ -75,7 +76,7 @@ export function ClassifierForm(props: Props) {
         <form onSubmit={handleSubmit}>
           {values.action}
           <UI.FormRow>
-            <UI.FormLabel> Название ед. ч. </UI.FormLabel>
+            <UI.FormLabel>Название в единственном числе</UI.FormLabel>
             <UI.FormInput
               name="name"
               placeholder="Название в единственном числе"
@@ -84,7 +85,7 @@ export function ClassifierForm(props: Props) {
           </UI.FormRow>
 
           <UI.FormRow>
-            <UI.FormLabel> Название множ. ч.</UI.FormLabel>
+            <UI.FormLabel>Название во множественном числе</UI.FormLabel>
             <UI.FormInput
               name="namePlural"
               placeholder="Название во множественном числе"
@@ -131,7 +132,7 @@ export function ClassifierForm(props: Props) {
                 loading={values.action !== 'delete' && submitting}
                 onClick={() => form.change('action', isNew ? 'create' : 'update')}
               >
-                {isNew ? 'Создать' : 'Редактировать'}
+                Сохранить
               </Button>
             </div>
           </UI.Flex>
