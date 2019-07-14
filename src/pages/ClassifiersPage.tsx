@@ -14,7 +14,6 @@ export default function ClassifiersPage() {
   }
 
   function hideModal() {
-    console.log(123123)
     setIsFormVisible(false)
   }
 

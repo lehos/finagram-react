@@ -11,7 +11,8 @@
     "lint": "npm run lint:js",
     "lint:js": "eslint './src/**/*.{ts,tsx}'",
     "ts": "tsc --noEmit",
-    "bundle-analyzer": "cross-env NODE_ENV=production BUNDLE_ANALYZER=localhost webpack"
+    "bundle-analyzer": "cross-env NODE_ENV=production BUNDLE_ANALYZER=localhost webpack",
+    "upgrade-interactive": "npm-check --update"
   },
   "husky": {
     "hooks": {
@@ -27,8 +28,8 @@
     ]
   },
   "dependencies": {
-    "antd": "3.20.1",
-    "final-form": "4.16.1",
+    "antd": "3.20.2",
+    "final-form": "4.17.0",
     "history": "4.9.0",
     "linaria": "1.3.1",
     "nanoid": "2.0.3",
@@ -54,8 +55,8 @@
     "@types/react": "16.8.23",
     "@types/react-dom": "16.8.4",
     "@types/react-router-dom": "4.3.4",
-    "@typescript-eslint/eslint-plugin": "^1.12.0",
-    "@typescript-eslint/parser": "1.11.0",
+    "@typescript-eslint/eslint-plugin": "1.12.0",
+    "@typescript-eslint/parser": "1.12.0",
     "babel-loader": "8.0.6",
     "babel-plugin-import": "1.12.0",
     "cross-env": "5.2.0",
@@ -71,6 +72,7 @@
     "husky": "3.0.0",
     "lint-staged": "9.2.0",
     "mini-css-extract-plugin": "0.7.0",
+    "npm-check": "5.9.0",
     "prettier": "1.18.2",
     "prop-types": "15.7.2",
     "rimraf": "2.6.3",
