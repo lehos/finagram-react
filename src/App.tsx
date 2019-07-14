@@ -1,6 +1,6 @@
 import React, {ComponentType, Suspense} from 'react'
 import {Router, Switch, Route, Redirect} from 'react-router-dom'
-import { hot } from 'react-hot-loader/root';
+import {hot} from 'react-hot-loader/root'
 
 import {session, history} from './services'
 import {AuthLayout} from '@/layouts'
@@ -8,7 +8,6 @@ import {AuthLayout} from '@/layouts'
 import ClassifiersPage from '@/pages/ClassifiersPage'
 
 const IndexPage = React.lazy(() => import('./pages/IndexPage'))
-
 
 type RouteProps = {
   path: string
@@ -49,4 +48,4 @@ function App() {
   )
 }
 
-export default process.env.NODE_ENV === 'production' ? App : hot(App);
+export default process.env.NODE_ENV === 'production' ? App : hot(App)

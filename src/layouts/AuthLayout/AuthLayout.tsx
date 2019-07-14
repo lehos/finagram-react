@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Nav } from '@/components'
+import {Nav} from '@/components'
 
 import * as S from './AuthLayout.styles'
 
@@ -14,9 +14,7 @@ export function AuthLayout(props: Props) {
       <S.Sidebar>
         <Nav />
       </S.Sidebar>
-      <S.Content>
-        {props.children}
-      </S.Content>
+      <S.Content>{props.children}</S.Content>
     </S.AuthLayoutWrapper>
   )
 }

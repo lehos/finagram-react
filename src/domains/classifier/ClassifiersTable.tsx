@@ -1,29 +1,10 @@
 import React from 'react'
-import {Table} from 'antd'
+import {Table, Icon} from 'antd'
 import {ColumnProps} from 'antd/lib/table'
+import {view} from 'react-easy-state'
 
 import {Classifier} from '.'
-
-const dataSource: Classifier[] = [
-  {
-    id: '1',
-    key: '1',
-    name: 'Статья',
-    split: true,
-    namePlural: 'Статьи',
-    useInTransfer: false,
-    data: null
-  },
-  {
-    id: '2',
-    key: '2',
-    name: 'Агент',
-    split: false,
-    namePlural: 'Агенты',
-    useInTransfer: true,
-    data: null
-  }
-]
+import {classifierStore} from './store'
 
 const columns: ColumnProps<Classifier>[] = [
   {
@@ -50,6 +31,32 @@ const columns: ColumnProps<Classifier>[] = [
   }
 ]
 
-export function ClassifiersTable() {
-  return <Table<Classifier> dataSource={dataSource} columns={columns} />
+type Props = {
+  onRowClick: (classifierId: string) => any
 }
+
+export const ClassifiersTable = view((props: Props) => {
+  const {onRowClick} = props
+
+  if (classifierStore.classifiers.length === 0) {
+    classifierStore.getClassifiers()
+    return <Icon type="loading" />
+  }
+
+  return (
+    <Table<Classifier>
+      dataSource={classifierStore.classifiers}
+      columns={columns}
+      size="middle"
+      rowKey="id"
+      onRow={record => {
+        return {
+          onClick: e => {
+            onRowClick(record.id)
+          } // click row
+        }
+      }}
+      pagination={false}
+    />
+  )
+})

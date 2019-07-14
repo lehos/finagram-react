@@ -7,9 +7,24 @@ import {ClassifiersTable, ClassifierForm} from '@/domains/classifier'
 
 export default function ClassifiersPage() {
   const [isFormVisible, setIsFormVisible] = useState(false)
+  const [classifierId, setClassifierId] = useState<string | null>(null)
 
-  function toggleModal() {
-    setIsFormVisible(!isFormVisible)
+  function openModal() {
+    setIsFormVisible(true)
+  }
+
+  function hideModal() {
+    console.log(123123)
+    setIsFormVisible(false)
+  }
+
+  function editClassifier(id: string) {
+    setClassifierId(id)
+    openModal()
+  }
+
+  function clearClassifierId() {
+    setClassifierId(null)
   }
 
   return (
@@ -17,22 +32,27 @@ export default function ClassifiersPage() {
       <PageHeader>
         Классификаторы
         <Spacer width={20} />
-        <Button onClick={toggleModal} icon="plus">
+        <Button onClick={openModal} icon="plus">
           Добавить
         </Button>
       </PageHeader>
 
       <Modal
-        title="Добавить классификатор"
+        title={classifierId ? 'Редактировать классификатор' : 'Добавить классификатор'}
         visible={isFormVisible}
-        onOk={toggleModal}
-        onCancel={toggleModal}
+        onCancel={hideModal}
         footer={null}
+        afterClose={clearClassifierId}
+        width={400}
       >
-        <ClassifierForm onOk={toggleModal} />
+        <ClassifierForm
+          onOk={hideModal}
+          onCancel={hideModal}
+          classifierId={classifierId}
+        />
       </Modal>
 
-      <ClassifiersTable />
+      <ClassifiersTable onRowClick={editClassifier} />
     </div>
   )
 }

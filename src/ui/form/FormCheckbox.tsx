@@ -1,29 +1,26 @@
-import React from 'react';
-import { Field } from 'react-final-form';
+import React from 'react'
+import {Field} from 'react-final-form'
 
-import { Checkbox } from 'antd';
-import { CheckboxProps } from 'antd/lib/checkbox';
+import {Checkbox} from 'antd'
+import {CheckboxProps} from 'antd/lib/checkbox'
 
 interface Props extends CheckboxProps {
-  name: string;
+  name: string
 }
 export function FormCheckbox(props: Props) {
-  const { name, ...restProps } = props;
+  const {name, ...restProps} = props
 
   return (
-    <Field name={name}>
-      {({ input, meta: { error, submitError, touched } }) => {
-        const valid = !(touched && error) && !submitError;
+    <Field name={name} type="checkbox">
+      {({input, meta: {error, submitError, touched}}) => {
+        const valid = !(touched && error) && !submitError
 
         return (
           <div>
-            <Checkbox
-              {...input}
-              {...restProps}
-            />
+            <Checkbox {...input} {...restProps} />
           </div>
-        );
+        )
       }}
     </Field>
-  );
+  )
 }

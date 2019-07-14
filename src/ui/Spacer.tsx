@@ -7,7 +7,7 @@ type Props = {
 }
 
 export const Spacer = styled.div<Props>`
-  display: ${p => p.inline ? 'inline-block' : 'block'};
+  display: ${p => (p.inline ? 'inline-block' : 'block')};
   width: ${p => `${p.width || 0}px`};
   height: ${p => `${p.height || 0}px`};
 `

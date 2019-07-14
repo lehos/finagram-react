@@ -1,11 +1,14 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-
+const stylis = require('stylis');
 const HtmlPlugin = require('html-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 
 const {NODE_ENV, BUNDLE_ANALYZER} = process.env
 const isProd = NODE_ENV === 'production'
+
+// don't vendor prefix linaria css output
+stylis.set({ prefix: false });
 
 module.exports = function exports() {
   const plugins = [

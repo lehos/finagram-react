@@ -5,7 +5,7 @@
 
 export interface Classifier {
   id: string
-  key: string // same as id, for react lists
+
   name: string
   namePlural: string
 
@@ -20,6 +20,13 @@ export interface Classifier {
   // данные отдельных классификаторов
   // не помню, почему это тут, лучше это убрать ацуда
   data: ClassifierDataItem[] | null
+}
+
+export type ClassifierStub = {
+  name: string
+  namePlural?: string
+  split?: boolean
+  useInTransfer?: boolean
 }
 
 export interface ClassifierDataItem {
