@@ -5,6 +5,6 @@ export function arrayToMap<T extends {id: string}>(obj: T[]): Record<string, T> 
   }, {})
 }
 
-export function sleep(ms: number = 1000) {
+export function sleep(ms: number = 500) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }

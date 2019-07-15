@@ -2,17 +2,17 @@ import {Currency} from './currency'
 
 export const currencyMocks: Currency[] = [
   {
-    id: '1',
+    id: 'rub',
     name: 'Рубль',
     symbol: 'RUB'
   },
   {
-    id: '2',
+    id: 'usd',
     name: 'US Dollar',
     symbol: 'USD'
   },
   {
-    id: '3',
+    id: 'eur',
     name: 'Euro',
     symbol: 'EUR'
   }
