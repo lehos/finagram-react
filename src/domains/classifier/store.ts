@@ -8,17 +8,18 @@ import * as A from './api'
 
 export const classifierStore = store({
   classifiers: {} as Record<string, Classifier>,
+
   // todo (maybe) for perf it should be cached or moved to state
   get classifiersArr(): Classifier[] {
     return Object.values(classifierStore.classifiers)
   },
 
   init() {
-    return classifierStore.fetchClassifiers()
+    return classifierStore.getList()
   },
 
-  async fetchClassifiers() {
-    classifierStore.classifiers = arrayToMap(await A.getClassifiers())
+  async getList() {
+    classifierStore.classifiers = arrayToMap(await A.getList())
   },
 
   async create(classifierStub: ClassifierStub) {
@@ -33,13 +34,13 @@ export const classifierStore = store({
       useInTransfer: !!useInTransfer
     }
 
-    await A.createClassifier(classifier)
+    await A.create(classifier)
 
     classifierStore.classifiers[id] = classifier
   },
 
   async update(classifierStub: Required<ClassifierStub> & {id: string}) {
-    await A.updateClassifier(classifierStub)
+    await A.update(classifierStub)
 
     classifierStore.classifiers[classifierStub.id] = {
       ...classifierStore.classifiers[classifierStub.id],
@@ -47,8 +48,8 @@ export const classifierStore = store({
     }
   },
 
-  async delete(id: string) {
-    await A.deleteClassifier(id)
+  async remove(id: string) {
+    await A.remove(id)
 
     setTimeout(() => {
       delete classifierStore.classifiers[id]

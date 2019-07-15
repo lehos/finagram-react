@@ -3,6 +3,7 @@ import {withTypes} from 'react-final-form'
 import {Button} from 'antd'
 
 import * as UI from '@/ui'
+import {currencyStore} from '@/domains/currency'
 
 import {Account, accountStore} from '.'
 
@@ -27,7 +28,7 @@ function getInitialValues(accountId: string | null | undefined): Values {
   }
 
   const account = accountStore.accounts[accountId]
-  const {name, balance, currencyId } = account
+  const {name, balance, currencyId} = account
 
   return {name, balance, currencyId}
 }
@@ -53,15 +54,20 @@ export function AccountForm(props: Props) {
     const {action, ...rest} = values
 
     if (action === 'delete') {
-      await accountStore.delete(accountId!)
+      await accountStore.remove(accountId!)
     } else if (action === 'create') {
       await accountStore.create(rest)
     } else {
-      await accountStore.update({id: accountId!, ...(rest as Required<Values>)})
+      await accountStore.update({id: accountId!, ...rest})
     }
 
     onOk()
   }
+
+  const currencyOptions = currencyStore.currenciesArr.map(el => ({
+    value: el.id,
+    label: el.name
+  }))
 
   const {Form} = withTypes<Values>()
 
@@ -71,38 +77,27 @@ export function AccountForm(props: Props) {
       validate={validate}
       onSubmit={onSubmit}
       // todo subscription and FormSpy
-      // subscription={{submitting: true}}
       render={({handleSubmit, submitting, form, values}) => (
         <form onSubmit={handleSubmit}>
           <UI.FormRow>
             <UI.FormLabel>Название</UI.FormLabel>
-            <UI.FormInput
-              name="name"
-              placeholder="Название"
-              autoComplete="off"
-            />
+            <UI.FormInput name="name" placeholder="Название" autoComplete="off" />
           </UI.FormRow>
 
           <UI.FormRow>
             <UI.FormLabel>Валюта</UI.FormLabel>
             <UI.FormSelect
               name="currencyId"
-              options={[
-                {value: '1', label: 'Рубли'},
-                {value: '2', label: 'Доллары'},
-                {value: '3', label: 'Евро'}
-              ]}
+              options={currencyOptions}
             />
           </UI.FormRow>
 
           <UI.FormRow>
             <UI.FormLabel>Начальный баланс</UI.FormLabel>
-            <UI.FormInput
-              name="balance"
-              placeholder="Валюта"
-              autoComplete="off"
-            />
+            <UI.FormInput name="balance" placeholder="Валюта" autoComplete="off" />
           </UI.FormRow>
+
+          <UI.Spacer height={10} />
 
           <UI.Flex justifyContent="space-between">
             <div>

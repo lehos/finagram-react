@@ -1,35 +1,20 @@
-import {sleep} from '@/utils'
+import {fakePromise} from '@/domains/api';
 
 import {Classifier, ClassifierStub} from './classifier'
 import {classifiersMock} from './mocks'
 
-export function getClassifiers(): Promise<Classifier[]> {
-  return new Promise(async resolve => {
-    await sleep()
-    resolve(classifiersMock)
-  })
+export function getList(): Promise<Classifier[]> {
+  return fakePromise(classifiersMock)
 }
 
-export function createClassifier(classifier: Classifier): Promise<null> {
-  return new Promise(async resolve => {
-    await sleep()
-
-    resolve(null)
-  })
+export function create(classifier: Classifier): Promise<null> {
+  return fakePromise(null)
 }
 
-export function updateClassifier(classifierStub: ClassifierStub): Promise<null> {
-  return new Promise(async resolve => {
-    await sleep()
-
-    resolve(null)
-  })
+export function update(classifierStub: ClassifierStub): Promise<null> {
+  return fakePromise(null)
 }
 
-export function deleteClassifier(id: string): Promise<null> {
-  return new Promise(async resolve => {
-    await sleep()
-
-    resolve(null)
-  })
+export function remove(id: string): Promise<null> {
+  return fakePromise(null)
 }

@@ -22,7 +22,7 @@ export default function ClassifiersPage() {
   return (
     <div>
       <PageHeader>
-        Классификаторы
+        <h1>Классификаторы</h1>
         <Spacer width={20} />
         <Button onClick={showModal} icon="plus">
           Добавить

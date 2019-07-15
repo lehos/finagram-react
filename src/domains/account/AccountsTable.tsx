@@ -3,8 +3,11 @@ import {Table, Icon} from 'antd'
 import {ColumnProps} from 'antd/lib/table'
 import {view} from 'react-easy-state'
 
+import {formatMoney} from '@/services/money';
+
 import {Account} from '.'
 import {accountStore} from './store'
+import {currencyStore} from '@/domains/currency'
 
 const columns: ColumnProps<Account>[] = [
   {
@@ -15,12 +18,15 @@ const columns: ColumnProps<Account>[] = [
   {
     title: 'Валюта',
     dataIndex: 'currencyId',
-    key: 'currencyId'
+    key: 'currencyId',
+    render: val => currencyStore.currencies[val].symbol
   },
   {
     title: 'Баланс',
     dataIndex: 'balance',
-    key: 'balance'
+    key: 'balance',
+    render: val => formatMoney(val),
+    align: 'right'
   }
 ]
 

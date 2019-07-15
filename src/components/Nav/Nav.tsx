@@ -20,6 +20,12 @@ function Nav(props: RouteComponentProps) {
         </Link>
       </Menu.Item>
 
+      <Menu.Item key="/currencies">
+        <Link to="/currencies">
+          <Icon type="pay-circle" /> Валюты
+        </Link>
+      </Menu.Item>
+
       <Menu.Item key="/accounts">
         <Link to="/accounts">
           <Icon type="cluster" /> Счета

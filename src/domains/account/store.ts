@@ -15,24 +15,24 @@ export const accountStore = store({
   },
 
   init() {
-    return accountStore.fetchAccounts()
+    return accountStore.getList()
   },
 
-  async fetchAccounts() {
-    accountStore.accounts = arrayToMap(await A.getAccounts())
+  async getList() {
+    accountStore.accounts = arrayToMap(await A.getList())
   },
 
   async create(acc: Omit<Account, 'id'>) {
     const id = nanoid()
 
     const newAcc = {id, ...acc}
-    await A.createAccount(newAcc)
+    await A.create(newAcc)
 
     accountStore.accounts[id] = newAcc
   },
 
   async update(acc: Account) {
-    await A.updateAccount(acc)
+    await A.update(acc)
 
     accountStore.accounts[acc.id] = {
       ...accountStore.accounts[acc.id],
@@ -40,8 +40,8 @@ export const accountStore = store({
     }
   },
 
-  async delete(id: string) {
-    await A.deleteAccount(id)
+  async remove(id: string) {
+    await A.remove(id)
 
     setTimeout(() => {
       delete accountStore.accounts[id]

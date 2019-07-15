@@ -7,6 +7,7 @@ import {AuthLayout} from '@/layouts'
 
 import ClassifiersPage from '@/pages/ClassifiersPage'
 import AccountsPage from '@/pages/AccountsPage'
+import CurrenciesPage from '@/pages/CurrenciesPage'
 
 const IndexPage = React.lazy(() => import('./pages/IndexPage'))
 
@@ -52,6 +53,7 @@ function App() {
             <Route exact path="/" component={IndexPage} />
             <Route path="/classifiers" component={ClassifiersPage} />
             <Route path="/accounts" component={AccountsPage} />
+            <Route path="/currencies" component={CurrenciesPage} />
           </Switch>
         </Suspense>
       </AuthLayout>
