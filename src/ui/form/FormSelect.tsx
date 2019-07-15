@@ -15,7 +15,7 @@ const FormSelectWrapper = styled.div`
 interface Props extends SelectProps {
   name: string
   options: {
-    value: string,
+    value: string
     label: string
   }[]
 }
@@ -31,9 +31,11 @@ export function FormSelect(props: Props) {
 
         return (
           <FormSelectWrapper>
-            <Select style={{ width: '100%' }} {...restInput} {...otherProps}>
+            <Select style={{width: '100%'}} {...restInput} {...otherProps}>
               {options.map(el => (
-                <Option key={el.value} value={el.value}>{el.label}</Option>
+                <Option key={el.value} value={el.value}>
+                  {el.label}
+                </Option>
               ))}
             </Select>
             {errorText && <FormError text={errorText} />}

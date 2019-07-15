@@ -37,11 +37,7 @@ export default function AccountsPage() {
         afterClose={clearAccountId}
         width={400}
       >
-        <AccountForm
-          onOk={hideModal}
-          onCancel={hideModal}
-          accountId={accountId}
-        />
+        <AccountForm onOk={hideModal} onCancel={hideModal} accountId={accountId} />
       </Modal>
 
       <AccountsTable onRowClick={editAccount} />

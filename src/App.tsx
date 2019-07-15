@@ -34,7 +34,6 @@ function AuthRoute(props: RouteProps) {
     />
   )
 }
-
 // todo auth and non-auth routes
 function App() {
   return (

@@ -1,4 +1,4 @@
-import {fakePromise} from '@/domains/api';
+import {fakePromise} from '@/domains/api'
 
 import {Account} from './account'
 import {accountsMock} from './mocks'

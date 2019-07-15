@@ -1,4 +1,4 @@
-import {fakePromise} from '@/domains/api';
+import {fakePromise} from '@/domains/api'
 
 import {Classifier, ClassifierStub} from './classifier'
 import {classifiersMock} from './mocks'

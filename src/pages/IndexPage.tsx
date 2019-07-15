@@ -9,10 +9,7 @@ interface Values {
   checkbox: boolean
 }
 
-const options = [
-  {value: '1', label: 'First item'},
-  {value: '2', label: 'Second item'}
-]
+const options = [{value: '1', label: 'First item'}, {value: '2', label: 'Second item'}]
 
 export default function IndexPage() {
   function renderForm({values}: FormRenderProps<Values>) {

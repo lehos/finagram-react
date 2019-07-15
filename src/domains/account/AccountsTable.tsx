@@ -3,7 +3,7 @@ import {Table, Icon} from 'antd'
 import {ColumnProps} from 'antd/lib/table'
 import {view} from 'react-easy-state'
 
-import {formatMoney} from '@/services/money';
+import {formatMoney} from '@/services/money'
 
 import {Account} from '.'
 import {accountStore} from './store'

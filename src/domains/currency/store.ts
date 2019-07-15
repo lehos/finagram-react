@@ -1,8 +1,8 @@
 import {store} from 'react-easy-state'
 
-import {Currency} from './currency';
-import * as Api from './api';
-import {arrayToMap} from '@/utils';
+import {Currency} from './currency'
+import * as Api from './api'
+import {arrayToMap} from '@/utils'
 
 export const currencyStore = store({
   currencies: {} as Record<string, Currency>,

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Button, Modal} from 'antd'
 
 import {Spacer, PageHeader} from '@/ui'
-import {useModal} from '@/hooks';
+import {useModal} from '@/hooks'
 
 import {ClassifiersTable, ClassifierForm} from '@/domains/classifier'
 

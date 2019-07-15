@@ -86,10 +86,7 @@ export function AccountForm(props: Props) {
 
           <UI.FormRow>
             <UI.FormLabel>Валюта</UI.FormLabel>
-            <UI.FormSelect
-              name="currencyId"
-              options={currencyOptions}
-            />
+            <UI.FormSelect name="currencyId" options={currencyOptions} />
           </UI.FormRow>
 
           <UI.FormRow>
