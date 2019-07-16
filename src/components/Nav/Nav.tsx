@@ -34,7 +34,13 @@ function Nav(props: RouteComponentProps) {
 
       <Menu.Item key="/classifiers">
         <Link to="/classifiers">
-          <Icon type="appstore" /> Классификаторы
+          <Icon type="tags" /> Классификаторы
+        </Link>
+      </Menu.Item>
+
+      <Menu.Item key="/classifierData/1">
+        <Link to="/classifierData/1">
+          <Icon type="tag" /> Статьи
         </Link>
       </Menu.Item>
     </Menu>

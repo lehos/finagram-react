@@ -16,10 +16,6 @@ export interface Classifier {
 
   // использовать в переводах
   useInTransfer: boolean
-
-  // данные отдельных классификаторов
-  // не помню, почему это тут, лучше это убрать ацуда
-  data: ClassifierDataItem[] | null
 }
 
 export type ClassifierStub = {
@@ -27,15 +23,4 @@ export type ClassifierStub = {
   namePlural?: string
   split?: boolean
   useInTransfer?: boolean
-}
-
-export interface ClassifierDataItem {
-  id: string
-  parentId: number
-  name: string
-  description?: string
-  children?: ClassifierDataItem[]
-
-  // состояние открытости для удобства юзера лучше хранить
-  isOpened?: boolean
 }

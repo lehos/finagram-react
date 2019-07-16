@@ -3,7 +3,7 @@ import {Icon} from 'antd'
 
 import {Nav} from '@/components'
 
-import {initStore} from './initStore'
+import {initStores} from './initStores'
 
 import * as S from './AuthLayout.styles'
 
@@ -15,7 +15,7 @@ export function AuthLayout(props: Props) {
   const [isInitialized, setIsInitialized] = useState<boolean>(false)
 
   if (!isInitialized) {
-    initStore().then(() => {
+    initStores().then(() => {
       setIsInitialized(true)
     })
     return (

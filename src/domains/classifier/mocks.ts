@@ -4,17 +4,15 @@ export const classifiersMock: Classifier[] = [
   {
     id: '1',
     name: 'Статья',
-    split: true,
     namePlural: 'Статьи',
-    useInTransfer: false,
-    data: null
+    split: true,
+    useInTransfer: false
   },
   {
     id: '2',
     name: 'Агент',
-    split: false,
     namePlural: 'Агенты',
-    useInTransfer: true,
-    data: null
+    split: false,
+    useInTransfer: true
   }
 ]

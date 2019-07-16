@@ -27,7 +27,6 @@ export const classifierStore = store({
     const {name, namePlural, split, useInTransfer} = classifierStub
     const classifier = {
       id,
-      data: null,
       name,
       namePlural: namePlural || name,
       split: !!split,

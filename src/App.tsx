@@ -6,6 +6,7 @@ import {session, history} from './services'
 import {AuthLayout} from '@/layouts'
 
 import ClassifiersPage from '@/pages/ClassifiersPage'
+import ClassifierDataPage from '@/pages/ClassifierDataPage'
 import AccountsPage from '@/pages/AccountsPage'
 import CurrenciesPage from '@/pages/CurrenciesPage'
 
@@ -17,24 +18,27 @@ type RouteProps = {
   component: ComponentType
 }
 
-function AuthRoute(props: RouteProps) {
-  return (
-    <Route
-      exact={props.exact}
-      path={props.path}
-      render={() =>
-        session.getToken() ? (
-          <AuthLayout>
-            <props.component />
-          </AuthLayout>
-        ) : (
-          <Redirect to="/login" />
-        )
-      }
-    />
-  )
-}
-// todo auth and non-auth routes
+// function AuthRoute(props: RouteProps) {
+//   return (
+//     <Route
+//       exact={props.exact}
+//       path={props.path}
+//       render={() =>
+//         session.getToken() ? (
+//           <AuthLayout>
+//             <props.component />
+//           </AuthLayout>
+//         ) : (
+//           <Redirect to="/login" />
+//         )
+//       }
+//     />
+//   )
+// }
+
+// stores are initialized in layouts/AuthLayout/initStores
+
+// todo: auth and non-auth routes
 function App() {
   return (
     <Router history={history}>
@@ -43,6 +47,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={IndexPage} />
             <Route path="/classifiers" component={ClassifiersPage} />
+            <Route path="/classifierData/:id" component={ClassifierDataPage} />
             <Route path="/accounts" component={AccountsPage} />
             <Route path="/currencies" component={CurrenciesPage} />
           </Switch>
