@@ -10,6 +10,8 @@ const isProd = NODE_ENV === 'production'
 // don't vendor prefix linaria css output
 stylis.set({ prefix: false });
 
+const ASSET_PATH = process.env.ASSET_PATH || '/';
+
 module.exports = function exports() {
   const plugins = [
     new HtmlPlugin({template: './src/static/index.html'}),
@@ -41,7 +43,7 @@ module.exports = function exports() {
     entry: './src/index.tsx',
     output: {
       path: path.resolve(__dirname, 'build'),
-      publicPath: '/',
+      publicPath: ASSET_PATH,
       filename: 'bundle.js'
     },
     resolve: {
