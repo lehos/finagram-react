@@ -10,7 +10,7 @@
     "format": "cross-env prettier --write './src/**/*.{ts,tsx}'",
     "lint": "npm run lint:js",
     "lint:js": "eslint './src/**/*.{ts,tsx}'",
-    "ts": "tsc --noEmit",
+    "ts": "tsc",
     "bundle-analyzer": "cross-env NODE_ENV=production BUNDLE_ANALYZER=localhost webpack",
     "upgrade-interactive": "npm-check --update"
   },
