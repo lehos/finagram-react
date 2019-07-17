@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Icon} from 'antd'
 
-import {Nav} from '@/components'
+import {Nav, ErrorBoundary} from '@/components'
 
 import {initStores} from './initStores'
 
@@ -32,7 +32,9 @@ export function AuthLayout(props: Props) {
       <S.Sidebar>
         <Nav />
       </S.Sidebar>
-      <S.Content>{props.children}</S.Content>
+      <S.Content>
+        <ErrorBoundary>{props.children}</ErrorBoundary>
+      </S.Content>
     </S.AuthLayoutWrapper>
   )
 }

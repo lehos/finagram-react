@@ -21,8 +21,7 @@ function getInitialValues(accountId: string | null | undefined): Values {
   if (!accountId) {
     return {
       name: '',
-      // todo real currency
-      currencyId: '1',
+      currencyId: currencyStore.currenciesArr[0].id,
       balance: 0
     }
   }

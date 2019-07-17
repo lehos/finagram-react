@@ -36,6 +36,7 @@ export default function AccountsPage() {
         footer={null}
         afterClose={clearAccountId}
         width={400}
+        centered
       >
         <AccountForm onOk={hideModal} onCancel={hideModal} accountId={accountId} />
       </Modal>

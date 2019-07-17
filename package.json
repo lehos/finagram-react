@@ -3,7 +3,7 @@
   "author": "Alexey Stratan",
   "version": "0.0.1",
   "private": true,
-  "homepage":"https://lehos.github.io/finagram-react",
+  "homepage": "https://lehos.github.io/finagram-react",
   "scripts": {
     "dev": "webpack-dev-server --hot",
     "build": "npm run clean && webpack --mode=production",
@@ -14,13 +14,12 @@
     "ts": "tsc",
     "bundle-analyzer": "cross-env NODE_ENV=production BUNDLE_ANALYZER=localhost webpack",
     "upgrade-interactive": "npm-check --update",
-
     "predeploy": "cross-env ASSET_PATH=/finagram-react/ npm run build",
     "deploy": "gh-pages -d build"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format && lint-staged",
+      "pre-commit": "lint-staged",
       "pre-push": "npm run ts"
     }
   },

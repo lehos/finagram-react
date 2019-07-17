@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const stylis = require('stylis');
 const HtmlPlugin = require('html-webpack-plugin')
@@ -17,6 +18,11 @@ module.exports = function exports() {
     new HtmlPlugin({template: './src/static/index.html'}),
     new MiniCssExtractPlugin({
       filename: 'styles.css'
+    }),
+
+    new webpack.DefinePlugin({
+      'process.env.ASSET_PATH': JSON.stringify(ASSET_PATH),
+      // 'process.env.API_URL': JSON.stringify(API_URL)
     })
   ]
 

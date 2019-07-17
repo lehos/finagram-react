@@ -31,11 +31,15 @@ export const ClassifierDataTable = view((props: Props) => {
     return <>loading</>
   }
 
-  const classifierData = classifierDataStore.getClassifierData(classifierId)!.children
+  const classifierData = classifierDataStore.getClassifierData(classifierId)
+
+  if (!classifierData) {
+    return null
+  }
 
   return (
     <Table<ClassifierDataItem>
-      dataSource={classifierData}
+      dataSource={classifierData.children}
       columns={columns}
       size="middle"
       rowKey="id"

@@ -17,6 +17,10 @@ export default function ClassifiersPage(props: RouteComponentProps) {
 
   const classifier = classifierStore.classifiers[params.id]
 
+  if (!classifier) {
+    return <>Классификатор не найден</>
+  }
+
   return (
     <div>
       <PageHeader>

@@ -1,5 +1,5 @@
-import {createBrowserHistory} from 'history'
+import {createHashHistory} from 'history'
 
-export const history = createBrowserHistory({
-  basename: '/'
+export const history = createHashHistory({
+  basename: process.env.ASSET_PATH
 })

@@ -1,6 +1,6 @@
 import {fakePromise} from '@/domains/api'
 
-import {Account} from './account'
+import {Account} from '.'
 import {accountsMock} from './mocks'
 
 export function getList(): Promise<Account[]> {

@@ -3,7 +3,7 @@ import nanoid from 'nanoid'
 
 import {arrayToMap} from '@/utils'
 
-import {Account} from './account'
+import {Account} from './entity'
 import * as A from './api'
 
 export const accountStore = store({

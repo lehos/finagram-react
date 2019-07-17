@@ -1,6 +1,6 @@
 import {fakePromise} from '@/domains/api'
 
-import {Classifier, ClassifierStub} from './classifier'
+import {Classifier, ClassifierStub} from '.'
 import {classifiersMock} from './mocks'
 
 export function getList(): Promise<Classifier[]> {

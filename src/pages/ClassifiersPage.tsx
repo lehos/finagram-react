@@ -36,6 +36,7 @@ export default function ClassifiersPage() {
         footer={null}
         afterClose={clearClassifierId}
         width={400}
+        centered
       >
         <ClassifierForm
           onOk={hideModal}

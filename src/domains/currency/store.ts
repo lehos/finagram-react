@@ -1,6 +1,6 @@
 import {store} from 'react-easy-state'
 
-import {Currency} from './currency'
+import {Currency} from '.'
 import * as Api from './api'
 import {arrayToMap} from '@/utils'
 

@@ -3,12 +3,12 @@ import {ClassifierData} from './entity'
 export const classifierDataMocks: ClassifierData[] = [
   {
     classifierId: '1',
-    id: '1',
+    id: 'cd1',
 
     children: [
       {
         id: '12',
-        parentId: '1',
+        parentId: 'cd1',
         name: 'Все статьи прихода',
         children: [
           {
@@ -20,7 +20,7 @@ export const classifierDataMocks: ClassifierData[] = [
       },
       {
         id: '13',
-        parentId: '1',
+        parentId: 'cd1',
         name: 'Все статьи расхода',
         children: [
           {
@@ -45,12 +45,12 @@ export const classifierDataMocks: ClassifierData[] = [
   },
   {
     classifierId: '2',
-    id: '2',
+    id: 'cd22',
 
     children: [
       {
         id: '21',
-        parentId: '2',
+        parentId: 'cd2',
         name: 'Агенты',
 
         children: [
