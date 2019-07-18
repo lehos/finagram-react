@@ -21,20 +21,15 @@ const columns: ColumnProps<ClassifierDataItem>[] = [
 
 interface Props {
   classifierId: string
-  // onRowClick: (id: string) => any
+  onRowClick?: (id: string) => any
 }
 
 export const ClassifierDataTable = view((props: Props) => {
   const {classifierId} = props
-
-  if (classifierDataStore.classifierDataList.length === 0) {
-    return <>loading</>
-  }
-
   const classifierData = classifierDataStore.getClassifierData(classifierId)
 
   if (!classifierData) {
-    return null
+    return <>Нет данных</>
   }
 
   return (
