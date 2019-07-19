@@ -16,6 +16,10 @@ export const classifierStore = store({
     return Object.values(classifierStore.classifiers)
   },
 
+  get classifierList(): Classifier[] {
+    return Object.values(classifierStore.classifiers)
+  },
+
   init() {
     return classifierStore.getList()
   },

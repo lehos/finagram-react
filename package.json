@@ -14,7 +14,7 @@
     "ts": "tsc",
     "bundle-analyzer": "cross-env NODE_ENV=production BUNDLE_ANALYZER=localhost webpack",
     "upgrade-interactive": "npm-check --update",
-    "predeploy": "cross-env ASSET_PATH=/finagram-react/ npm run build",
+    "predeploy": "cross-env HISTORY_HASH=true ASSET_PATH=/finagram-react/ npm run build",
     "deploy": "gh-pages -d build"
   },
   "husky": {

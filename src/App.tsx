@@ -9,6 +9,7 @@ import ClassifiersPage from '@/pages/ClassifiersPage'
 import ClassifierDataPage from '@/pages/ClassifierDataPage'
 import AccountsPage from '@/pages/AccountsPage'
 import CurrenciesPage from '@/pages/CurrenciesPage'
+import TransactionsPage from '@/pages/TransactionsPage'
 import FormPage from '@/pages/FormPage'
 
 const IndexPage = React.lazy(() => import('./pages/IndexPage'))
@@ -47,9 +48,10 @@ function App() {
         <Suspense fallback={null}>
           <Switch>
             <Route exact path="/" component={IndexPage} />
+            <Route path="/accounts" component={AccountsPage} />
+            <Route path="/transactions" component={TransactionsPage} />
             <Route path="/classifiers" component={ClassifiersPage} />
             <Route path="/classifierData/:id" component={ClassifierDataPage} />
-            <Route path="/accounts" component={AccountsPage} />
             <Route path="/currencies" component={CurrenciesPage} />
             <Route path="/form" component={FormPage} />
           </Switch>

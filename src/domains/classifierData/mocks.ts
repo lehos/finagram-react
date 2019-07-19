@@ -2,7 +2,7 @@ import {ClassifierData} from './entity'
 
 export const classifierDataMocks: ClassifierData[] = [
   {
-    classifierId: '1',
+    classifierId: 'cl1',
     id: 'cd1',
 
     children: [
@@ -44,7 +44,7 @@ export const classifierDataMocks: ClassifierData[] = [
     ]
   },
   {
-    classifierId: '2',
+    classifierId: 'cl2',
     id: 'cd22',
 
     children: [

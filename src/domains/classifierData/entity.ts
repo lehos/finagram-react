@@ -1,3 +1,5 @@
+// может переименовать в Category?
+
 export interface ClassifierData {
   classifierId: string
   id: string

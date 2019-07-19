@@ -35,8 +35,9 @@ function Nav(props: RouteComponentProps) {
       </Menu.Item>
 
       {renderItem({to: '/', icon: 'home', text: 'Главная'})}
-      {renderItem({to: '/currencies', icon: 'pay-circle', text: 'Валюты'})}
       {renderItem({to: '/accounts', icon: 'cluster', text: 'Счета'})}
+      {renderItem({to: '/transactions', icon: 'pay-circle', text: 'Операции'})}
+      {renderItem({to: '/currencies', icon: 'pay-circle', text: 'Валюты'})}
       {classifierStore.classifiersArr.map(el =>
         renderItem({to: `/classifierData/${el.id}`, icon: 'tag', text: el.namePlural})
       )}

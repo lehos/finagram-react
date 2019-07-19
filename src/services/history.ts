@@ -1,5 +1,6 @@
-import {createHashHistory} from 'history'
+import {createHashHistory, createBrowserHistory} from 'history'
 
-export const history = createHashHistory({
-  basename: process.env.ASSET_PATH
-})
+const options = {basename: process.env.ASSET_PATH}
+export const history = process.env.HISTORY_HASH
+  ? createHashHistory(options)
+  : createBrowserHistory(options)
