@@ -3,7 +3,7 @@ import nanoid from 'nanoid'
 
 import {arrayToMap} from '@/utils'
 
-import {classifierDataStore} from '@/domains/classifierData'
+import {categoryStore} from '@/domains/category'
 
 import {Classifier, ClassifierStub} from '.'
 import * as A from './api'
@@ -43,7 +43,7 @@ export const classifierStore = store({
 
     classifierStore.classifiers[id] = classifier
 
-    await classifierDataStore.createClassifierData(classifier)
+    await categoryStore.createCategory(classifier)
   },
 
   async update(classifierStub: Required<ClassifierStub> & {id: string}) {

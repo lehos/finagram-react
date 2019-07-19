@@ -1,6 +1,6 @@
-import {ClassifierData} from './entity'
+import {Category} from './entity'
 
-export const classifierDataMocks: ClassifierData[] = [
+export const categoryMocks: Category[] = [
   {
     classifierId: 'cl1',
     id: 'cd1',
@@ -10,6 +10,7 @@ export const classifierDataMocks: ClassifierData[] = [
         id: '12',
         parentId: 'cd1',
         name: 'Все статьи прихода',
+        type: 'income',
         children: [
           {
             id: '121',
@@ -22,6 +23,7 @@ export const classifierDataMocks: ClassifierData[] = [
         id: '13',
         parentId: 'cd1',
         name: 'Все статьи расхода',
+        type: 'expense',
         children: [
           {
             id: '131',
@@ -45,13 +47,14 @@ export const classifierDataMocks: ClassifierData[] = [
   },
   {
     classifierId: 'cl2',
-    id: 'cd22',
+    id: 'cd2',
 
     children: [
       {
         id: '21',
         parentId: 'cd2',
         name: 'Агенты',
+        type: 'transfer',
 
         children: [
           {

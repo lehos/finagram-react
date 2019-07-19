@@ -5,19 +5,17 @@ import {Button, Modal} from 'antd'
 import {Spacer, PageHeader} from '@/ui'
 import {useModal} from '@/hooks'
 
-import {ClassifierDataTable} from '@/domains/classifierData'
+import {CategoryTable} from '@/domains/category'
 import {classifierStore} from '@/domains/classifier'
-import {AccountForm} from '@/domains/account'
-
-import {ErrorBoundary} from '@/components'
 
 type Params = {
   id: string
 }
 
-export default function ClassifiersPage(props: RouteComponentProps) {
+export default function CategoriesPage(props: RouteComponentProps) {
   const {showModal, hideModal, isModalVisible} = useModal()
   const [entityId, setEntityId] = useState<string | null>(null)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
 
   const params = props.match.params as Params
   const classifier = classifierStore.classifiers[params.id]
@@ -32,7 +30,7 @@ export default function ClassifiersPage(props: RouteComponentProps) {
   }
 
   if (!classifier) {
-    return <>Классификатор не найден</>
+    return <>Категория не найдена</>
   }
 
   return (
@@ -46,7 +44,7 @@ export default function ClassifiersPage(props: RouteComponentProps) {
       </PageHeader>
 
       <Modal
-        title={`${entityId ? 'Редактирование' : 'Создание'} классификатора`}
+        title={`${entityId ? 'Редактирование' : 'Создание'} категории`}
         visible={isModalVisible}
         onCancel={hideModal}
         footer={null}
@@ -57,7 +55,10 @@ export default function ClassifiersPage(props: RouteComponentProps) {
         hello
       </Modal>
 
-      <ClassifierDataTable classifierId={params.id} />
+      <CategoryTable
+        classifierId={params.id}
+        onRowSelect={id => setSelectedId(id)}
+      />
     </div>
   )
 }

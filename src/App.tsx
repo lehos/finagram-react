@@ -6,7 +6,7 @@ import {session, history} from './services'
 import {AuthLayout} from '@/layouts'
 
 import ClassifiersPage from '@/pages/ClassifiersPage'
-import ClassifierDataPage from '@/pages/ClassifierDataPage'
+import CategoriesPage from '@/pages/CategoriesPage'
 import AccountsPage from '@/pages/AccountsPage'
 import CurrenciesPage from '@/pages/CurrenciesPage'
 import TransactionsPage from '@/pages/TransactionsPage'
@@ -51,7 +51,7 @@ function App() {
             <Route path="/accounts" component={AccountsPage} />
             <Route path="/transactions" component={TransactionsPage} />
             <Route path="/classifiers" component={ClassifiersPage} />
-            <Route path="/classifierData/:id" component={ClassifierDataPage} />
+            <Route path="/category/:id" component={CategoriesPage} />
             <Route path="/currencies" component={CurrenciesPage} />
             <Route path="/form" component={FormPage} />
           </Switch>

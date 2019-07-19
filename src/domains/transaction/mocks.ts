@@ -10,7 +10,7 @@ export const transactionMocks: T.Transaction[] = [
     sum: 20000,
     date: '29.07.2019',
     classifierId: 'cl1',
-    classifierDataItemId: '13'
+    categoryItemId: '13'
   },
   {
     id: 't2',
@@ -21,7 +21,7 @@ export const transactionMocks: T.Transaction[] = [
     sum: 35000,
     date: '30.07.2019',
     classifierId: 'cl1',
-    classifierDataItemId: '131'
+    categoryItemId: '131'
   },
   {
     id: 't3',
@@ -32,7 +32,7 @@ export const transactionMocks: T.Transaction[] = [
     sum: 50000,
     date: '30.07.2019',
     classifierId: null,
-    classifierDataItemId: null
+    categoryItemId: null
   },
   {
     id: 't4',
@@ -45,7 +45,7 @@ export const transactionMocks: T.Transaction[] = [
     // todo подумать, возможен ли такой случай
     //   когда есть классификатор, но нет категории
     classifierId: 'cl1',
-    classifierDataItemId: null
+    categoryItemId: null
   },
   {
     id: 't5',
@@ -67,6 +67,6 @@ export const transactionMocks: T.Transaction[] = [
     fromAccountId: 'ac1',
     toAccountId: 'ac2',
     classifierId: 'cd2',
-    classifierDataItemId: '212'
+    categoryItemId: '212'
   }
 ]

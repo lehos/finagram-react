@@ -20,7 +20,7 @@ interface TransactionDefault extends TransactionBase {
 
   classifierId: string | null
   // может быть вместо null лучше указывать рутовую статью
-  classifierDataItemId: string | null
+  categoryItemId: string | null
 }
 
 export interface TransactionIncome extends TransactionDefault {
@@ -39,7 +39,7 @@ export interface TransactionTransfer extends TransactionBase {
   toAccountId: string | null
 
   classifierId?: string | null
-  classifierDataItemId?: string | null
+  categoryItemId?: string | null
 }
 
 export interface TransactionBalance extends TransactionBase {

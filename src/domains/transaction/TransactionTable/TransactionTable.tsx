@@ -6,7 +6,7 @@ import {ColumnProps} from 'antd/lib/table'
 import {formatMoney} from '@/services/money'
 import {accountStore} from '@/domains/account'
 import {classifierStore} from '@/domains/classifier'
-import {classifierDataStore} from '@/domains/classifierData'
+import {categoryStore} from '@/domains/category'
 
 import {Transaction} from '../entity'
 import {transactionStore} from '../store'
@@ -34,8 +34,8 @@ function makeColumns() {
     columns.push({
       title: el.name,
       key: el.id,
-      dataIndex: 'classifierDataItemId'
-      // render: val =>  classifierDataStore.getClassifierData(val)
+      dataIndex: 'categoryItemId'
+      // render: val =>  categoryStore.getCategory(val)
     })
   })
 

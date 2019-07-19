@@ -1,3 +1,3 @@
 export * from './entity'
 export * from './store'
-export * from './ClassifierDataTable'
+export * from './CategoryTable'

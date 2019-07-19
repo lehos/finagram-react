@@ -29,17 +29,12 @@ function Nav(props: RouteComponentProps) {
       defaultOpenKeys={['/classifiers']}
       mode="inline"
     >
-      {/* todo логотип утащить из менюхи */}
-      <Menu.Item key="logo">
-        <h2>Финаграм</h2>
-      </Menu.Item>
-
       {renderItem({to: '/', icon: 'home', text: 'Главная'})}
       {renderItem({to: '/accounts', icon: 'cluster', text: 'Счета'})}
-      {renderItem({to: '/transactions', icon: 'pay-circle', text: 'Операции'})}
+      {renderItem({to: '/transactions', icon: 'swap', text: 'Операции'})}
       {renderItem({to: '/currencies', icon: 'pay-circle', text: 'Валюты'})}
       {classifierStore.classifiersArr.map(el =>
-        renderItem({to: `/classifierData/${el.id}`, icon: 'tag', text: el.namePlural})
+        renderItem({to: `/category/${el.id}`, icon: 'tag', text: el.namePlural})
       )}
       {renderItem({to: '/classifiers', icon: 'tags', text: 'Классификаторы'})}
       {renderItem({to: '/form', icon: 'none', text: 'Формы'})}
