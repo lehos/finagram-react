@@ -63,7 +63,7 @@ interface Props {
 export const TransactionTable = view((props: Props) => {
   return (
     <Table<Transaction>
-      dataSource={transactionStore.transactions}
+      dataSource={transactionStore.transactionList}
       columns={makeColumns()}
       size="middle"
       rowKey="id"

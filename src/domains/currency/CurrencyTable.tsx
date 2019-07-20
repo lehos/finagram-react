@@ -24,15 +24,15 @@ type Props = {
 
 export const CurrencyTable = view((props: Props) => {
   const {onRowClick} = props
-  const {currenciesArr} = currencyStore
+  const {currencyList} = currencyStore
 
-  if (currenciesArr.length === 0) {
+  if (currencyList.length === 0) {
     return <Icon type="loading" />
   }
 
   return (
     <Table<Currency>
-      dataSource={currenciesArr}
+      dataSource={currencyList}
       columns={columns}
       size="middle"
       rowKey="id"

@@ -18,7 +18,7 @@ export default function CategoriesPage(props: RouteComponentProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
   const params = props.match.params as Params
-  const classifier = classifierStore.classifiers[params.id]
+  const classifier = classifierStore.classifierMap[params.id]
 
   function edit(id: string) {
     setEntityId(id)
@@ -55,10 +55,7 @@ export default function CategoriesPage(props: RouteComponentProps) {
         hello
       </Modal>
 
-      <CategoryTable
-        classifierId={params.id}
-        onRowSelect={id => setSelectedId(id)}
-      />
+      <CategoryTable classifierId={params.id} onRowSelect={id => setSelectedId(id)} />
     </div>
   )
 }

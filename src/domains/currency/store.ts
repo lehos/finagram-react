@@ -4,14 +4,17 @@ import {Currency} from '.'
 import * as Api from './api'
 import {arrayToMap} from '@/utils'
 
-export const currencyStore = store({
-  currencies: {} as Record<string, Currency>,
+// base data structure - array
+// computed data structure - map
 
-  get currenciesArr(): Currency[] {
-    return Object.values(currencyStore.currencies)
+export const currencyStore = store({
+  currencyList: [] as Currency[],
+
+  get currencyMap(): Record<string, Currency> {
+    return arrayToMap(currencyStore.currencyList)
   },
 
   async init() {
-    currencyStore.currencies = arrayToMap(await Api.getList())
+    currencyStore.currencyList = await Api.getList()
   }
 })

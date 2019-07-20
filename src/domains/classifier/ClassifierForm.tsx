@@ -24,7 +24,7 @@ function getInitialValues(classifierId: string | null | undefined): Values {
     return {name: ''}
   }
 
-  const classifier = classifierStore.classifiers[classifierId]
+  const classifier = classifierStore.classifierMap[classifierId]
   const {name, namePlural, split, useInTransfer} = classifier
 
   return {name, namePlural, split, useInTransfer}

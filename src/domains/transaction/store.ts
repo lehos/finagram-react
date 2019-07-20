@@ -5,9 +5,9 @@ import * as T from './entity'
 import * as A from './api'
 
 export const transactionStore = store({
-  transactions: [] as T.Transaction[],
+  transactionList: [] as T.Transaction[],
 
   async init() {
-    transactionStore.transactions = await A.getList()
+    transactionStore.transactionList = await A.getList()
   }
 })

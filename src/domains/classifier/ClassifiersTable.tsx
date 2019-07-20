@@ -37,15 +37,15 @@ type Props = {
 
 export const ClassifiersTable = view((props: Props) => {
   const {onRowClick} = props
-  const {classifiersArr} = classifierStore
+  const {classifiersList} = classifierStore
 
-  if (classifiersArr.length === 0) {
+  if (classifiersList.length === 0) {
     return <Icon type="loading" />
   }
 
   return (
     <Table<Classifier>
-      dataSource={classifiersArr}
+      dataSource={classifiersList}
       columns={columns}
       size="middle"
       rowKey="id"

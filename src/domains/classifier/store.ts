@@ -8,16 +8,14 @@ import {categoryStore} from '@/domains/category'
 import {Classifier, ClassifierStub} from '.'
 import * as A from './api'
 
-export const classifierStore = store({
-  classifiers: {} as Record<string, Classifier>,
+// base data structure - map
+// computed data structure - array
 
-  // todo (maybe) for perf it should be cached or moved to state
-  get classifiersArr(): Classifier[] {
-    return Object.values(classifierStore.classifiers)
-  },
+export const classifierStore = store({
+  classifierMap: {} as Record<string, Classifier>,
 
   get classifierList(): Classifier[] {
-    return Object.values(classifierStore.classifiers)
+    return Object.values(classifierStore.classifierMap)
   },
 
   init() {
@@ -25,7 +23,7 @@ export const classifierStore = store({
   },
 
   async getList() {
-    classifierStore.classifiers = arrayToMap(await A.getList())
+    classifierStore.classifierMap = arrayToMap(await A.getList())
   },
 
   async create(classifierStub: ClassifierStub) {
@@ -41,7 +39,7 @@ export const classifierStore = store({
 
     await A.create(classifier)
 
-    classifierStore.classifiers[id] = classifier
+    classifierStore.classifierMap[id] = classifier
 
     await categoryStore.createCategory(classifier)
   },
@@ -49,8 +47,8 @@ export const classifierStore = store({
   async update(classifierStub: Required<ClassifierStub> & {id: string}) {
     await A.update(classifierStub)
 
-    classifierStore.classifiers[classifierStub.id] = {
-      ...classifierStore.classifiers[classifierStub.id],
+    classifierStore.classifierMap[classifierStub.id] = {
+      ...classifierStore.classifierMap[classifierStub.id],
       ...classifierStub
     }
   },
@@ -59,7 +57,7 @@ export const classifierStore = store({
     await A.remove(id)
 
     setTimeout(() => {
-      delete classifierStore.classifiers[id]
+      delete classifierStore.classifierMap[id]
     }, 0)
   }
 })

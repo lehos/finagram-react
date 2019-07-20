@@ -19,7 +19,7 @@ const columns: ColumnProps<Account>[] = [
     title: 'Валюта',
     dataIndex: 'currencyId',
     key: 'currencyId',
-    render: val => currencyStore.currencies[val].symbol
+    render: val => currencyStore.currencyMap[val].symbol
   },
   {
     title: 'Баланс',

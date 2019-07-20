@@ -21,7 +21,7 @@ function getInitialValues(accountId: string | null | undefined): Values {
   if (!accountId) {
     return {
       name: '',
-      currencyId: currencyStore.currenciesArr[0].id,
+      currencyId: currencyStore.currencyList[0].id,
       balance: 0
     }
   }
@@ -63,7 +63,7 @@ export function AccountForm(props: Props) {
     onOk()
   }
 
-  const currencyOptions = currencyStore.currenciesArr.map(el => ({
+  const currencyOptions = currencyStore.currencyList.map(el => ({
     value: el.id,
     label: el.name
   }))
