@@ -6,24 +6,20 @@ import {arrayToMap} from '@/utils'
 import {categoryStore} from '@/domains/category'
 
 import {Classifier, ClassifierStub} from '.'
-import * as A from './api'
-
-// base data structure - map
-// computed data structure - array
+import * as Api from './api'
 
 export const classifierStore = store({
+  classifierList: [] as Classifier[],
   classifierMap: {} as Record<string, Classifier>,
-
-  get classifierList(): Classifier[] {
-    return Object.values(classifierStore.classifierMap)
-  },
 
   init() {
     return classifierStore.getList()
   },
 
   async getList() {
-    classifierStore.classifierMap = arrayToMap(await A.getList())
+    const list = await Api.getList()
+    classifierStore.classifierList = list
+    classifierStore.classifierMap = arrayToMap(list)
   },
 
   async create(classifierStub: ClassifierStub) {
@@ -37,27 +33,32 @@ export const classifierStore = store({
       useInTransfer: !!useInTransfer
     }
 
-    await A.create(classifier)
+    await Api.create(classifier)
 
     classifierStore.classifierMap[id] = classifier
+    classifierStore.classifierList.push(classifier)
 
     await categoryStore.createCategory(classifier)
   },
 
   async update(classifierStub: Required<ClassifierStub> & {id: string}) {
-    await A.update(classifierStub)
+    await Api.update(classifierStub)
 
-    classifierStore.classifierMap[classifierStub.id] = {
-      ...classifierStore.classifierMap[classifierStub.id],
-      ...classifierStub
-    }
+    const obj = classifierStore.classifierMap[classifierStub.id]
+    Object.assign(obj, classifierStub)
+
+    // hacky way to tell subscribed view to re-render
+    classifierStore.classifierList = [...classifierStore.classifierList]
   },
 
   async remove(id: string) {
-    await A.remove(id)
+    await Api.remove(id)
+
+    const {classifierMap, classifierList} = classifierStore
 
     setTimeout(() => {
-      delete classifierStore.classifierMap[id]
+      delete classifierMap[id]
+      classifierList.splice(classifierList.findIndex(el => el.id === id), 1)
     }, 0)
   }
 })
