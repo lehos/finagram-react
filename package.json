@@ -6,21 +6,21 @@
   "homepage": "https://lehos.github.io/finagram-react",
   "scripts": {
     "dev": "webpack-dev-server --hot",
-    "build": "npm run clean && webpack --mode=production",
+    "build": "yarn clean && webpack --mode=production",
     "clean": "rimraf build",
     "format": "cross-env prettier --write './src/**/*.{ts,tsx}'",
-    "lint": "npm run lint:js",
+    "lint": "yarn lint:js",
     "lint:js": "eslint './src/**/*.{ts,tsx}'",
     "ts": "tsc",
     "bundle-analyzer": "cross-env NODE_ENV=production BUNDLE_ANALYZER=localhost webpack",
     "upgrade-interactive": "npm-check --update",
-    "predeploy": "cross-env HISTORY_HASH=true ASSET_PATH=/finagram-react/ npm run build",
+    "predeploy": "cross-env HISTORY_HASH=true ASSET_PATH=/finagram-react/ yarn build",
     "deploy": "gh-pages -d build"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "npm run ts"
+      "pre-push": "yarn ts"
     }
   },
   "lint-staged": {
