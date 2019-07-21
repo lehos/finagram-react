@@ -6,7 +6,7 @@ import {useModal} from '@/hooks'
 
 import {AccountsTable, AccountForm} from '@/domains/account'
 
-export default function AccountsPage() {
+export function AccountsPage() {
   const {showModal, hideModal, isModalVisible} = useModal()
   const [accountId, setAccountId] = useState<string | null>(null)
 

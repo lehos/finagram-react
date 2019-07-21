@@ -1,6 +1,6 @@
 import {styled} from 'linaria/react'
 
-export const AuthLayoutWrapper = styled.div`
+export const PrivateLayoutWrapper = styled.div`
   display: flex;
 `
 

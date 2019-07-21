@@ -2,7 +2,7 @@ import React from 'react'
 
 import {CurrencyTable} from '@/domains/currency'
 
-export default function CurrenciesPage() {
+export function CurrenciesPage() {
   return (
     <div>
       <h1>Валюты</h1>

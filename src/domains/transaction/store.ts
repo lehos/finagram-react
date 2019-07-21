@@ -1,5 +1,4 @@
 import {store} from 'react-easy-state'
-import nanoid from 'nanoid'
 
 import * as T from './entity'
 import * as A from './api'

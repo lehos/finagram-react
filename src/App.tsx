@@ -1,62 +1,38 @@
-import React, {ComponentType, Suspense, useState} from 'react'
-import {Router, Switch, Route, Redirect} from 'react-router-dom'
+import React, {useState} from 'react'
+import {Router, Switch} from 'react-router-dom'
 import {hot} from 'react-hot-loader/root'
 
-import {session, history} from './services'
-import {AuthLayout} from '@/layouts'
+import {history, store} from './services'
+import {PrivateLayout} from '@/layouts'
+import {AppLoader} from '@/components'
 
-import ClassifiersPage from '@/pages/ClassifiersPage'
-import CategoriesPage from '@/pages/CategoriesPage'
-import AccountsPage from '@/pages/AccountsPage'
-import CurrenciesPage from '@/pages/CurrenciesPage'
-import TransactionsPage from '@/pages/TransactionsPage'
-import FormPage from '@/pages/FormPage'
+import * as Pages from '@/pages'
 
-const IndexPage = React.lazy(() => import('./pages/IndexPage'))
+// todo: public routes
+// todo: rethink stores init
+// todo: named routes
 
-type RouteProps = {
-  path: string
-  exact?: boolean
-  component: ComponentType
-}
-
-// function AuthRoute(props: RouteProps) {
-//   return (
-//     <Route
-//       exact={props.exact}
-//       path={props.path}
-//       render={() =>
-//         session.getToken() ? (
-//           <AuthLayout>
-//             <props.component />
-//           </AuthLayout>
-//         ) : (
-//           <Redirect to="/login" />
-//         )
-//       }
-//     />
-//   )
-// }
-
-// stores are initialized in layouts/AuthLayout/initStores
-
-// todo: auth and non-auth routes
 function App() {
+  const [isInitialized, setIsInitialized] = useState<boolean>(false)
+
+  if (!isInitialized) {
+    store.initStores().then(() => {
+      setIsInitialized(true)
+    })
+    return <AppLoader />
+  }
+
   return (
     <Router history={history}>
-      <AuthLayout>
-        <Suspense fallback={null}>
-          <Switch>
-            <Route exact path="/" component={IndexPage} />
-            <Route path="/accounts" component={AccountsPage} />
-            <Route path="/transactions" component={TransactionsPage} />
-            <Route path="/classifiers" component={ClassifiersPage} />
-            <Route path="/category/:id" component={CategoriesPage} />
-            <Route path="/currencies" component={CurrenciesPage} />
-            <Route path="/form" component={FormPage} />
-          </Switch>
-        </Suspense>
-      </AuthLayout>
+      <Switch>
+        <PrivateLayout exact path="/" component={Pages.IndexPage} />
+        <PrivateLayout path="/accounts" component={Pages.AccountsPage} />
+        <PrivateLayout path="/transactions" component={Pages.TransactionsPage} />
+        <PrivateLayout path="/classifiers" component={Pages.ClassifiersPage} />
+        <PrivateLayout path="/category/:id" component={Pages.CategoriesPage} />
+        <PrivateLayout path="/currencies" component={Pages.CurrenciesPage} />
+        <PrivateLayout path="/form" component={Pages.FormPage} />
+      </Switch>
     </Router>
   )
 }

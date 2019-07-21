@@ -16,7 +16,7 @@ const options = [
   {value: '3', label: 'Third item'}
 ]
 
-export default function IndexPage() {
+export function FormPage() {
   function renderForm({values}: FormRenderProps<Values>) {
     return (
       <div>

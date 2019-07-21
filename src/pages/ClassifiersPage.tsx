@@ -6,7 +6,7 @@ import {useModal} from '@/hooks'
 
 import {ClassifiersTable, ClassifierForm} from '@/domains/classifier'
 
-export default function ClassifiersPage() {
+export function ClassifiersPage() {
   const {showModal, hideModal, isModalVisible} = useModal()
   const [classifierId, setClassifierId] = useState<string | null>(null)
 

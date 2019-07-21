@@ -21,7 +21,7 @@ function renderItem(props: MenuItemProps) {
   )
 }
 
-function Nav(props: RouteComponentProps) {
+function NavComp(props: RouteComponentProps) {
   return (
     <Menu
       style={{width: 256, height: '100%', userSelect: 'none'}}
@@ -42,4 +42,4 @@ function Nav(props: RouteComponentProps) {
   )
 }
 
-export default withRouter(view(Nav))
+export const Nav = withRouter(view(NavComp))
