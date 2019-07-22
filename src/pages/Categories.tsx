@@ -12,7 +12,7 @@ type Params = {
   id: string
 }
 
-export function CategoriesPage(props: RouteComponentProps) {
+export function Categories(props: RouteComponentProps) {
   const {showModal, hideModal, isModalVisible} = useModal()
   const [entityId, setEntityId] = useState<string | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)

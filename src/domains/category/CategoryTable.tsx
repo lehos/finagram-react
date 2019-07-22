@@ -41,7 +41,7 @@ export const CategoryTable = view((props: Props) => {
       size={size}
       rowKey="id"
       pagination={false}
-      defaultExpandedRowKeys={['12', '13']}
+      defaultExpandAllRows
       rowSelection={{
         type: 'radio',
         onChange: val => onRowSelect && onRowSelect(val[0] as string)

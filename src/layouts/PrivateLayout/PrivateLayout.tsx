@@ -1,15 +1,22 @@
 import React, {ComponentType} from 'react'
+import {view} from 'react-easy-state'
 import {Route, RouteComponentProps, RouteProps} from 'react-router-dom'
 
-import {Nav} from '@/components'
+import {AppLoader, Nav} from '@/components'
 
 import * as S from './PrivateLayout.styles'
+import {appStore} from '@/domains/common/appStore'
 
 interface Props extends RouteProps {
   component: ComponentType<RouteComponentProps>
 }
 
-export function PrivateLayout({component: Component, ...rest}: Props) {
+export const PrivateLayout = view(({component: Component, ...rest}: Props) => {
+  if (!appStore.isInitialized) {
+    appStore.initStores()
+    return <AppLoader />
+  }
+
   return (
     <Route
       {...rest}
@@ -25,4 +32,4 @@ export function PrivateLayout({component: Component, ...rest}: Props) {
       )}
     />
   )
-}
+})

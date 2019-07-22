@@ -1,6 +1,6 @@
 export * from './IndexPage'
 export * from './ClassifiersPage'
-export * from './CategoriesPage'
+export * from './Categories'
 export * from './AccountsPage'
 export * from './CurrenciesPage'
 export * from './TransactionsPage'
