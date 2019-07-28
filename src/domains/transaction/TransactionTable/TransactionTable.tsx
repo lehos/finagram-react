@@ -24,7 +24,11 @@ function makeColumns() {
       dataIndex: 'sum',
       render: (val, row) => {
         const res = formatMoney(val)
-        return row.type === 'expense' ? <span style={{color: 'red'}}>-{res}</span> : res
+        return row.type === 'expense' ? (
+          <span style={{color: 'red'}}>-{res}</span>
+        ) : (
+          res
+        )
       },
       align: 'right'
     }

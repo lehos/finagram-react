@@ -53,7 +53,10 @@ export function ClassifierForm(props: Props) {
     } else if (action === 'create') {
       await classifierStore.create(rest)
     } else {
-      await classifierStore.update({id: classifierId!, ...(rest as Required<Values>)})
+      await classifierStore.update({
+        id: classifierId!,
+        ...(rest as Required<Values>)
+      })
     }
 
     onOk()
@@ -89,7 +92,9 @@ export function ClassifierForm(props: Props) {
           </UI.FormRow>
 
           <UI.FormRow>
-            <UI.FormCheckbox name="split">Разделять по типу операции</UI.FormCheckbox>
+            <UI.FormCheckbox name="split">
+              Разделять по типу операции
+            </UI.FormCheckbox>
           </UI.FormRow>
 
           <UI.FormRow>

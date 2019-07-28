@@ -55,7 +55,10 @@ export function Categories(props: RouteComponentProps) {
         hello
       </Modal>
 
-      <CategoryTable classifierId={params.id} onRowSelect={id => setSelectedId(id)} />
+      <CategoryTable
+        classifierId={params.id}
+        onRowSelect={id => setSelectedId(id)}
+      />
     </div>
   )
 }

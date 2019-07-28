@@ -8,7 +8,6 @@ export const categoryMocks: Category[] = [
     children: [
       {
         id: '12',
-        parentId: 'cd1',
         name: 'Все статьи прихода',
         type: 'income',
         children: [
@@ -21,7 +20,6 @@ export const categoryMocks: Category[] = [
       },
       {
         id: '13',
-        parentId: 'cd1',
         name: 'Все статьи расхода',
         type: 'expense',
         children: [
@@ -52,7 +50,6 @@ export const categoryMocks: Category[] = [
     children: [
       {
         id: '21',
-        parentId: 'cd2',
         name: 'Агенты',
         type: 'transfer',
 

@@ -3,7 +3,12 @@ import {styled} from 'linaria/react'
 
 type Props = {
   wrap?: 'nowrap' | 'wrap' | 'wrap-reverse'
-  justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around'
+  justifyContent?:
+    | 'flex-start'
+    | 'flex-end'
+    | 'center'
+    | 'space-between'
+    | 'space-around'
   alignItems?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch'
   children: ReactNode
 }

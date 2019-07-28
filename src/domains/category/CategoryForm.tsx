@@ -80,7 +80,9 @@ export function CategoryItemForm(props: Props) {
           </UI.FormRow>
 
           <UI.FormRow>
-            <UI.FormCheckbox name="split">Разделять по типу операции</UI.FormCheckbox>
+            <UI.FormCheckbox name="split">
+              Разделять по типу операции
+            </UI.FormCheckbox>
           </UI.FormRow>
 
           <UI.FormRow>

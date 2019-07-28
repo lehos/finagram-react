@@ -23,3 +23,15 @@ export const appStore = store({
     appStore.isInitialized = true
   }
 })
+
+if (process.env.NODE_ENV === 'development') {
+  // @ts-ignore
+  window.stores = {
+    appStore,
+    currencyStore,
+    accountStore,
+    classifierStore,
+    categoryStore,
+    transactionStore
+  }
+}

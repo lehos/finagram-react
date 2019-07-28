@@ -6,14 +6,9 @@ import {Classifier} from '@/domains/classifier'
 import * as T from './entity'
 import * as A from './api'
 
-function makeStub(
-  parentId: string,
-  name: string,
-  type: T.CategoryRootItemType = 'default'
-): T.CategoryRootItem {
+function makeStub(name: string, type: T.CategoryType = 'default'): T.CategoryItem {
   return {
     id: nanoid(),
-    parentId,
     name,
     type,
     description: '',
@@ -29,18 +24,18 @@ function populateCategory(classifier: Classifier): T.Category {
     children: []
   }
 
+  const name = classifier.namePlural
+
   if (!classifier.split) {
-    category.children.push(makeStub(classifier.namePlural, id))
+    category.children.push(makeStub(name))
   } else {
     category.children.push(
-      makeStub(id, `Все ${classifier.namePlural} расхода`, 'expense'),
-      makeStub(id, `Все ${classifier.namePlural} прихода`, 'income')
+      makeStub(`Все ${name} расхода`, 'expense'),
+      makeStub(`Все ${name} прихода`, 'income')
     )
 
     if (classifier.useInTransfer) {
-      category.children.push(
-        makeStub(id, `Все ${classifier.namePlural} перевода`, 'transfer')
-      )
+      category.children.push(makeStub(`Все ${name} перевода`, 'transfer'))
     }
   }
 
@@ -49,7 +44,7 @@ function populateCategory(classifier: Classifier): T.Category {
 
 export const categoryStore = store({
   categoryList: [] as T.Category[],
-  categoryItemMap: {} as Record<string, T.CategoryRootItemType>,
+  categoryMap: {} as Record<string, T.CategoryType>,
 
   getCategoryItemMap(classifierId: string) {
     // const category
