@@ -12,6 +12,9 @@ import {transactionStore} from '@/domains/transaction'
 export const appStore = store({
   isInitialized: false,
 
+  currency: currencyStore,
+  account: accountStore,
+
   async initStores() {
     await Promise.all([
       currencyStore.init(),

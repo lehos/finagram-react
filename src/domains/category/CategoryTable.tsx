@@ -27,7 +27,7 @@ interface Props {
 }
 
 export const CategoryTable = view((props: Props) => {
-  const {classifierId, size = 'middle', onRowSelect} = props
+  const {classifierId, size = 'middle', onRowSelect, onRowClick} = props
   const category = categoryStore.getCategory(classifierId)
 
   if (!category) {
@@ -42,6 +42,9 @@ export const CategoryTable = view((props: Props) => {
       rowKey="id"
       pagination={false}
       defaultExpandAllRows
+      onRow={record => ({
+        onClick: e => onRowClick && onRowClick(record.id)
+      })}
       rowSelection={{
         type: 'radio',
         onChange: val => onRowSelect && onRowSelect(val[0] as string)

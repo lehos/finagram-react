@@ -3,9 +3,9 @@ import {RouteComponentProps} from 'react-router-dom'
 import {Button, Modal} from 'antd'
 
 import {Spacer, PageHeader} from '@/ui'
-import {useModal} from '@/hooks'
+import {useEntityPage} from '@/hooks'
 
-import {CategoryTable} from '@/domains/category'
+import {CategoryTable, CategoryForm} from '@/domains/category'
 import {classifierStore} from '@/domains/classifier'
 
 type Params = {
@@ -13,21 +13,12 @@ type Params = {
 }
 
 export function Categories(props: RouteComponentProps) {
-  const {showModal, hideModal, isModalVisible} = useModal()
-  const [entityId, setEntityId] = useState<string | null>(null)
+  const {entity, modal} = useEntityPage()
+
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
   const params = props.match.params as Params
   const classifier = classifierStore.classifierMap[params.id]
-
-  function edit(id: string) {
-    setEntityId(id)
-    showModal()
-  }
-
-  function clearId() {
-    setEntityId(null)
-  }
 
   if (!classifier) {
     return <>Категория не найдена</>
@@ -38,26 +29,31 @@ export function Categories(props: RouteComponentProps) {
       <PageHeader>
         <h1>{classifier.namePlural}</h1>
         <Spacer width={20} />
-        <Button onClick={showModal} icon="plus">
+        <Button onClick={modal.show} icon="plus">
           Добавить
         </Button>
       </PageHeader>
 
       <Modal
-        title={`${entityId ? 'Редактирование' : 'Создание'} категории`}
-        visible={isModalVisible}
-        onCancel={hideModal}
+        title={`${entity.id ? 'Редактирование' : 'Добавление'} категории`}
+        visible={modal.visible}
+        onCancel={modal.hide}
         footer={null}
-        afterClose={clearId}
+        afterClose={entity.clear}
         width={400}
         centered
       >
-        hello
+        <CategoryForm
+          onOk={modal.hide}
+          onCancel={modal.hide}
+          categoryItemId={entity.id}
+        />
       </Modal>
 
       <CategoryTable
         classifierId={params.id}
-        onRowSelect={id => setSelectedId(id)}
+        onRowSelect={setSelectedId}
+        onRowClick={entity.edit}
       />
     </div>
   )

@@ -26,7 +26,7 @@ function getInitialValues(accountId: string | null | undefined): Values {
     }
   }
 
-  const account = accountStore.accounts[accountId]
+  const account = accountStore.accountsMap[accountId]
   const {name, balance, currencyId} = account
 
   return {name, balance, currencyId}

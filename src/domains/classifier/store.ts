@@ -13,10 +13,10 @@ export const classifierStore = store({
   classifierMap: {} as Record<string, Classifier>,
 
   init() {
-    return classifierStore.getList()
+    return classifierStore._getList()
   },
 
-  async getList() {
+  async _getList() {
     const list = await Api.getList()
     classifierStore.classifierList = list
     classifierStore.classifierMap = arrayToMap(list)

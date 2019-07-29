@@ -36,15 +36,15 @@ type Props = {
 
 export const AccountsTable = view((props: Props) => {
   const {onRowClick} = props
-  const {accountsArr} = accountStore
+  const {accountsList} = accountStore
 
-  if (accountsArr.length === 0) {
+  if (accountsList.length === 0) {
     return <Icon type="loading" />
   }
 
   return (
     <Table<Account>
-      dataSource={accountsArr}
+      dataSource={accountsList}
       columns={columns}
       size="middle"
       rowKey="id"

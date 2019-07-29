@@ -7,11 +7,11 @@ import {Account} from './entity'
 import * as A from './api'
 
 export const accountStore = store({
-  accounts: {} as Record<string, Account>,
+  accountsMap: {} as Record<string, Account>,
 
   // todo (maybe) for perf it should be cached or moved to state
-  get accountsArr(): Account[] {
-    return Object.values(accountStore.accounts)
+  get accountsList(): Account[] {
+    return Object.values(accountStore.accountsMap)
   },
 
   init() {
@@ -19,7 +19,7 @@ export const accountStore = store({
   },
 
   async getList() {
-    accountStore.accounts = arrayToMap(await A.getList())
+    accountStore.accountsMap = arrayToMap(await A.getList())
   },
 
   async create(acc: Omit<Account, 'id'>) {
@@ -28,14 +28,14 @@ export const accountStore = store({
     const newAcc = {id, ...acc}
     await A.create(newAcc)
 
-    accountStore.accounts[id] = newAcc
+    accountStore.accountsMap[id] = newAcc
   },
 
   async update(acc: Account) {
     await A.update(acc)
 
-    accountStore.accounts[acc.id] = {
-      ...accountStore.accounts[acc.id],
+    accountStore.accountsMap[acc.id] = {
+      ...accountStore.accountsMap[acc.id],
       ...acc
     }
   },
@@ -44,7 +44,7 @@ export const accountStore = store({
     await A.remove(id)
 
     setTimeout(() => {
-      delete accountStore.accounts[id]
+      delete accountStore.accountsMap[id]
     }, 0)
   }
 })

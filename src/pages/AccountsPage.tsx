@@ -2,46 +2,36 @@ import React, {useState} from 'react'
 import {Button, Modal} from 'antd'
 
 import {Spacer, PageHeader} from '@/ui'
-import {useModal} from '@/hooks'
+import {useEntityPage} from '@/hooks'
 
 import {AccountsTable, AccountForm} from '@/domains/account'
 
 export function AccountsPage() {
-  const {showModal, hideModal, isModalVisible} = useModal()
-  const [accountId, setAccountId] = useState<string | null>(null)
-
-  function editAccount(id: string) {
-    setAccountId(id)
-    showModal()
-  }
-
-  function clearAccountId() {
-    setAccountId(null)
-  }
+  const {entity, modal} = useEntityPage()
 
   return (
     <div>
       <PageHeader>
         <h1>Счета</h1>
         <Spacer width={20} />
-        <Button onClick={showModal} icon="plus">
+        <Button onClick={modal.show} icon="plus">
           Добавить
         </Button>
       </PageHeader>
 
       <Modal
-        title={`${accountId ? 'Редактирование' : 'Создание'} счета`}
-        visible={isModalVisible}
-        onCancel={hideModal}
+        title={`${entity.id ? 'Редактирование' : 'Создание'} счета`}
+        visible={modal.visible}
+        onCancel={modal.hide}
         footer={null}
-        afterClose={clearAccountId}
+        afterClose={entity.clear}
         width={400}
         centered
       >
-        <AccountForm onOk={hideModal} onCancel={hideModal} accountId={accountId} />
+        <AccountForm onOk={modal.hide} onCancel={modal.hide} accountId={entity.id} />
       </Modal>
 
-      <AccountsTable onRowClick={editAccount} />
+      <AccountsTable onRowClick={entity.edit} />
     </div>
   )
 }

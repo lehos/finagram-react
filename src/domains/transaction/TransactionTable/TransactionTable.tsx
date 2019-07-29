@@ -25,7 +25,6 @@ function makeColumns() {
       render: (val, row) => {
         const res = formatMoney(val)
 
-        // todo add +- in transfer
         return row.type === 'expense' || row.type === 'transfer' ? (
           <span style={{color: 'red'}}>-{res}</span>
         ) : row.type === 'income' ? (
@@ -42,7 +41,7 @@ function makeColumns() {
       dataIndex: 'accountId',
       render: (val, row) => {
         const id = row.type === 'transfer' ? row.fromAccountId : val
-        return accountStore.accounts[id!].name
+        return accountStore.accountsMap[id!].name
       }
     }
   ]
@@ -75,7 +74,7 @@ function makeColumns() {
       title: 'Корреспондент',
       dataIndex: 'toAccountId',
       key: 'toAccountId',
-      render: val => val && accountStore.accounts[val].name
+      render: val => val && accountStore.accountsMap[val].name
     },
     {
       title: 'Описание',

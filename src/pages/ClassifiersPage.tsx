@@ -1,51 +1,41 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Button, Modal} from 'antd'
 
 import {Spacer, PageHeader} from '@/ui'
-import {useModal} from '@/hooks'
+import {useEntityPage} from '@/hooks'
 
 import {ClassifiersTable, ClassifierForm} from '@/domains/classifier'
 
 export function ClassifiersPage() {
-  const {showModal, hideModal, isModalVisible} = useModal()
-  const [classifierId, setClassifierId] = useState<string | null>(null)
-
-  function editClassifier(id: string) {
-    setClassifierId(id)
-    showModal()
-  }
-
-  function clearClassifierId() {
-    setClassifierId(null)
-  }
+  const {entity, modal} = useEntityPage()
 
   return (
     <div>
       <PageHeader>
         <h1>Классификаторы</h1>
         <Spacer width={20} />
-        <Button onClick={showModal} icon="plus">
+        <Button onClick={modal.show} icon="plus">
           Добавить
         </Button>
       </PageHeader>
 
       <Modal
-        title={`${classifierId ? 'Редактирование' : 'Создание'} классификатора`}
-        visible={isModalVisible}
-        onCancel={hideModal}
+        title={`${entity.id ? 'Редактирование' : 'Создание'} классификатора`}
+        visible={modal.visible}
+        onCancel={modal.hide}
         footer={null}
-        afterClose={clearClassifierId}
+        afterClose={entity.clear}
         width={400}
         centered
       >
         <ClassifierForm
-          onOk={hideModal}
-          onCancel={hideModal}
-          classifierId={classifierId}
+          onOk={modal.hide}
+          onCancel={modal.hide}
+          classifierId={entity.id}
         />
       </Modal>
 
-      <ClassifiersTable onRowClick={editClassifier} />
+      <ClassifiersTable onRowClick={entity.edit} />
     </div>
   )
 }

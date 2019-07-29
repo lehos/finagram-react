@@ -2,7 +2,7 @@ import React from 'react'
 import {withTypes} from 'react-final-form'
 import {Button} from 'antd'
 
-import {Category, CategoryItem, categoryStore} from '.'
+import {Category, CategoryItem, categoryStore} from '@/domains/category'
 import * as UI from '@/ui'
 
 type Props = {
@@ -14,6 +14,7 @@ type Props = {
 
 type Values = {
   name: string
+  description?: string
   action?: 'create' | 'delete' | 'update'
 }
 
@@ -31,7 +32,7 @@ function validate(values: Partial<Values>) {
   return errors
 }
 
-export function CategoryItemForm(props: Props) {
+export function CategoryForm(props: Props) {
   const {onOk, onCancel, categoryItemId} = props
   const initialValues = getInitialValues(categoryItemId)
   const isNew = !categoryItemId
@@ -62,34 +63,23 @@ export function CategoryItemForm(props: Props) {
       render={({handleSubmit, submitting, form, values}) => (
         <form onSubmit={handleSubmit}>
           <UI.FormRow>
-            <UI.FormLabel>Название в единственном числе</UI.FormLabel>
+            <UI.FormLabel>Название</UI.FormLabel>
             <UI.FormInput
               name="name"
-              placeholder="Название в единственном числе"
+              placeholder="Название"
               autoComplete="off"
             />
           </UI.FormRow>
 
           <UI.FormRow>
-            <UI.FormLabel>Название во множественном числе</UI.FormLabel>
+            <UI.FormLabel>Примечание</UI.FormLabel>
             <UI.FormInput
-              name="namePlural"
-              placeholder="Название во множественном числе"
+              name="description"
+              placeholder="Примечание"
               autoComplete="off"
             />
           </UI.FormRow>
 
-          <UI.FormRow>
-            <UI.FormCheckbox name="split">
-              Разделять по типу операции
-            </UI.FormCheckbox>
-          </UI.FormRow>
-
-          <UI.FormRow>
-            <UI.FormCheckbox name="useInTransfer">
-              Использовать в переводах
-            </UI.FormCheckbox>
-          </UI.FormRow>
 
           <UI.Flex justifyContent="space-between">
             <div>
