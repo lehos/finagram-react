@@ -44,14 +44,14 @@ function populateCategory(classifier: Classifier): T.Category {
   return category
 }
 
+type CategoryMap = Record<string, Record<string, T.CategoryItem>>
+
 export const categoryStore = store({
   categoryList: [] as T.Category[],
-  categoryMap: {} as Record<string, T.CategoryType>,
-  categoryItemMap: {} as Record<string, T.CategoryItem>,
 
-  getCategoryItemMap(classifierId: string) {
-    // const category
-  },
+  // computed
+  categoryMap: {} as CategoryMap,
+  categoryItemMap: {} as Record<string, T.CategoryItem>,
 
   getCategory(id: string) {
     return categoryStore.categoryList.find(el => el.classifierId === id)
@@ -60,6 +60,15 @@ export const categoryStore = store({
   async init() {
     const list = await A.getList()
     categoryStore.categoryList = list
+
+    categoryStore.categoryMap = list.reduce(
+      (acc, cur) => {
+        acc[cur.classifierId] = arrayToMapDeep(cur.children)
+        return acc
+      },
+      {} as CategoryMap
+    )
+
     categoryStore.categoryItemMap = list.reduce((acc, cur) => {
       return {...acc, ...arrayToMapDeep(cur.children)}
     }, {})

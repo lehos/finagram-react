@@ -44,7 +44,7 @@ export const categoryMocks: Category[] = [
     ]
   },
   {
-    classifierId: 'cl2',
+    classifierId: 'agents',
     id: 'cd2',
 
     children: [
@@ -60,7 +60,7 @@ export const categoryMocks: Category[] = [
             parentId: '21'
           },
           {
-            id: '212',
+            id: 'wife',
             name: 'Жена',
             parentId: '21'
           }

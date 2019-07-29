@@ -6,33 +6,59 @@ export const transactionMocks: T.Transaction[] = [
     accountId: 'ac1',
     type: 'expense',
     status: 'done',
-    description: 'расход в рутовой категории',
+    description: 'расход в рутовой категории "Статья"',
     sum: 20000,
     date: '29.07.2019',
-    classifierId: 'cl1',
-    categoryItemId: '13'
+    categories: [
+      {
+        classifierId: 'cl1',
+        categoryItemId: '13'
+      }
+    ]
   },
   {
     id: 't2',
     accountId: 'ac2',
     type: 'expense',
     status: 'done',
-    description: 'расход в конкретной категории',
+    description: 'расход в конкретной категории "Статья"',
     sum: 35000,
     date: '30.07.2019',
-    classifierId: 'cl1',
-    categoryItemId: '131'
+    categories: [
+      {
+        classifierId: 'cl1',
+        categoryItemId: '131'
+      }
+    ]
+  },
+  {
+    id: 't22',
+    accountId: 'ac2',
+    type: 'expense',
+    status: 'done',
+    description: 'расход со статьей и агентом',
+    sum: 200000,
+    date: '30.07.2019',
+    categories: [
+      {
+        classifierId: 'cl1',
+        categoryItemId: '133'
+      },
+      {
+        classifierId: 'agents',
+        categoryItemId: 'wife'
+      }
+    ]
   },
   {
     id: 't3',
     accountId: 'ac2',
     type: 'expense',
     status: 'done',
-    description: 'расход без категории',
+    description: 'расход без категорий',
     sum: 50000,
     date: '30.07.2019',
-    classifierId: null,
-    categoryItemId: null
+    categories: []
   },
   {
     id: 't4',
@@ -42,10 +68,13 @@ export const transactionMocks: T.Transaction[] = [
     description: 'приход с категорией',
     sum: 500000,
     date: '30.07.2019',
-    // todo подумать, возможен ли такой случай
-    //   когда есть классификатор, но нет категории
-    classifierId: 'cl1',
-    categoryItemId: null
+
+    categories: [
+      {
+        classifierId: 'cl1',
+        categoryItemId: '121'
+      }
+    ]
   },
   {
     id: 't5',
@@ -54,8 +83,9 @@ export const transactionMocks: T.Transaction[] = [
     description: 'перевод без агента',
     sum: 100000,
     date: '30.07.2019',
-    fromAccountId: 'ac1',
-    toAccountId: 'ac2'
+    fromAccountId: 'ac2',
+    toAccountId: 'ac1',
+    categories: []
   },
   {
     id: 't6',
@@ -64,9 +94,24 @@ export const transactionMocks: T.Transaction[] = [
     description: 'перевод с агентом',
     sum: 200000,
     date: '30.07.2019',
-    fromAccountId: 'ac1',
+    fromAccountId: 'ac2',
+    toAccountId: 'ac1',
+    categories: [
+      {
+        classifierId: 'agents',
+        categoryItemId: 'wife'
+      }
+    ]
+  },
+  {
+    id: 't7',
+    type: 'transfer',
+    status: 'done',
+    description: 'перевод с другого счета',
+    sum: 200000,
+    date: '01.08.2019',
+    fromAccountId: 'ac3',
     toAccountId: 'ac2',
-    classifierId: 'cd2',
-    categoryItemId: '212'
+    categories: []
   }
 ]

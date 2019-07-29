@@ -15,12 +15,15 @@ interface TransactionBase {
   description: string
 }
 
+type Categories = {
+  classifierId: string
+  categoryItemId: string
+}[]
+
 interface TransactionDefault extends TransactionBase {
   accountId: string | null
 
-  classifierId: string | null
-  // может быть вместо null лучше указывать рутовую статью
-  categoryItemId: string | null
+  categories: Categories
 }
 
 export interface TransactionIncome extends TransactionDefault {
@@ -38,8 +41,7 @@ export interface TransactionTransfer extends TransactionBase {
   fromAccountId: string | null
   toAccountId: string | null
 
-  classifierId?: string | null
-  categoryItemId?: string | null
+  categories: Categories
 }
 
 export interface TransactionBalance extends TransactionBase {

@@ -24,25 +24,48 @@ function makeColumns() {
       dataIndex: 'sum',
       render: (val, row) => {
         const res = formatMoney(val)
-        return row.type === 'expense' ? (
+
+        // todo add +- in transfer
+        return row.type === 'expense' || row.type === 'transfer' ? (
           <span style={{color: 'red'}}>-{res}</span>
+        ) : row.type === 'income' ? (
+          <span style={{color: 'green'}}>+{res}</span>
         ) : (
           res
         )
       },
       align: 'right'
+    },
+    {
+      title: 'Счет',
+      key: 'accountId',
+      dataIndex: 'accountId',
+      render: (val, row) => {
+        const id = row.type === 'transfer' ? row.fromAccountId : val
+        return accountStore.accounts[id!].name
+      }
     }
   ]
 
-  classifierStore.classifierList.forEach(el => {
+  classifierStore.classifierList.forEach(classifier => {
     columns.push({
-      title: el.name,
-      key: el.id,
-      dataIndex: 'categoryItemId',
-      render: (val, row) => {
-        console.log(val)
-        console.log(categoryStore.categoryItemMap[val])
-        return val && categoryStore.categoryItemMap[val].name
+      title: classifier.name,
+      key: classifier.id,
+      dataIndex: 'categories',
+      render: (_, row) => {
+        if (row.type === 'balance') {
+          return ''
+        }
+
+        const category = row.categories.find(c => c.classifierId === classifier.id)
+
+        if (!category) {
+          return ''
+        }
+
+        return (
+          category && categoryStore.categoryItemMap[category.categoryItemId].name
+        )
       }
     })
   })

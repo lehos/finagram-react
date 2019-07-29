@@ -9,7 +9,7 @@ export const classifiersMock: Classifier[] = [
     useInTransfer: false
   },
   {
-    id: 'cl2',
+    id: 'agents',
     name: 'Агент',
     namePlural: 'Агенты',
     split: false,
