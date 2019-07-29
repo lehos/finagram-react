@@ -1,17 +1,18 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Button, Modal} from 'antd'
 
-import {TransactionTable, TransactionForm} from '@/domains/transaction'
-import {PageHeader, Spacer} from '@/ui'
+import {Spacer, PageHeader} from '@/ui'
 import {useEntityPage} from '@/hooks'
 
-export function TransactionsPage() {
+import {AccountsTable, AccountForm} from '@/domains/account'
+
+export function Accounts() {
   const {entity, modal} = useEntityPage()
 
   return (
     <div>
       <PageHeader>
-        <h1>Операции</h1>
+        <h1>Счета</h1>
         <Spacer width={20} />
         <Button onClick={modal.show} icon="plus">
           Добавить
@@ -19,7 +20,7 @@ export function TransactionsPage() {
       </PageHeader>
 
       <Modal
-        title={`${entity.id ? 'Редактирование' : 'Добавление'} операции`}
+        title={`${entity.id ? 'Редактирование' : 'Создание'} счета`}
         visible={modal.visible}
         onCancel={modal.hide}
         footer={null}
@@ -27,10 +28,10 @@ export function TransactionsPage() {
         width={400}
         centered
       >
-        <TransactionForm />
+        <AccountForm onOk={modal.hide} onCancel={modal.hide} accountId={entity.id} />
       </Modal>
 
-      <TransactionTable onRowClick={entity.edit} />
+      <AccountsTable onRowClick={entity.edit} />
     </div>
   )
 }

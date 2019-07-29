@@ -15,11 +15,11 @@ function App() {
     <Router history={history}>
       <Switch>
         <PrivateLayout exact path="/" component={Pages.IndexPage} />
-        <PrivateLayout path="/accounts" component={Pages.AccountsPage} />
-        <PrivateLayout path="/transactions" component={Pages.TransactionsPage} />
-        <PrivateLayout path="/classifiers" component={Pages.ClassifiersPage} />
+        <PrivateLayout path="/accounts" component={Pages.Accounts} />
+        <PrivateLayout path="/transactions" component={Pages.Transactions} />
+        <PrivateLayout path="/classifiers" component={Pages.Classifiers} />
         <PrivateLayout path="/category/:id" component={Pages.Categories} />
-        <PrivateLayout path="/currencies" component={Pages.CurrenciesPage} />
+        <PrivateLayout path="/currencies" component={Pages.Currencies} />
         <PrivateLayout path="/form" component={Pages.FormPage} />
       </Switch>
     </Router>

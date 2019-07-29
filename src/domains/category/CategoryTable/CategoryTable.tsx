@@ -3,8 +3,8 @@ import {view} from 'react-easy-state'
 import {Table} from 'antd'
 import {ColumnProps} from 'antd/lib/table'
 
-import {CategoryItem} from './entity'
-import {categoryStore} from './store'
+import {CategoryItem} from '../entity'
+import {categoryStore} from '../store'
 
 const columns: ColumnProps<CategoryItem>[] = [
   {

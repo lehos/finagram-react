@@ -1,18 +1,17 @@
 import React from 'react'
 import {Button, Modal} from 'antd'
 
-import {Spacer, PageHeader} from '@/ui'
+import {TransactionTable, TransactionForm} from '@/domains/transaction'
+import {PageHeader, Spacer} from '@/ui'
 import {useEntityPage} from '@/hooks'
 
-import {ClassifiersTable, ClassifierForm} from '@/domains/classifier'
-
-export function ClassifiersPage() {
+export function Transactions() {
   const {entity, modal} = useEntityPage()
 
   return (
     <div>
       <PageHeader>
-        <h1>Классификаторы</h1>
+        <h1>Операции</h1>
         <Spacer width={20} />
         <Button onClick={modal.show} icon="plus">
           Добавить
@@ -20,7 +19,7 @@ export function ClassifiersPage() {
       </PageHeader>
 
       <Modal
-        title={`${entity.id ? 'Редактирование' : 'Создание'} классификатора`}
+        title={`${entity.id ? 'Редактирование' : 'Добавление'} операции`}
         visible={modal.visible}
         onCancel={modal.hide}
         footer={null}
@@ -28,14 +27,10 @@ export function ClassifiersPage() {
         width={400}
         centered
       >
-        <ClassifierForm
-          onOk={modal.hide}
-          onCancel={modal.hide}
-          classifierId={entity.id}
-        />
+        <TransactionForm />
       </Modal>
 
-      <ClassifiersTable onRowClick={entity.edit} />
+      <TransactionTable onRowClick={entity.edit} />
     </div>
   )
 }
