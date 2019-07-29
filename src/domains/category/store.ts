@@ -1,6 +1,8 @@
 import {store} from 'react-easy-state'
 import nanoid from 'nanoid'
 
+import {arrayToMapDeep} from '@/utils'
+
 import {Classifier} from '@/domains/classifier'
 
 import * as T from './entity'
@@ -45,6 +47,7 @@ function populateCategory(classifier: Classifier): T.Category {
 export const categoryStore = store({
   categoryList: [] as T.Category[],
   categoryMap: {} as Record<string, T.CategoryType>,
+  categoryItemMap: {} as Record<string, T.CategoryItem>,
 
   getCategoryItemMap(classifierId: string) {
     // const category
@@ -55,7 +58,11 @@ export const categoryStore = store({
   },
 
   async init() {
-    categoryStore.categoryList = await A.getList()
+    const list = await A.getList()
+    categoryStore.categoryList = list
+    categoryStore.categoryItemMap = list.reduce((acc, cur) => {
+      return {...acc, ...arrayToMapDeep(cur.children)}
+    }, {})
   },
 
   async createCategory(classifier: Classifier) {

@@ -38,8 +38,12 @@ function makeColumns() {
     columns.push({
       title: el.name,
       key: el.id,
-      dataIndex: 'categoryItemId'
-      // render: val =>  categoryStore.getCategory(val)
+      dataIndex: 'categoryItemId',
+      render: (val, row) => {
+        console.log(val)
+        console.log(categoryStore.categoryItemMap[val])
+        return val && categoryStore.categoryItemMap[val].name
+      }
     })
   })
 
