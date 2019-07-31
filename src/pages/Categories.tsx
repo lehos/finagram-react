@@ -35,7 +35,7 @@ export function Categories(props: RouteComponentProps) {
       </PageHeader>
 
       <Modal
-        title={`${entity.id ? 'Редактирование' : 'Добавление'} категории`}
+        title={`${classifier.name}: ${entity.id ? 'редактирование' : 'добавление'}`}
         visible={modal.visible}
         onCancel={modal.hide}
         footer={null}

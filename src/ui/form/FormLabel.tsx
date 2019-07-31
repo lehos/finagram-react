@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react'
 import {styled} from 'linaria/react'
 
 const SFormLabel = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 `
 
 interface Props {

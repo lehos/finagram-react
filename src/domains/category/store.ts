@@ -80,5 +80,12 @@ export const categoryStore = store({
     await A.createCategory(category)
 
     categoryStore.categoryList.push(category)
+  },
+
+  async update(categoryItem: T.CategoryItem) {
+    await A.update(categoryItem)
+
+    const obj = categoryStore.categoryItemMap[categoryItem.id]
+    Object.assign(obj, categoryItem)
   }
 })

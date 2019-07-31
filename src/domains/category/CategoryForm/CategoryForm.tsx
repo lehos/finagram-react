@@ -1,9 +1,9 @@
 import React from 'react'
-import {withTypes} from 'react-final-form'
-import {Button} from 'antd'
 
-import {Category, CategoryItem, categoryStore} from '@/domains/category'
 import * as UI from '@/ui'
+import {EntityForm} from '@/components'
+
+import {Category, CategoryItem, categoryStore} from '..'
 
 type Props = {
   onOk: () => any
@@ -15,11 +15,17 @@ type Props = {
 type Values = {
   name: string
   description?: string
-  action?: 'create' | 'delete' | 'update'
 }
 
-function getInitialValues(id: string | null | undefined): Values {
-  return {name: ''}
+function getInitialValues(id?: string | null): Values {
+  if (!id) {
+    return {name: '', description: ''}
+  }
+  const category = categoryStore.categoryItemMap[id]
+  return {
+    name: category.name,
+    description: category.description
+  }
 }
 
 function validate(values: Partial<Values>) {
@@ -33,42 +39,31 @@ function validate(values: Partial<Values>) {
 }
 
 export function CategoryForm(props: Props) {
-  const {onOk, onCancel, categoryItemId} = props
-  const initialValues = getInitialValues(categoryItemId)
-  const isNew = !categoryItemId
+  const {categoryItemId} = props
 
-  async function onSubmit(values: Values) {
-    const {action, ...rest} = values
+  function onCreate(values: Partial<Values>) {}
 
-    if (action === 'delete') {
-      // await classifierStore.remove(classifierId!)
-    } else if (action === 'create') {
-      // await classifierStore.create(rest)
-    } else {
-      // await classifierStore.update({id: classifierId!, ...(rest as Required<Values>)})
-    }
+  function onDelete(values: Partial<Values>) {}
 
-    onOk()
+  function onUpdate(values: Values) {
+    return categoryStore.update({id: categoryItemId!, ...values})
   }
 
-  const {Form} = withTypes<Values>()
-
   return (
-    <Form
-      initialValues={initialValues}
+    <EntityForm<Values>
+      onCancel={props.onCancel}
+      onOk={props.onOk}
       validate={validate}
-      onSubmit={onSubmit}
-      // todo subscription and FormSpy
-      // subscription={{submitting: true}}
-      render={({handleSubmit, submitting, form, values}) => (
-        <form onSubmit={handleSubmit}>
+      getInitialValues={() => getInitialValues(categoryItemId)}
+      isNew={!categoryItemId}
+      onCreate={onCreate}
+      onDelete={onDelete}
+      onUpdate={onUpdate}
+      formInner={
+        <>
           <UI.FormRow>
             <UI.FormLabel>Название</UI.FormLabel>
-            <UI.FormInput
-              name="name"
-              placeholder="Название"
-              autoComplete="off"
-            />
+            <UI.FormInput name="name" placeholder="Название" autoComplete="off" />
           </UI.FormRow>
 
           <UI.FormRow>
@@ -79,43 +74,8 @@ export function CategoryForm(props: Props) {
               autoComplete="off"
             />
           </UI.FormRow>
-
-
-          <UI.Flex justifyContent="space-between">
-            <div>
-              {!isNew && (
-                <Button
-                  disabled={submitting}
-                  type="danger"
-                  htmlType="submit"
-                  loading={values.action === 'delete' && submitting}
-                  onClick={() => form.change('action', 'delete')}
-                >
-                  Удалить
-                </Button>
-              )}
-            </div>
-
-            <div>
-              <Button onClick={onCancel} disabled={submitting}>
-                Отмена
-              </Button>
-
-              <UI.Spacer inline width={10} />
-
-              <Button
-                type="primary"
-                htmlType="submit"
-                disabled={submitting}
-                loading={values.action !== 'delete' && submitting}
-                onClick={() => form.change('action', isNew ? 'create' : 'update')}
-              >
-                Сохранить
-              </Button>
-            </div>
-          </UI.Flex>
-        </form>
-      )}
+        </>
+      }
     />
   )
 }
