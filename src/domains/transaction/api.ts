@@ -1,8 +1,8 @@
-import {fakePromise} from '@/domains/api'
+import {req} from '@/services/http'
 
-import {transactionMocks} from './mocks'
+import {transactionMock} from './mocks'
 import {Transaction} from './entity'
 
 export async function getList(): Promise<Transaction[]> {
-  return fakePromise(transactionMocks)
+  return req({mock: transactionMock})
 }

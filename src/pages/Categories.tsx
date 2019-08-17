@@ -46,7 +46,7 @@ export function Categories(props: RouteComponentProps) {
         <CategoryForm
           onOk={modal.hide}
           onCancel={modal.hide}
-          categoryItemId={entity.id}
+          categoryId={entity.id}
         />
       </Modal>
 

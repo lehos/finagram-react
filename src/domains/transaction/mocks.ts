@@ -1,6 +1,6 @@
 import * as T from './entity'
 
-export const transactionMocks: T.Transaction[] = [
+export const transactionMock: T.Transaction[] = [
   {
     id: 't1',
     accountId: 'ac1',
@@ -12,7 +12,7 @@ export const transactionMocks: T.Transaction[] = [
     categories: [
       {
         classifierId: 'cl1',
-        categoryItemId: '13'
+        categoryId: '13'
       }
     ]
   },
@@ -27,7 +27,7 @@ export const transactionMocks: T.Transaction[] = [
     categories: [
       {
         classifierId: 'cl1',
-        categoryItemId: '131'
+        categoryId: '131'
       }
     ]
   },
@@ -42,11 +42,11 @@ export const transactionMocks: T.Transaction[] = [
     categories: [
       {
         classifierId: 'cl1',
-        categoryItemId: '133'
+        categoryId: '133'
       },
       {
         classifierId: 'agents',
-        categoryItemId: 'wife'
+        categoryId: 'wife'
       }
     ]
   },
@@ -72,7 +72,7 @@ export const transactionMocks: T.Transaction[] = [
     categories: [
       {
         classifierId: 'cl1',
-        categoryItemId: '121'
+        categoryId: '121'
       }
     ]
   },
@@ -99,7 +99,7 @@ export const transactionMocks: T.Transaction[] = [
     categories: [
       {
         classifierId: 'agents',
-        categoryItemId: 'wife'
+        categoryId: 'wife'
       }
     ]
   },

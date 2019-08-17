@@ -1,6 +1,6 @@
-import {Category} from './entity'
+import {ClassifierCategory} from './entity'
 
-export const categoryMocks: Category[] = [
+export const clfCategoryMock: ClassifierCategory[] = [
   {
     classifierId: 'cl1',
     id: 'cd1',

@@ -1,16 +1,16 @@
-import {fakePromise} from '@/domains/api'
+import {req} from '@/services/http'
 
-import {categoryMocks} from './mocks'
-import {Category, CategoryItem} from './entity'
+import {clfCategoryMock} from './mocks'
+import {ClassifierCategory, Category} from './entity'
 
-export async function getList(): Promise<Category[]> {
-  return fakePromise(categoryMocks)
+export async function getList(): Promise<ClassifierCategory[]> {
+  return req({mock: clfCategoryMock})
 }
 
-export async function createCategory(cd: Category): Promise<null> {
-  return fakePromise(null)
+export async function createClfCategory(cc: ClassifierCategory): Promise<null> {
+  return req({mock: null})
 }
 
-export async function update(stub: CategoryItem): Promise<null> {
-  return fakePromise(null)
+export async function update(stub: Category): Promise<null> {
+  return req({mock: null})
 }

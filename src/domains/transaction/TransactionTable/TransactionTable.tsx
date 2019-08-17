@@ -62,9 +62,7 @@ function makeColumns() {
           return ''
         }
 
-        return (
-          category && categoryStore.categoryItemMap[category.categoryItemId].name
-        )
+        return category && categoryStore.categoryMap[category.categoryId].name
       }
     })
   })

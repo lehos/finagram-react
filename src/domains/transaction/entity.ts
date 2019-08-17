@@ -15,15 +15,15 @@ interface TransactionBase {
   description: string
 }
 
-type Categories = {
+type Category = {
   classifierId: string
-  categoryItemId: string
-}[]
+  categoryId: string
+}
 
 interface TransactionDefault extends TransactionBase {
   accountId: string | null
 
-  categories: Categories
+  categories: Category[]
 }
 
 export interface TransactionIncome extends TransactionDefault {
@@ -41,7 +41,7 @@ export interface TransactionTransfer extends TransactionBase {
   fromAccountId: string | null
   toAccountId: string | null
 
-  categories: Categories
+  categories: Category[]
 }
 
 export interface TransactionBalance extends TransactionBase {

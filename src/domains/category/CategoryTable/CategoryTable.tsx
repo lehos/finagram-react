@@ -3,10 +3,10 @@ import {view} from 'react-easy-state'
 import {Table} from 'antd'
 import {ColumnProps} from 'antd/lib/table'
 
-import {CategoryItem} from '../entity'
+import {Category} from '../entity'
 import {categoryStore} from '../store'
 
-const columns: ColumnProps<CategoryItem>[] = [
+const columns: ColumnProps<Category>[] = [
   {
     title: 'Название',
     dataIndex: 'name',
@@ -35,7 +35,7 @@ export const CategoryTable = view((props: Props) => {
   }
 
   return (
-    <Table<CategoryItem>
+    <Table<Category>
       dataSource={category.children}
       columns={columns}
       size={size}

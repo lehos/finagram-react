@@ -1,8 +1,8 @@
-import {fakePromise} from '@/domains/api'
+import {req} from '@/services/http'
 
 import {currencyMocks} from './mocks'
 import {Currency} from '.'
 
 export async function getList(): Promise<Currency[]> {
-  return fakePromise(currencyMocks)
+  return req({mock: currencyMocks})
 }
