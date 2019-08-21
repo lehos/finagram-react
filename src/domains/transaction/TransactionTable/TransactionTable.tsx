@@ -25,9 +25,9 @@ function makeColumns() {
       render: (val, row) => {
         const res = formatMoney(val)
 
-        return row.type === 'expense' || row.type === 'transfer' ? (
+        return row.kind === 'expense' || row.kind === 'transfer' ? (
           <span style={{color: 'red'}}>-{res}</span>
-        ) : row.type === 'income' ? (
+        ) : row.kind === 'income' ? (
           <span style={{color: 'green'}}>+{res}</span>
         ) : (
           res
@@ -40,7 +40,7 @@ function makeColumns() {
       key: 'accountId',
       dataIndex: 'accountId',
       render: (val, row) => {
-        const id = row.type === 'transfer' ? row.fromAccountId : val
+        const id = row.kind === 'transfer' ? row.fromAccountId : val
         return accountStore.accountsMap[id!].name
       }
     }
@@ -52,7 +52,7 @@ function makeColumns() {
       key: classifier.id,
       dataIndex: 'categories',
       render: (_, row) => {
-        if (row.type === 'balance') {
+        if (row.kind === 'balance') {
           return ''
         }
 

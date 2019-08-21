@@ -1,10 +1,10 @@
-const TEST_REGEX = '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|js?|tsx?|ts?)$';
+const TEST_REGEX = '(/__tests__/.*|(\\.|/)(test|spec))\\.(tsx?|ts?)$';
 
 module.exports = {
   notify: true,
   verbose: true,
   transform: {
-    '^.+\\.(t|j)sx?$': 'ts-jest'
+    '^.+\\.tsx?$': 'ts-jest'
   },
   testRegex: TEST_REGEX,
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],

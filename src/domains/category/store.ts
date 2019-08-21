@@ -1,14 +1,15 @@
 import {store} from 'react-easy-state'
 import nanoid from 'nanoid'
 
-import {arrayToMapDeep} from '@/utils'
+import {arrayToMap, arrayToMapDeep, removeElemById} from '@/utils'
 
 import {Classifier} from '@/domains/classifier'
+import {transactionStore} from '@/domains/transaction'
 
-import * as T from './entity'
-import * as Api from './api'
+import * as E from './entity'
+import * as A from './api'
 
-function makeStub(name: string, type: T.CategoryType = 'default'): T.Category {
+function makeStub(name: string, type: E.CategoryType = 'default'): E.Category {
   return {
     id: nanoid(),
     name,
@@ -18,9 +19,9 @@ function makeStub(name: string, type: T.CategoryType = 'default'): T.Category {
   }
 }
 
-function makeClfCategory(classifier: Classifier): T.ClassifierCategory {
+function makeClfCategory(classifier: Classifier): E.ClassifierCategory {
   const id = nanoid()
-  const category: T.ClassifierCategory = {
+  const category: E.ClassifierCategory = {
     classifierId: classifier.id,
     id,
     children: []
@@ -44,7 +45,7 @@ function makeClfCategory(classifier: Classifier): T.ClassifierCategory {
   return category
 }
 
-function calcClfCategoryMap(list: T.ClassifierCategory[]) {
+function calcClfCategoryMap(list: E.ClassifierCategory[]) {
   return list.reduce(
     (acc, cur) => {
       acc[cur.classifierId] = arrayToMapDeep(cur.children)
@@ -54,49 +55,104 @@ function calcClfCategoryMap(list: T.ClassifierCategory[]) {
   )
 }
 
-function calcCategoryMap(list: T.ClassifierCategory[]) {
+function calcCategoryMap(list: E.ClassifierCategory[]) {
   return list.reduce((acc, cur) => {
     return {...acc, ...arrayToMapDeep(cur.children)}
   }, {})
 }
 
-type ClassifierCategoryMap = Record<string, Record<string, T.Category>>
+type ClassifierCategoryMap = Record<string, Record<string, E.Category>>
 
 export const categoryStore = store({
-  // todo очень длинно, может назвать как-то типа clfCategoryList
-  classifierCategoryList: [] as T.ClassifierCategory[],
+  clfCategoryList: [] as E.ClassifierCategory[],
 
   // computed from list
-  classifierCategoryMap: {} as ClassifierCategoryMap,
-  categoryMap: {} as Record<string, T.Category>,
+
+  // todo remake
+  clfCategoryMap: {} as ClassifierCategoryMap,
+  categoryMap: {} as Record<string, E.Category>,
 
   getCategory(id: string) {
-    return categoryStore.classifierCategoryList.find(el => el.classifierId === id)
+    return this.clfCategoryList.find(el => el.classifierId === id)
   },
 
   async init() {
-    categoryStore.classifierCategoryList = await Api.getList()
-    categoryStore._compute()
+    this.clfCategoryList = await A.getList()
+    this._compute()
   },
 
-  async createClassifierCategory(classifier: Classifier) {
+  async createClfCategory(classifier: Classifier) {
     const clfCategory = makeClfCategory(classifier)
-    await Api.createClfCategory(clfCategory)
-    categoryStore.classifierCategoryList.push(clfCategory)
+    await A.createClfCategory(clfCategory)
+    this.clfCategoryList.push(clfCategory)
   },
 
-  async update(category: T.Category) {
-    await Api.update(category)
+  async create(
+    categoryStub: E.CategoryStub,
+    classifierId: string,
+    parentId?: string
+  ) {
+    const localParentId = parentId || this._getFirstCategoryId(classifierId)
 
-    const obj = categoryStore.categoryMap[category.id]
+    await A.create(categoryStub, localParentId)
+
+    const parent = this.categoryMap[localParentId]
+
+    if (!parent.children) {
+      parent.children = []
+    }
+
+    const category: E.Category = {
+      id: nanoid(),
+      parentId: localParentId,
+      ...categoryStub
+    }
+
+    parent.children.push(category)
+
+    this._upList()
+  },
+
+  async update(category: E.Category) {
+    await A.update(category)
+
+    const obj = this.categoryMap[category.id]
     Object.assign(obj, category)
   },
 
-  // async remove(categoryId: string) {},
+  // по идее, id классификатора я могу и так узнать
+  async deleteCategory(categoryId: string, classifierId: string) {
+    const clfCategory = this.clfCategoryList.find(
+      el => el.classifierId === classifierId
+    )
+
+    // not found
+    if (!clfCategory) return
+
+    // удалять сущность нужно после закрытия формы
+    // todo переделать с таймаута на колбэк или что-то такое
+    setTimeout(() => {
+      removeElemById(clfCategory.children, categoryId)
+      this._compute()
+      transactionStore.clearCategory(categoryId)
+    }, 0)
+  },
+
+  _upList() {
+    this.clfCategoryList = [...this.clfCategoryList]
+  },
 
   _compute() {
-    const list = categoryStore.classifierCategoryList
-    categoryStore.classifierCategoryMap = calcClfCategoryMap(list)
-    categoryStore.categoryMap = calcCategoryMap(list)
+    const list = this.clfCategoryList
+    this.clfCategoryMap = calcClfCategoryMap(list)
+    this.categoryMap = calcCategoryMap(list)
+  },
+
+  _getFirstCategoryId(classifierId: string): string {
+    const clfCategory = this.clfCategoryList.find(
+      el => el.classifierId === classifierId
+    )
+
+    return clfCategory!.children[0].id
   }
 })

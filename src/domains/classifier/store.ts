@@ -6,7 +6,7 @@ import {arrayToMap} from '@/utils'
 import {categoryStore} from '@/domains/category'
 
 import {Classifier, ClassifierStub} from '.'
-import * as Api from './api'
+import * as A from './api'
 
 export const classifierStore = store({
   classifierList: [] as Classifier[],
@@ -17,7 +17,7 @@ export const classifierStore = store({
   },
 
   async _getList() {
-    const list = await Api.getList()
+    const list = await A.getList()
     classifierStore.classifierList = list
     classifierStore.classifierMap = arrayToMap(list)
   },
@@ -33,16 +33,16 @@ export const classifierStore = store({
       useInTransfer: !!useInTransfer
     }
 
-    await Api.create(classifier)
+    await A.create(classifier)
 
     classifierStore.classifierMap[id] = classifier
     classifierStore.classifierList.push(classifier)
 
-    await categoryStore.createClassifierCategory(classifier)
+    await categoryStore.createClfCategory(classifier)
   },
 
   async update(classifierStub: Required<ClassifierStub> & {id: string}) {
-    await Api.update(classifierStub)
+    await A.update(classifierStub)
 
     const obj = classifierStore.classifierMap[classifierStub.id]
     Object.assign(obj, classifierStub)
@@ -51,8 +51,8 @@ export const classifierStore = store({
     classifierStore.classifierList = [...classifierStore.classifierList]
   },
 
-  async remove(id: string) {
-    await Api.remove(id)
+  async delete(id: string) {
+    await A.deleteClassifier(id)
 
     const {classifierMap, classifierList} = classifierStore
 

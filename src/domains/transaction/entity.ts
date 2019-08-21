@@ -1,4 +1,4 @@
-export type TransactionType = 'income' | 'expense' | 'transfer' | 'balance'
+export type TransactionKind = 'income' | 'expense' | 'transfer' | 'balance'
 export type TransactionStatus = 'done' | 'blocked' | 'pending' | 'pendingAndRepeat'
 
 // todo branded type
@@ -9,7 +9,7 @@ export type MoneyInCents = number
 interface TransactionBase {
   id: string
   status: TransactionStatus
-  type: TransactionType
+  kind: TransactionKind
   sum: MoneyInCents
   date: DateString
   description: string
@@ -27,15 +27,15 @@ interface TransactionDefault extends TransactionBase {
 }
 
 export interface TransactionIncome extends TransactionDefault {
-  type: 'income'
+  kind: 'income'
 }
 
 export interface TransactionExpense extends TransactionDefault {
-  type: 'expense'
+  kind: 'expense'
 }
 
 export interface TransactionTransfer extends TransactionBase {
-  type: 'transfer'
+  kind: 'transfer'
 
   // todo может быть это стоит назвать просто accountId?
   fromAccountId: string | null
@@ -45,7 +45,7 @@ export interface TransactionTransfer extends TransactionBase {
 }
 
 export interface TransactionBalance extends TransactionBase {
-  type: 'balance'
+  kind: 'balance'
   accountId: string | null
 }
 

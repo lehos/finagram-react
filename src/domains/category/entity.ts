@@ -29,9 +29,14 @@ export interface Category {
   id: string
   name: string
 
-  description?: string
+  description: string
 
   // для консистентности лучше чтоб у всех было поле children
   // но для экономии памяти плодить пустые массивы не надо
   children?: Category[]
+}
+
+export type CategoryStub = {
+  name: string
+  description: string
 }

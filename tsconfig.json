@@ -7,9 +7,9 @@
     "strict": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "baseUrl": ".",
     "lib": ["dom", "es2018", "es5"],
     "esModuleInterop": true,
+    "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     },

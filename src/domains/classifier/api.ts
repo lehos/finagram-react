@@ -15,6 +15,6 @@ export function update(classifierStub: ClassifierStub): Promise<null> {
   return req({mock: null})
 }
 
-export function remove(id: string): Promise<null> {
+export function deleteClassifier(id: string): Promise<null> {
   return req({mock: null})
 }

@@ -2,7 +2,7 @@ import {Classifier} from '.'
 
 export const classifiersMock: Classifier[] = [
   {
-    id: 'cl1',
+    id: 'expense',
     name: 'Статья',
     namePlural: 'Статьи',
     split: true,

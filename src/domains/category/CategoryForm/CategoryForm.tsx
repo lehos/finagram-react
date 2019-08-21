@@ -3,18 +3,19 @@ import React from 'react'
 import * as UI from '@/ui'
 import {EntityForm} from '@/components'
 
-import {ClassifierCategory, Category, categoryStore} from '..'
+import {categoryStore} from '..'
 
 type Props = {
   onOk: () => any
   onCancel: () => any
 
   categoryId?: string | null
+  classifierId: string
 }
 
 type Values = {
   name: string
-  description?: string
+  description: string
 }
 
 function getInitialValues(id?: string | null): Values {
@@ -39,11 +40,17 @@ function validate(values: Partial<Values>) {
 }
 
 export function CategoryForm(props: Props) {
-  const {categoryId} = props
+  const {categoryId, classifierId} = props
 
-  function onCreate(values: Partial<Values>) {}
+  const category = categoryId ? categoryStore.categoryMap[categoryId] : null
 
-  function onDelete(values: Partial<Values>) {}
+  function onCreate(values: Values) {
+    categoryStore.create(values, classifierId)
+  }
+
+  function onDelete() {
+    categoryStore.deleteCategory(categoryId!, classifierId)
+  }
 
   function onUpdate(values: Values) {
     return categoryStore.update({id: categoryId!, ...values})
@@ -59,6 +66,7 @@ export function CategoryForm(props: Props) {
       onCreate={onCreate}
       onDelete={onDelete}
       onUpdate={onUpdate}
+      isDeleteBtnHidden={!(category && category.parentId)}
       formInner={
         <>
           <UI.FormRow>

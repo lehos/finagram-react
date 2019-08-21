@@ -40,7 +40,7 @@ export const accountStore = store({
     }
   },
 
-  async remove(id: string) {
+  async delete(id: string) {
     await A.remove(id)
 
     setTimeout(() => {

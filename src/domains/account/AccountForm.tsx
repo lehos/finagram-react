@@ -53,7 +53,7 @@ export function AccountForm(props: Props) {
     const {action, ...rest} = values
 
     if (action === 'delete') {
-      await accountStore.remove(accountId!)
+      await accountStore.delete(accountId!)
     } else if (action === 'create') {
       await accountStore.create(rest)
     } else {

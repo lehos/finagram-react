@@ -49,7 +49,7 @@ export function ClassifierForm(props: Props) {
     const {action, ...rest} = values
 
     if (action === 'delete') {
-      await classifierStore.remove(classifierId!)
+      await classifierStore.delete(classifierId!)
     } else if (action === 'create') {
       await classifierStore.create(rest)
     } else {

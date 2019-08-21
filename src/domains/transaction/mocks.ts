@@ -4,14 +4,14 @@ export const transactionMock: T.Transaction[] = [
   {
     id: 't1',
     accountId: 'ac1',
-    type: 'expense',
+    kind: 'expense',
     status: 'done',
     description: 'расход в рутовой категории "Статья"',
     sum: 20000,
     date: '29.07.2019',
     categories: [
       {
-        classifierId: 'cl1',
+        classifierId: 'expense',
         categoryId: '13'
       }
     ]
@@ -19,14 +19,14 @@ export const transactionMock: T.Transaction[] = [
   {
     id: 't2',
     accountId: 'ac2',
-    type: 'expense',
+    kind: 'expense',
     status: 'done',
     description: 'расход в конкретной категории "Статья"',
     sum: 35000,
     date: '30.07.2019',
     categories: [
       {
-        classifierId: 'cl1',
+        classifierId: 'expense',
         categoryId: '131'
       }
     ]
@@ -34,14 +34,14 @@ export const transactionMock: T.Transaction[] = [
   {
     id: 't22',
     accountId: 'ac2',
-    type: 'expense',
+    kind: 'expense',
     status: 'done',
     description: 'расход со статьей и агентом',
     sum: 200000,
     date: '30.07.2019',
     categories: [
       {
-        classifierId: 'cl1',
+        classifierId: 'expense',
         categoryId: '133'
       },
       {
@@ -53,7 +53,7 @@ export const transactionMock: T.Transaction[] = [
   {
     id: 't3',
     accountId: 'ac2',
-    type: 'expense',
+    kind: 'expense',
     status: 'done',
     description: 'расход без категорий',
     sum: 50000,
@@ -63,7 +63,7 @@ export const transactionMock: T.Transaction[] = [
   {
     id: 't4',
     accountId: 'ac3',
-    type: 'income',
+    kind: 'income',
     status: 'done',
     description: 'приход с категорией',
     sum: 500000,
@@ -71,14 +71,14 @@ export const transactionMock: T.Transaction[] = [
 
     categories: [
       {
-        classifierId: 'cl1',
+        classifierId: 'expense',
         categoryId: '121'
       }
     ]
   },
   {
     id: 't5',
-    type: 'transfer',
+    kind: 'transfer',
     status: 'done',
     description: 'перевод без агента',
     sum: 100000,
@@ -89,7 +89,7 @@ export const transactionMock: T.Transaction[] = [
   },
   {
     id: 't6',
-    type: 'transfer',
+    kind: 'transfer',
     status: 'done',
     description: 'перевод с агентом',
     sum: 200000,
@@ -105,7 +105,7 @@ export const transactionMock: T.Transaction[] = [
   },
   {
     id: 't7',
-    type: 'transfer',
+    kind: 'transfer',
     status: 'done',
     description: 'перевод с другого счета',
     sum: 200000,

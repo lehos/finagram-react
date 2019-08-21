@@ -47,6 +47,7 @@ export function Categories(props: RouteComponentProps) {
           onOk={modal.hide}
           onCancel={modal.hide}
           categoryId={entity.id}
+          classifierId={classifier.id}
         />
       </Modal>
 
