@@ -1,4 +1,5 @@
 export * from './entity'
 export * from './store'
 export * from './CategoryTable'
+export * from './CategoryList'
 export * from './CategoryForm'

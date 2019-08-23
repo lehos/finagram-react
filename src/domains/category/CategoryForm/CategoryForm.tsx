@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import * as UI from '@/ui'
 import {EntityForm} from '@/components'
 
-import {categoryStore, CategoryTable} from '..'
+import {categoryStore, CategoryList} from '..'
 
 type Props = {
   onOk: () => any
@@ -86,15 +86,16 @@ export function CategoryForm(props: Props) {
             />
           </UI.FormRow>
 
-          <UI.FormRow>
-            <UI.FormLabel>Родитель</UI.FormLabel>
+          {category && category.parentId && (
+            <UI.FormRow>
+              <UI.FormLabel>Родитель</UI.FormLabel>
 
-            <CategoryTable
-              classifierId={classifierId}
-              size="small"
-              onRowSelect={setSelectedParentId}
-            />
-          </UI.FormRow>
+              <CategoryList
+                classifierId={classifierId}
+                onRowSelect={setSelectedParentId}
+              />
+            </UI.FormRow>
+          )}
         </>
       }
     />

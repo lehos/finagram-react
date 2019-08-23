@@ -40,7 +40,6 @@ export function Categories(props: RouteComponentProps) {
         onCancel={modal.hide}
         footer={null}
         afterClose={entity.clear}
-        width={400}
         centered
       >
         <CategoryForm
