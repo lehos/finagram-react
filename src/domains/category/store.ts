@@ -9,7 +9,7 @@ import {transactionStore} from '@/domains/transaction'
 import * as E from './entity'
 import * as A from './api'
 
-function makeStub(name: string, type: E.CategoryType = 'default'): E.Category {
+function makeCategory(name: string, type: E.CategoryType = 'default'): E.Category {
   return {
     id: nanoid(),
     name,
@@ -30,15 +30,15 @@ function makeClfCategory(classifier: Classifier): E.ClassifierCategory {
   const name = classifier.namePlural
 
   if (!classifier.split) {
-    category.children.push(makeStub(name))
+    category.children.push(makeCategory(name))
   } else {
     category.children.push(
-      makeStub(`Все ${name} расхода`, 'expense'),
-      makeStub(`Все ${name} прихода`, 'income')
+      makeCategory(`Все ${name} расхода`, 'expense'),
+      makeCategory(`Все ${name} прихода`, 'income')
     )
 
     if (classifier.useInTransfer) {
-      category.children.push(makeStub(`Все ${name} перевода`, 'transfer'))
+      category.children.push(makeCategory(`Все ${name} перевода`, 'transfer'))
     }
   }
 
@@ -46,13 +46,7 @@ function makeClfCategory(classifier: Classifier): E.ClassifierCategory {
 }
 
 function calcClfCategoryMap(list: E.ClassifierCategory[]) {
-  return list.reduce(
-    (acc, cur) => {
-      acc[cur.classifierId] = arrayToMapDeep(cur.children)
-      return acc
-    },
-    {} as ClassifierCategoryMap
-  )
+  return arrayToMap(list, 'classifierId')
 }
 
 function calcCategoryMap(list: E.ClassifierCategory[]) {
@@ -61,20 +55,25 @@ function calcCategoryMap(list: E.ClassifierCategory[]) {
   }, {})
 }
 
-type ClassifierCategoryMap = Record<string, Record<string, E.Category>>
+type CategoryMapByClassifier = Record<string, Record<string, E.Category>>
+
+function calcCategoryByClf(list: E.ClassifierCategory[]) {
+  return list.reduce(
+    (acc, cur) => {
+      acc[cur.classifierId] = arrayToMapDeep(cur.children)
+      return acc
+    },
+    {} as CategoryMapByClassifier
+  )
+}
 
 export const categoryStore = store({
   clfCategoryList: [] as E.ClassifierCategory[],
 
-  // computed from list
-
-  // todo remake
-  clfCategoryMap: {} as ClassifierCategoryMap,
+  // indexed by classifierId
+  clfCategoryMap: {} as Record<string, E.ClassifierCategory>,
   categoryMap: {} as Record<string, E.Category>,
-
-  getCategory(id: string) {
-    return this.clfCategoryList.find(el => el.classifierId === id)
-  },
+  categoryMapByClf: {} as CategoryMapByClassifier,
 
   async init() {
     this.clfCategoryList = await A.getList()
@@ -90,9 +89,10 @@ export const categoryStore = store({
   async create(
     categoryStub: E.CategoryStub,
     classifierId: string,
-    parentId?: string
+    parentId: string | null
   ) {
-    const localParentId = parentId || this._getFirstCategoryId(classifierId)
+    const localParentId =
+      parentId || this.clfCategoryMap[classifierId].children[0].id
 
     await A.create(categoryStub, localParentId)
 
@@ -111,6 +111,7 @@ export const categoryStore = store({
     parent.children.push(category)
 
     this._upList()
+    this._compute()
   },
 
   async update(category: E.Category) {
@@ -120,14 +121,9 @@ export const categoryStore = store({
     Object.assign(obj, category)
   },
 
-  // по идее, id классификатора я могу и так узнать
+  // по идее, id классификатора можно вычислить, чтоб не передавать
   async deleteCategory(categoryId: string, classifierId: string) {
-    const clfCategory = this.clfCategoryList.find(
-      el => el.classifierId === classifierId
-    )
-
-    // not found
-    if (!clfCategory) return
+    const clfCategory = this.clfCategoryMap[classifierId]
 
     // удалять сущность нужно после закрытия формы
     // todo переделать с таймаута на колбэк или что-то такое
@@ -146,13 +142,6 @@ export const categoryStore = store({
     const list = this.clfCategoryList
     this.clfCategoryMap = calcClfCategoryMap(list)
     this.categoryMap = calcCategoryMap(list)
-  },
-
-  _getFirstCategoryId(classifierId: string): string {
-    const clfCategory = this.clfCategoryList.find(
-      el => el.classifierId === classifierId
-    )
-
-    return clfCategory!.children[0].id
+    this.categoryMapByClf = calcCategoryByClf(list)
   }
 })

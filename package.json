@@ -32,6 +32,7 @@
     ]
   },
   "dependencies": {
+    "9": "0.0.1",
     "antd": "3.22.0",
     "fast-memoize": "^2.5.1",
     "final-form": "4.17.0",

@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import * as UI from '@/ui'
 import {EntityForm} from '@/components'
 
-import {categoryStore} from '..'
+import {categoryStore, CategoryTable} from '..'
 
 type Props = {
   onOk: () => any
@@ -11,6 +11,7 @@ type Props = {
 
   categoryId?: string | null
   classifierId: string
+  parentId: string | null
 }
 
 type Values = {
@@ -40,12 +41,14 @@ function validate(values: Partial<Values>) {
 }
 
 export function CategoryForm(props: Props) {
-  const {categoryId, classifierId} = props
+  const {categoryId, classifierId, parentId} = props
 
   const category = categoryId ? categoryStore.categoryMap[categoryId] : null
 
+  const [selectedParentId, setSelectedParentId] = useState<string>('')
+
   function onCreate(values: Values) {
-    categoryStore.create(values, classifierId)
+    categoryStore.create(values, classifierId, selectedParentId || parentId)
   }
 
   function onDelete() {
@@ -80,6 +83,16 @@ export function CategoryForm(props: Props) {
               name="description"
               placeholder="Примечание"
               autoComplete="off"
+            />
+          </UI.FormRow>
+
+          <UI.FormRow>
+            <UI.FormLabel>Родитель</UI.FormLabel>
+
+            <CategoryTable
+              classifierId={classifierId}
+              size="small"
+              onRowSelect={setSelectedParentId}
             />
           </UI.FormRow>
         </>

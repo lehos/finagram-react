@@ -7,6 +7,13 @@ describe('arrayToMap', () => {
 
     expect(arrayToMap(arr)).toEqual(exp)
   })
+
+  test('with custom id field', () => {
+    const arr = [{pid: '1'}, {pid: '2'}]
+    const exp = {'1': {pid: '1'}, '2': {pid: '2'}}
+
+    expect(arrayToMap(arr, 'pid')).toEqual(exp)
+  })
 })
 
 describe('arrayToMapDeep', () => {

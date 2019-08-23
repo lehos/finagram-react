@@ -1,8 +1,11 @@
 import {Tree} from '@/domains/entity'
 
-export function arrayToMap<T extends {id: string}>(arr: T[]): Record<string, T> {
+export function arrayToMap<T extends {[key: string]: any}>(
+  arr: T[],
+  id: string = 'id'
+): Record<string, T> {
   return arr.reduce((acc: {[key: string]: T}, cur) => {
-    acc[cur.id] = cur
+    acc[cur[id]] = cur
     return acc
   }, {})
 }

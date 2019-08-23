@@ -51,7 +51,12 @@ export function EntityForm<T>(props: Props<T>) {
       onSubmit={onSubmit}
       subscription={{}}
       render={({handleSubmit, form}) => (
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={async e => {
+            await handleSubmit(e)
+            form.reset()
+          }}
+        >
           {props.formInner}
 
           <UI.Spacer height={20} />
