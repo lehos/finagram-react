@@ -15,7 +15,8 @@ function renderItem(props: MenuItemProps) {
   return (
     <Menu.Item key={props.to}>
       <Link to={props.to}>
-        <Icon type={props.icon} /> {props.text}
+        <Icon type={props.icon} />
+        <span>{props.text}</span>
       </Link>
     </Menu.Item>
   )
@@ -24,7 +25,7 @@ function renderItem(props: MenuItemProps) {
 function NavComp(props: RouteComponentProps) {
   return (
     <Menu
-      style={{width: 256, height: '100%', userSelect: 'none'}}
+      style={{height: '100%', userSelect: 'none'}}
       defaultSelectedKeys={[props.location.pathname]}
       defaultOpenKeys={['/classifiers']}
       mode="inline"

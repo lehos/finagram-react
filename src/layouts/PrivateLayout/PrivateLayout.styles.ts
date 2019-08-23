@@ -1,23 +1,12 @@
 import {styled} from 'linaria/react'
 
 export const PrivateLayoutWrapper = styled.div`
-  display: flex;
+  .ant-layout-sider-trigger {
+    border-right: 1px solid #e8e8e8;
+  }
 `
 
 export const Sidebar = styled.div`
   overflow: auto;
-  height: 100vh;
-`
-
-export const Content = styled.div`
-  flex-grow: 1;
-  padding: 20px;
-`
-
-export const AppLoader = styled.div`
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  height: calc(100vh - 48px);
 `

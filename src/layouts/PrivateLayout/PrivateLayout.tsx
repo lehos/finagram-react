@@ -1,6 +1,7 @@
-import React, {ComponentType} from 'react'
+import React, {ComponentType, useState} from 'react'
 import {view} from 'react-easy-state'
 import {Route, RouteComponentProps, RouteProps} from 'react-router-dom'
+import {Layout} from 'antd'
 
 import {AppLoader, Nav} from '@/components'
 
@@ -12,9 +13,15 @@ interface Props extends RouteProps {
 }
 
 export const PrivateLayout = view(({component: Component, ...rest}: Props) => {
+  const [collapsed, setCollapsed] = useState(false)
+
   if (!appStore.isInitialized) {
     appStore.initStores()
     return <AppLoader />
+  }
+
+  function onCollapse(val: boolean) {
+    setCollapsed(val)
   }
 
   return (
@@ -22,12 +29,21 @@ export const PrivateLayout = view(({component: Component, ...rest}: Props) => {
       {...rest}
       render={matchProps => (
         <S.PrivateLayoutWrapper>
-          <S.Sidebar>
-            <Nav />
-          </S.Sidebar>
-          <S.Content>
-            <Component {...matchProps} />
-          </S.Content>
+          <Layout style={{minHeight: '100vh'}}>
+            <Layout.Sider
+              collapsible
+              collapsed={collapsed}
+              onCollapse={onCollapse}
+              theme="light"
+            >
+              <S.Sidebar>
+                <Nav />
+              </S.Sidebar>
+            </Layout.Sider>
+            <Layout style={{padding: '20px', background: '#fff'}}>
+              <Component {...matchProps} />
+            </Layout>
+          </Layout>
         </S.PrivateLayoutWrapper>
       )}
     />
