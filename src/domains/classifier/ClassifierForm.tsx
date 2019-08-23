@@ -1,9 +1,8 @@
 import React from 'react'
-import {withTypes} from 'react-final-form'
-import {Button} from 'antd'
 
 import {ClassifierStub, classifierStore} from '.'
 import * as UI from '@/ui'
+import {EntityForm} from '@/components'
 
 type Props = {
   onOk: () => any
@@ -41,38 +40,36 @@ function validate(values: Partial<Values>) {
 }
 
 export function ClassifierForm(props: Props) {
-  const {onOk, onCancel, classifierId} = props
-  const initialValues = getInitialValues(classifierId)
-  const isNew = !classifierId
+  const {classifierId} = props
 
-  async function onSubmit(values: Values) {
-    const {action, ...rest} = values
-
-    if (action === 'delete') {
-      await classifierStore.delete(classifierId!)
-    } else if (action === 'create') {
-      await classifierStore.create(rest)
-    } else {
-      await classifierStore.update({
-        id: classifierId!,
-        ...(rest as Required<Values>)
-      })
-    }
-
-    onOk()
+  function onCreate(values: Values) {
+    classifierStore.create(values)
   }
 
-  const {Form} = withTypes<Values>()
+  function onDelete() {
+    classifierStore.delete(classifierId!)
+  }
+
+  function onUpdate(values: Values) {
+    classifierStore.update({
+      id: classifierId!,
+      // todo тут что-то не то с типами
+      ...(values as Required<Values>)
+    })
+  }
 
   return (
-    <Form
-      initialValues={initialValues}
+    <EntityForm<Values>
+      onCancel={props.onCancel}
+      onOk={props.onOk}
       validate={validate}
-      onSubmit={onSubmit}
-      // todo subscription and FormSpy
-      // subscription={{submitting: true}}
-      render={({handleSubmit, submitting, form, values}) => (
-        <form onSubmit={handleSubmit}>
+      initialValues={getInitialValues(classifierId)}
+      isNew={!classifierId}
+      onCreate={onCreate}
+      onDelete={onDelete}
+      onUpdate={onUpdate}
+      formInner={
+        <>
           <UI.FormRow>
             <UI.FormLabel>Название в единственном числе</UI.FormLabel>
             <UI.FormInput
@@ -102,42 +99,8 @@ export function ClassifierForm(props: Props) {
               Использовать в переводах
             </UI.FormCheckbox>
           </UI.FormRow>
-
-          <UI.Flex justifyContent="space-between">
-            <div>
-              {!isNew && (
-                <Button
-                  disabled={submitting}
-                  type="danger"
-                  htmlType="submit"
-                  loading={values.action === 'delete' && submitting}
-                  onClick={() => form.change('action', 'delete')}
-                >
-                  Удалить
-                </Button>
-              )}
-            </div>
-
-            <div>
-              <Button onClick={onCancel} disabled={submitting}>
-                Отмена
-              </Button>
-
-              <UI.Spacer inline width={10} />
-
-              <Button
-                type="primary"
-                htmlType="submit"
-                disabled={submitting}
-                loading={values.action !== 'delete' && submitting}
-                onClick={() => form.change('action', isNew ? 'create' : 'update')}
-              >
-                Сохранить
-              </Button>
-            </div>
-          </UI.Flex>
-        </form>
-      )}
+        </>
+      }
     />
   )
 }
