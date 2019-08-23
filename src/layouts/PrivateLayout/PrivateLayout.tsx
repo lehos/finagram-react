@@ -28,23 +28,16 @@ export const PrivateLayout = view(({component: Component, ...rest}: Props) => {
     <Route
       {...rest}
       render={matchProps => (
-        <S.PrivateLayoutWrapper>
-          <Layout style={{minHeight: '100vh'}}>
-            <Layout.Sider
-              collapsible
-              collapsed={collapsed}
-              onCollapse={onCollapse}
-              theme="light"
-            >
-              <S.Sidebar>
-                <Nav />
-              </S.Sidebar>
-            </Layout.Sider>
-            <Layout style={{padding: '20px', background: '#fff'}}>
-              <Component {...matchProps} />
-            </Layout>
+        <Layout style={{minHeight: '100vh'}}>
+          <Layout.Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
+            <S.Sidebar>
+              <Nav />
+            </S.Sidebar>
+          </Layout.Sider>
+          <Layout style={{padding: '20px', background: '#fff'}}>
+            <Component {...matchProps} />
           </Layout>
-        </S.PrivateLayoutWrapper>
+        </Layout>
       )}
     />
   )

@@ -29,6 +29,7 @@ function NavComp(props: RouteComponentProps) {
       defaultSelectedKeys={[props.location.pathname]}
       defaultOpenKeys={['/classifiers']}
       mode="inline"
+      theme="dark"
     >
       {renderItem({to: '/', icon: 'home', text: 'Главная'})}
       {renderItem({to: '/currencies', icon: 'pay-circle', text: 'Валюты'})}
