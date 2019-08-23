@@ -89,7 +89,7 @@ export function ClassifierForm(props: Props) {
           </UI.FormRow>
 
           <UI.FormRow>
-            <UI.FormCheckbox name="split">
+            <UI.FormCheckbox name="split" disabled={!!classifierId}>
               Разделять по типу операции
             </UI.FormCheckbox>
           </UI.FormRow>
