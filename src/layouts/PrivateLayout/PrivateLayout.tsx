@@ -8,6 +8,8 @@ import {AppLoader, Nav} from '@/components'
 import * as S from './PrivateLayout.styles'
 import {appStore} from '@/domains/common/appStore'
 
+import './main.css'
+
 interface Props extends RouteProps {
   component: ComponentType<RouteComponentProps>
 }

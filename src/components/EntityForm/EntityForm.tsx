@@ -13,7 +13,7 @@ type Props<T> = {
   onDelete: (values: T) => void
   onCreate: (values: T) => void
   onUpdate: (values: T) => void
-  getInitialValues: () => T
+  initialValues: T
 
   isDeleteBtnHidden?: boolean
 
@@ -46,7 +46,7 @@ export function EntityForm<T>(props: Props<T>) {
 
   return (
     <Form
-      initialValues={props.getInitialValues()}
+      initialValues={props.initialValues}
       validate={props.validate}
       onSubmit={onSubmit}
       subscription={{}}

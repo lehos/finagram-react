@@ -64,7 +64,7 @@ export function CategoryForm(props: Props) {
       onCancel={props.onCancel}
       onOk={props.onOk}
       validate={validate}
-      getInitialValues={() => getInitialValues(categoryId)}
+      initialValues={getInitialValues(categoryId)}
       isNew={!categoryId}
       onCreate={onCreate}
       onDelete={onDelete}

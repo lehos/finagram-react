@@ -1,9 +1,8 @@
 import React from 'react'
-import {withTypes} from 'react-final-form'
-import {Button} from 'antd'
 
 import * as UI from '@/ui'
 import {currencyStore} from '@/domains/currency'
+import {EntityForm} from '@/components'
 
 import {Account, accountStore} from '.'
 
@@ -42,25 +41,19 @@ function validate(values: Partial<Values>) {
   return errors
 }
 
-// todo extract common entity form logic to separate component
-
 export function AccountForm(props: Props) {
-  const {onOk, onCancel, accountId} = props
-  const initialValues = getInitialValues(accountId)
-  const isNew = !accountId
+  const {accountId} = props
 
-  async function onSubmit(values: Values) {
-    const {action, ...rest} = values
+  function onCreate(values: Values) {
+    accountStore.create(values)
+  }
 
-    if (action === 'delete') {
-      await accountStore.delete(accountId!)
-    } else if (action === 'create') {
-      await accountStore.create(rest)
-    } else {
-      await accountStore.update({id: accountId!, ...rest})
-    }
+  function onDelete() {
+    accountStore.delete(accountId!)
+  }
 
-    onOk()
+  function onUpdate(values: Values) {
+    accountStore.update({id: accountId!, ...values})
   }
 
   const currencyOptions = currencyStore.currencyList.map(el => ({
@@ -68,16 +61,18 @@ export function AccountForm(props: Props) {
     label: el.name
   }))
 
-  const {Form} = withTypes<Values>()
-
   return (
-    <Form
-      initialValues={initialValues}
+    <EntityForm<Values>
+      onCancel={props.onCancel}
+      onOk={props.onOk}
       validate={validate}
-      onSubmit={onSubmit}
-      // todo subscription and FormSpy
-      render={({handleSubmit, submitting, form, values}) => (
-        <form onSubmit={handleSubmit}>
+      initialValues={getInitialValues(accountId)}
+      isNew={!accountId}
+      onCreate={onCreate}
+      onDelete={onDelete}
+      onUpdate={onUpdate}
+      formInner={
+        <>
           <UI.FormRow>
             <UI.FormLabel>Название</UI.FormLabel>
             <UI.FormInput name="name" placeholder="Название" autoComplete="off" />
@@ -92,44 +87,8 @@ export function AccountForm(props: Props) {
             <UI.FormLabel>Начальный баланс</UI.FormLabel>
             <UI.FormInput name="balance" placeholder="Валюта" autoComplete="off" />
           </UI.FormRow>
-
-          <UI.Spacer height={10} />
-
-          <UI.Flex justifyContent="space-between">
-            <div>
-              {!isNew && (
-                <Button
-                  disabled={submitting}
-                  type="danger"
-                  htmlType="submit"
-                  loading={values.action === 'delete' && submitting}
-                  onClick={() => form.change('action', 'delete')}
-                >
-                  Удалить
-                </Button>
-              )}
-            </div>
-
-            <div>
-              <Button onClick={onCancel} disabled={submitting}>
-                Отмена
-              </Button>
-
-              <UI.Spacer inline width={10} />
-
-              <Button
-                type="primary"
-                htmlType="submit"
-                disabled={submitting}
-                loading={values.action !== 'delete' && submitting}
-                onClick={() => form.change('action', isNew ? 'create' : 'update')}
-              >
-                Сохранить
-              </Button>
-            </div>
-          </UI.Flex>
-        </form>
-      )}
+        </>
+      }
     />
   )
 }

@@ -1,0 +1,4 @@
+.ant-table-small colgroup > col.ant-table-selection-col {
+  width: 40px !important;
+}
+
