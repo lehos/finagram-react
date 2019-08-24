@@ -66,11 +66,22 @@ describe('removeElemById', () => {
 })
 
 describe('removeElem', () => {
+  test('removes elem by link', () => {
+    const obj = {id: '2'}
+    const arr = [{id: '1'}, obj]
+    const exp = [{id: '1'}]
+
+    const res = removeElem(arr, {el: obj})
+    expect(res).toBe(true)
+    expect(arr).toEqual(exp)
+  })
+
   test('removes elem with clb', () => {
     const arr = [{id: '1'}, {id: '2'}]
     const exp = [{id: '1'}]
 
-    removeElem(arr, el => el.id === '2')
+    const res = removeElem(arr, {clb: el => el.id === '2'})
+    expect(res).toBe(true)
     expect(arr).toEqual(exp)
   })
 
@@ -78,7 +89,17 @@ describe('removeElem', () => {
     const arr = [{id: '1'}, {id: '2'}]
     const exp = [{id: '1'}, {id: '2'}]
 
-    removeElem(arr, el => el.id === '3')
+    const res = removeElem(arr, {clb: el => el.id === '3'})
+    expect(res).toBe(false)
+    expect(arr).toEqual(exp)
+  })
+
+  test('do nothing when no param', () => {
+    const arr = [{id: '1'}, {id: '2'}]
+    const exp = [{id: '1'}, {id: '2'}]
+
+    const res = removeElem(arr, {})
+    expect(res).toBe(false)
     expect(arr).toEqual(exp)
   })
 })

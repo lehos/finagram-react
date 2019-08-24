@@ -24,7 +24,7 @@ export function arrayToMapDeep<T extends Tree<T>>(arr: T[]): Record<string, T> {
 }
 
 /**
- * removes found elem in place (mutates given array)
+ * removes found elem in nested array (mutates given array)
  */
 export function removeElemById<T extends Tree<T>>(arr: T[], id: string): boolean {
   for (let i = 0; i < arr.length; i++) {
@@ -48,10 +48,34 @@ export function removeElemById<T extends Tree<T>>(arr: T[], id: string): boolean
   return false
 }
 
-export function removeElem<T>(arr: T[], clb: (el: T) => boolean) {
-  const index = arr.findIndex(clb)
+/**
+ * removes elem in flat array
+ * mutates array
+ */
+export function removeElem<T>(arr: T[], params: RemoveElemParams<T>): boolean {
+  const {el, clb} = params
+
+  if (!el && !clb) {
+    return false
+  }
+
+  const index = el ? arr.indexOf(el) : arr.findIndex(clb!)
 
   if (index !== -1) {
     arr.splice(index, 1)
+    return true
   }
+
+  return false
+}
+
+type RemoveElemParams<T> = {
+  el?: T
+  clb?: (el: T) => boolean
+}
+
+export function removeElemImm<T>(arr: T[], params: RemoveElemParams<T>): T[] {
+  const res = [...arr]
+  const isRemoved = removeElem(res, params)
+  return isRemoved ? res : arr
 }

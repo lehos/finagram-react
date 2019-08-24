@@ -21,7 +21,7 @@ export const transactionStore = store({
 
     transactionStore.transactionList.forEach(el => {
       if (el.kind !== 'balance') {
-        removeElem(el.categories, c => c.categoryId === categoryId)
+        removeElem(el.categories, {clb: c => c.categoryId === categoryId})
       }
     })
   }

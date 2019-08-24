@@ -1,7 +1,7 @@
 import {store} from 'react-easy-state'
 import nanoid from 'nanoid'
 
-import {arrayToMap, arrayToMapDeep, removeElemById} from '@/utils'
+import * as U from '@/utils'
 
 import {Classifier} from '@/domains/classifier'
 import {transactionStore} from '@/domains/transaction'
@@ -50,12 +50,12 @@ function makeClCategory(classifier: Classifier): E.ClassifierCategory {
 }
 
 function calcClCategoryMap(list: E.ClassifierCategory[]) {
-  return arrayToMap(list, 'classifierId')
+  return U.arrayToMap(list, 'classifierId')
 }
 
 function calcCategoryMap(list: E.ClassifierCategory[]) {
   return list.reduce((acc, cur) => {
-    return {...acc, ...arrayToMapDeep(cur.children)}
+    return {...acc, ...U.arrayToMapDeep(cur.children)}
   }, {})
 }
 
@@ -64,7 +64,7 @@ type CategoryMapByClassifier = Record<string, Record<string, E.Category>>
 function calcCategoryByCl(list: E.ClassifierCategory[]) {
   return list.reduce(
     (acc, cur) => {
-      acc[cur.classifierId] = arrayToMapDeep(cur.children)
+      acc[cur.classifierId] = U.arrayToMapDeep(cur.children)
       return acc
     },
     {} as CategoryMapByClassifier
@@ -114,6 +114,12 @@ export const categoryStore = store({
     await A.update(category)
 
     const obj = this.categoryMap[category.id]
+
+    // изменился родитель
+    if (obj.parentId !== category.parentId && category.parentId != null) {
+      this._move(obj, category.parentId)
+    }
+
     Object.assign(obj, category)
   },
 
@@ -124,10 +130,29 @@ export const categoryStore = store({
     // удалять сущность нужно после закрытия формы
     // todo переделать с таймаута на колбэк или что-то такое
     setTimeout(() => {
-      removeElemById(clCategory.children, categoryId)
+      U.removeElemById(clCategory.children, categoryId)
       this._compute()
       transactionStore.clearCategory(categoryId)
     }, 0)
+  },
+
+  _move(category: E.Category, newId: string) {
+    const oldParent = this.categoryMap[category.parentId!]
+    U.removeElem(oldParent.children!, {el: category})
+
+    if (oldParent.children!.length === 0) {
+      delete oldParent.children
+    }
+
+    const newParent = this.categoryMap[newId]
+
+    if (!newParent.children) {
+      newParent.children = []
+    }
+
+    newParent.children.push(category)
+    this._upList()
+    this._compute()
   },
 
   _upList() {
