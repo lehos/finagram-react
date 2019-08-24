@@ -11,6 +11,7 @@ export const clCategoryMock: ClassifierCategory[] = [
         name: 'Все статьи прихода',
         type: 'income',
         description: '',
+        parentId: null,
         children: [
           {
             id: '121',
@@ -25,6 +26,7 @@ export const clCategoryMock: ClassifierCategory[] = [
         name: 'Все статьи расхода',
         type: 'expense',
         description: '',
+        parentId: null,
         children: [
           {
             id: '131',
@@ -58,6 +60,7 @@ export const clCategoryMock: ClassifierCategory[] = [
         name: 'Агенты',
         type: 'transfer',
         description: '',
+        parentId: null,
 
         children: [
           {

@@ -23,48 +23,45 @@ const columns: ColumnProps<Category>[] = [
 
 interface Props {
   classifierId: string
-  onRowSelect?: (key: string) => any
+  onChange: (val: string | undefined) => void
+  value: string
 }
 
 export const CategoryList = view((props: Props) => {
-  const {classifierId, onRowSelect} = props
+  const {classifierId, onChange, value} = props
   const clCategory = categoryStore.clCategoryMap[classifierId]
 
-  const [selectedRowKeys, setSelectedRowKeys] = React.useState<string[]>([])
-
-  if (!clCategory) {
-    return <>Нет данных</>
-  }
+  const selectedRowKeys = value ? [value] : []
 
   function selectRow(record: Category) {
-    const res = selectedRowKeys.indexOf(record.id) >= 0 ? [] : [record.id]
-    setSelectedRowKeys(res)
-    onRowSelect && onRowSelect(res[0])
+    onChange(record.id)
   }
 
   function onSelectedRowKeysChange(keys: string[]) {
-    setSelectedRowKeys(keys)
+    onChange(keys[0])
   }
 
   return (
-    <Table<Category>
-      dataSource={clCategory.children}
-      columns={columns}
-      size="small"
-      rowKey="id"
-      pagination={false}
-      defaultExpandAllRows
-      // @ts-ignore
-      rowSelection={{
-        type: 'radio',
-        onChange: onSelectedRowKeysChange,
-        selectedRowKeys
-      }}
-      onRow={rec => ({
-        onClick: () => {
-          selectRow(rec)
-        }
-      })}
-    />
+    <div style={{maxHeight: '300px', overflow: 'auto'}}>
+      <Table<Category>
+        dataSource={clCategory.children}
+        columns={columns}
+        size="small"
+        rowKey="id"
+        pagination={false}
+        defaultExpandAllRows
+        // @ts-ignore
+        rowSelection={{
+          type: 'radio',
+          onChange: onSelectedRowKeysChange,
+          selectedRowKeys
+        }}
+        onRow={rec => ({
+          onClick: () => {
+            selectRow(rec)
+          }
+        })}
+      />
+    </div>
   )
 })

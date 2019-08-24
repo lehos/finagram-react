@@ -23,8 +23,8 @@ export interface Category {
   // пока нужно только рутовой категории
   type?: CategoryType
 
-  // рутовой пока не нужно
-  parentId?: string
+  // null для корневой категории
+  parentId: string | null
 
   id: string
   name: string
@@ -39,4 +39,5 @@ export interface Category {
 export type CategoryStub = {
   name: string
   description: string
+  parentId: string | null
 }

@@ -9,12 +9,16 @@ import {transactionStore} from '@/domains/transaction'
 import * as E from './entity'
 import * as A from './api'
 
-function makeCategory(name: string, type: E.CategoryType = 'default'): E.Category {
+function makeRootCategory(
+  name: string,
+  type: E.CategoryType = 'default'
+): E.Category {
   return {
     id: nanoid(),
     name,
     type,
     description: '',
+    parentId: null,
     children: []
   }
 }
@@ -30,15 +34,15 @@ function makeClCategory(classifier: Classifier): E.ClassifierCategory {
   const name = classifier.namePlural
 
   if (!classifier.split) {
-    category.children.push(makeCategory(name))
+    category.children.push(makeRootCategory(name))
   } else {
     category.children.push(
-      makeCategory(`Все ${name} расхода`, 'expense'),
-      makeCategory(`Все ${name} прихода`, 'income')
+      makeRootCategory(`Все ${name} расхода`, 'expense'),
+      makeRootCategory(`Все ${name} прихода`, 'income')
     )
 
     if (classifier.useInTransfer) {
-      category.children.push(makeCategory(`Все ${name} перевода`, 'transfer'))
+      category.children.push(makeRootCategory(`Все ${name} перевода`, 'transfer'))
     }
   }
 
@@ -86,16 +90,10 @@ export const categoryStore = store({
     this.clCategoryList.push(clCategory)
   },
 
-  async create(
-    categoryStub: E.CategoryStub,
-    classifierId: string,
-    parentId: string | null
-  ) {
-    const localParentId = parentId || this.clCategoryMap[classifierId].children[0].id
+  async create(categoryStub: E.CategoryStub) {
+    await A.create(categoryStub)
 
-    await A.create(categoryStub, localParentId)
-
-    const parent = this.categoryMap[localParentId]
+    const parent = this.categoryMap[categoryStub.parentId!]
 
     if (!parent.children) {
       parent.children = []
@@ -103,7 +101,6 @@ export const categoryStore = store({
 
     const category: E.Category = {
       id: nanoid(),
-      parentId: localParentId,
       ...categoryStub
     }
 

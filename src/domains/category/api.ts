@@ -15,7 +15,7 @@ export async function update(stub: E.Category): Promise<null> {
   return req({})
 }
 
-export async function create(stub: E.CategoryStub, parentId: string): Promise<null> {
+export async function create(stub: E.CategoryStub): Promise<null> {
   return req({})
 }
 

@@ -13,6 +13,16 @@ const columns: ColumnProps<Category>[] = [
     key: 'name'
   },
   {
+    title: 'id',
+    dataIndex: 'id',
+    key: 'id'
+  },
+  {
+    title: 'parentId',
+    dataIndex: 'parentId',
+    key: 'parentId'
+  },
+  {
     title: 'Описание',
     dataIndex: 'description',
     key: 'description'

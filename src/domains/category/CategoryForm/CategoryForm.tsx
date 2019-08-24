@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import * as UI from '@/ui'
 import {EntityForm} from '@/components'
 
-import {categoryStore, CategoryList} from '..'
+import {categoryStore, FormCategoryList} from '..'
 
 type Props = {
   onOk: () => any
@@ -17,17 +17,7 @@ type Props = {
 type Values = {
   name: string
   description: string
-}
-
-function getInitialValues(id?: string | null): Values {
-  if (!id) {
-    return {name: '', description: ''}
-  }
-  const category = categoryStore.categoryMap[id]
-  return {
-    name: category.name,
-    description: category.description
-  }
+  parentId: string | null
 }
 
 function validate(values: Partial<Values>) {
@@ -42,14 +32,25 @@ function validate(values: Partial<Values>) {
 
 export function CategoryForm(props: Props) {
   const {categoryId, classifierId, parentId} = props
-
   const category = categoryId ? categoryStore.categoryMap[categoryId] : null
-
-  const [selectedParentId, setSelectedParentId] = useState<string>('')
   const isNew = !categoryId
 
+  function getInitialValues(): Values {
+    return category
+      ? {
+          name: category.name,
+          description: category.description,
+          parentId: parentId || category.parentId
+        }
+      : {
+          name: '',
+          description: '',
+          parentId: categoryStore.clCategoryMap[classifierId].children[0].id
+        }
+  }
+
   function onCreate(values: Values) {
-    categoryStore.create(values, classifierId, selectedParentId || parentId)
+    categoryStore.create(values)
   }
 
   function onDelete() {
@@ -65,7 +66,7 @@ export function CategoryForm(props: Props) {
       onCancel={props.onCancel}
       onOk={props.onOk}
       validate={validate}
-      initialValues={getInitialValues(categoryId)}
+      initialValues={getInitialValues()}
       isNew={isNew}
       onCreate={onCreate}
       onDelete={onDelete}
@@ -91,10 +92,7 @@ export function CategoryForm(props: Props) {
             <UI.FormRow>
               <UI.FormLabel>Родитель</UI.FormLabel>
 
-              <CategoryList
-                classifierId={classifierId}
-                onRowSelect={setSelectedParentId}
-              />
+              <FormCategoryList classifierId={classifierId} name="parentId" />
             </UI.FormRow>
           )}
         </>
