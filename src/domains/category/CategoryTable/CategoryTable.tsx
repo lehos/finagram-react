@@ -28,15 +28,15 @@ interface Props {
 
 export const CategoryTable = view((props: Props) => {
   const {classifierId, size = 'middle', onRowSelect, onRowClick} = props
-  const clfCategory = categoryStore.clfCategoryMap[classifierId]
+  const clCategory = categoryStore.clCategoryMap[classifierId]
 
-  if (!clfCategory) {
+  if (!clCategory) {
     return <>Нет данных</>
   }
 
   return (
     <Table<Category>
-      dataSource={clfCategory.children}
+      dataSource={clCategory.children}
       columns={columns}
       size={size}
       rowKey="id"

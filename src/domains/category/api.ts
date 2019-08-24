@@ -1,13 +1,13 @@
 import {req} from '@/services/http'
 
-import {clfCategoryMock} from './mocks'
+import {clCategoryMock} from './mocks'
 import * as E from './entity'
 
 export async function getList(): Promise<E.ClassifierCategory[]> {
-  return req({mock: clfCategoryMock})
+  return req({mock: clCategoryMock})
 }
 
-export async function createClfCategory(cc: E.ClassifierCategory): Promise<null> {
+export async function createClCategory(cc: E.ClassifierCategory): Promise<null> {
   return req({})
 }
 

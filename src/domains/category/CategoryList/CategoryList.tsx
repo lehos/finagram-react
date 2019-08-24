@@ -28,11 +28,11 @@ interface Props {
 
 export const CategoryList = view((props: Props) => {
   const {classifierId, onRowSelect} = props
-  const clfCategory = categoryStore.clfCategoryMap[classifierId]
+  const clCategory = categoryStore.clCategoryMap[classifierId]
 
   const [selectedRowKeys, setSelectedRowKeys] = React.useState<string[]>([])
 
-  if (!clfCategory) {
+  if (!clCategory) {
     return <>Нет данных</>
   }
 
@@ -48,7 +48,7 @@ export const CategoryList = view((props: Props) => {
 
   return (
     <Table<Category>
-      dataSource={clfCategory.children}
+      dataSource={clCategory.children}
       columns={columns}
       size="small"
       rowKey="id"

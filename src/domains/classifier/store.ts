@@ -38,7 +38,7 @@ export const classifierStore = store({
     classifierStore.classifierMap[id] = classifier
     classifierStore.classifierList.push(classifier)
 
-    await categoryStore.createClfCategory(classifier)
+    await categoryStore.createClCategory(classifier)
   },
 
   async update(classifierStub: Required<ClassifierStub> & {id: string}) {

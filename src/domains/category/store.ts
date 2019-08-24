@@ -19,7 +19,7 @@ function makeCategory(name: string, type: E.CategoryType = 'default'): E.Categor
   }
 }
 
-function makeClfCategory(classifier: Classifier): E.ClassifierCategory {
+function makeClCategory(classifier: Classifier): E.ClassifierCategory {
   const id = nanoid()
   const category: E.ClassifierCategory = {
     classifierId: classifier.id,
@@ -45,7 +45,7 @@ function makeClfCategory(classifier: Classifier): E.ClassifierCategory {
   return category
 }
 
-function calcClfCategoryMap(list: E.ClassifierCategory[]) {
+function calcClCategoryMap(list: E.ClassifierCategory[]) {
   return arrayToMap(list, 'classifierId')
 }
 
@@ -57,7 +57,7 @@ function calcCategoryMap(list: E.ClassifierCategory[]) {
 
 type CategoryMapByClassifier = Record<string, Record<string, E.Category>>
 
-function calcCategoryByClf(list: E.ClassifierCategory[]) {
+function calcCategoryByCl(list: E.ClassifierCategory[]) {
   return list.reduce(
     (acc, cur) => {
       acc[cur.classifierId] = arrayToMapDeep(cur.children)
@@ -68,22 +68,22 @@ function calcCategoryByClf(list: E.ClassifierCategory[]) {
 }
 
 export const categoryStore = store({
-  clfCategoryList: [] as E.ClassifierCategory[],
+  clCategoryList: [] as E.ClassifierCategory[],
 
   // indexed by classifierId
-  clfCategoryMap: {} as Record<string, E.ClassifierCategory>,
+  clCategoryMap: {} as Record<string, E.ClassifierCategory>,
   categoryMap: {} as Record<string, E.Category>,
-  categoryMapByClf: {} as CategoryMapByClassifier,
+  categoryMapByCl: {} as CategoryMapByClassifier,
 
   async init() {
-    this.clfCategoryList = await A.getList()
+    this.clCategoryList = await A.getList()
     this._compute()
   },
 
-  async createClfCategory(classifier: Classifier) {
-    const clfCategory = makeClfCategory(classifier)
-    await A.createClfCategory(clfCategory)
-    this.clfCategoryList.push(clfCategory)
+  async createClCategory(classifier: Classifier) {
+    const clCategory = makeClCategory(classifier)
+    await A.createClCategory(clCategory)
+    this.clCategoryList.push(clCategory)
   },
 
   async create(
@@ -91,8 +91,7 @@ export const categoryStore = store({
     classifierId: string,
     parentId: string | null
   ) {
-    const localParentId =
-      parentId || this.clfCategoryMap[classifierId].children[0].id
+    const localParentId = parentId || this.clCategoryMap[classifierId].children[0].id
 
     await A.create(categoryStub, localParentId)
 
@@ -123,25 +122,25 @@ export const categoryStore = store({
 
   // по идее, id классификатора можно вычислить, чтоб не передавать
   async deleteCategory(categoryId: string, classifierId: string) {
-    const clfCategory = this.clfCategoryMap[classifierId]
+    const clCategory = this.clCategoryMap[classifierId]
 
     // удалять сущность нужно после закрытия формы
     // todo переделать с таймаута на колбэк или что-то такое
     setTimeout(() => {
-      removeElemById(clfCategory.children, categoryId)
+      removeElemById(clCategory.children, categoryId)
       this._compute()
       transactionStore.clearCategory(categoryId)
     }, 0)
   },
 
   _upList() {
-    this.clfCategoryList = [...this.clfCategoryList]
+    this.clCategoryList = [...this.clCategoryList]
   },
 
   _compute() {
-    const list = this.clfCategoryList
-    this.clfCategoryMap = calcClfCategoryMap(list)
+    const list = this.clCategoryList
+    this.clCategoryMap = calcClCategoryMap(list)
     this.categoryMap = calcCategoryMap(list)
-    this.categoryMapByClf = calcCategoryByClf(list)
+    this.categoryMapByCl = calcCategoryByCl(list)
   }
 })
