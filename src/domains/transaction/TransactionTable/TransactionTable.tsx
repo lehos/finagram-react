@@ -96,6 +96,9 @@ export const TransactionTable = view((props: Props) => {
       size="middle"
       rowKey="id"
       pagination={false}
+      rowSelection={{
+        type: 'checkbox'
+      }}
     />
   )
 })

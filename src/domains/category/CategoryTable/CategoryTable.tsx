@@ -46,7 +46,7 @@ export const CategoryTable = view((props: Props) => {
         onClick: e => onRowClick && onRowClick(record.id)
       })}
       rowSelection={{
-        type: 'radio',
+        type: 'checkbox',
         onChange: val => onRowSelect && onRowSelect(val[0] as string)
       }}
     />

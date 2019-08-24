@@ -46,6 +46,7 @@ export function CategoryForm(props: Props) {
   const category = categoryId ? categoryStore.categoryMap[categoryId] : null
 
   const [selectedParentId, setSelectedParentId] = useState<string>('')
+  const isNew = !categoryId
 
   function onCreate(values: Values) {
     categoryStore.create(values, classifierId, selectedParentId || parentId)
@@ -65,7 +66,7 @@ export function CategoryForm(props: Props) {
       onOk={props.onOk}
       validate={validate}
       initialValues={getInitialValues(categoryId)}
-      isNew={!categoryId}
+      isNew={isNew}
       onCreate={onCreate}
       onDelete={onDelete}
       onUpdate={onUpdate}
@@ -86,7 +87,7 @@ export function CategoryForm(props: Props) {
             />
           </UI.FormRow>
 
-          {category && category.parentId && (
+          {(isNew || (category && category.parentId)) && (
             <UI.FormRow>
               <UI.FormLabel>Родитель</UI.FormLabel>
 

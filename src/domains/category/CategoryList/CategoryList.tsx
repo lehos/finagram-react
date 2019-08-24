@@ -30,8 +30,20 @@ export const CategoryList = view((props: Props) => {
   const {classifierId, onRowSelect} = props
   const clfCategory = categoryStore.clfCategoryMap[classifierId]
 
+  const [selectedRowKeys, setSelectedRowKeys] = React.useState<string[]>([])
+
   if (!clfCategory) {
     return <>Нет данных</>
+  }
+
+  function selectRow(record: Category) {
+    const res = selectedRowKeys.indexOf(record.id) >= 0 ? [] : [record.id]
+    setSelectedRowKeys(res)
+    onRowSelect && onRowSelect(res[0])
+  }
+
+  function onSelectedRowKeysChange(keys: string[]) {
+    setSelectedRowKeys(keys)
   }
 
   return (
@@ -42,10 +54,17 @@ export const CategoryList = view((props: Props) => {
       rowKey="id"
       pagination={false}
       defaultExpandAllRows
+      // @ts-ignore
       rowSelection={{
         type: 'radio',
-        onChange: val => onRowSelect && onRowSelect(val[0] as string)
+        onChange: onSelectedRowKeysChange,
+        selectedRowKeys
       }}
+      onRow={rec => ({
+        onClick: () => {
+          selectRow(rec)
+        }
+      })}
     />
   )
 })
