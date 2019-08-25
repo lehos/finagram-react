@@ -9,33 +9,21 @@ type Values = Pick<Transaction, 'sum' | 'description' | 'date'>
 type Props = {
   onOk: () => void
   onCancel: () => void
-  transactionId: string | null
+  transaction: Transaction | null
 }
 
-function getInitialValues(transactionId: string | null): Values {
-  const stub = {
-    sum: 0,
-    date: '',
-    description: ''
-  }
-
-  if (!transactionId) {
-    return stub
-  }
-
-  const transaction = transactionStore.transactionList.find(
-    el => el.id === transactionId
-  )
-
-  if (!transaction) {
-    return stub
-  }
-
-  return {
-    sum: transaction.sum,
-    date: transaction.date,
-    description: transaction.description
-  }
+function getInitialValues(transaction: Transaction | null): Values {
+  return transaction
+    ? {
+        sum: transaction.sum,
+        date: transaction.date,
+        description: transaction.description
+      }
+    : {
+        sum: 0,
+        date: '',
+        description: ''
+      }
 }
 
 function validate(values: Values) {
@@ -43,7 +31,7 @@ function validate(values: Values) {
 }
 
 export function TransactionForm(props: Props) {
-  const {transactionId} = props
+  const {transaction} = props
 
   function onCreate() {}
   function onDelete() {}
@@ -55,8 +43,8 @@ export function TransactionForm(props: Props) {
         onCancel={props.onCancel}
         onOk={props.onOk}
         validate={validate}
-        initialValues={getInitialValues(transactionId)}
-        isNew={!transactionId}
+        initialValues={getInitialValues(transaction)}
+        isNew={!transaction}
         onCreate={onCreate}
         onDelete={onDelete}
         onUpdate={onUpdate}

@@ -86,7 +86,7 @@ function makeColumns() {
 }
 
 interface Props {
-  onRowClick?: (id: string) => any
+  onRowClick?: (obj: Transaction) => any
 }
 
 export const TransactionTable = view((props: Props) => {
@@ -103,7 +103,7 @@ export const TransactionTable = view((props: Props) => {
         type: 'checkbox'
       }}
       onRow={record => ({
-        onClick: e => onRowClick && onRowClick(record.id)
+        onClick: e => onRowClick && onRowClick(record)
       })}
     />
   )
