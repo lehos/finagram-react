@@ -11,6 +11,7 @@ import {categoryStore} from '@/domains/category'
 import {Transaction} from '../entity'
 import {transactionStore} from '../store'
 
+// decompose?
 function makeColumns() {
   const columns: ColumnProps<Transaction>[] = [
     {
@@ -89,6 +90,8 @@ interface Props {
 }
 
 export const TransactionTable = view((props: Props) => {
+  const {onRowClick} = props
+
   return (
     <Table<Transaction>
       dataSource={transactionStore.transactionList}
@@ -99,6 +102,9 @@ export const TransactionTable = view((props: Props) => {
       rowSelection={{
         type: 'checkbox'
       }}
+      onRow={record => ({
+        onClick: e => onRowClick && onRowClick(record.id)
+      })}
     />
   )
 })

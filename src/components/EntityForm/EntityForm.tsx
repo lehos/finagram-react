@@ -9,7 +9,7 @@ type Props<T> = {
   onOk: () => any
   onCancel: () => any
 
-  validate: (values: Partial<T>) => Record<keyof T, string>
+  validate: (values: T) => {[key in keyof T]?: string}
   onDelete: (values: T) => void
   onCreate: (values: T) => void
   onUpdate: (values: T) => void

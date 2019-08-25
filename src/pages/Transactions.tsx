@@ -27,7 +27,11 @@ export function Transactions() {
         width={400}
         centered
       >
-        <TransactionForm />
+        <TransactionForm
+          onOk={modal.hide}
+          onCancel={modal.hide}
+          transactionId={entity.id}
+        />
       </Modal>
 
       <TransactionTable onRowClick={entity.edit} />
