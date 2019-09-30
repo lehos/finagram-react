@@ -1,8 +1,8 @@
 import React from 'react'
-import {view} from 'react-easy-state'
-import {Field} from 'react-final-form'
+import { view } from 'react-easy-state'
+import { Field } from 'react-final-form'
 
-import {CategoryList} from './CategoryList'
+import { CategoryList } from './CategoryList'
 
 interface Props {
   classifierId: string
@@ -11,10 +11,10 @@ interface Props {
 }
 
 export const FormCategoryList = view((props: Props) => {
-  const {name, ...rest} = props
+  const { name, ...rest } = props
   return (
     <Field name={name}>
-      {({input}) => {
+      {({ input }) => {
         return <CategoryList {...input} {...rest} />
       }}
     </Field>

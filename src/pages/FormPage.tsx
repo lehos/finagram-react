@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormRenderProps, withTypes} from 'react-final-form'
+import { FormRenderProps, withTypes } from 'react-final-form'
 
 import * as UI from '@/ui'
 
@@ -13,9 +13,9 @@ interface Values {
 }
 
 const options = [
-  {value: '1', label: 'First item'},
-  {value: '2', label: 'Second item'},
-  {value: '3', label: 'Third item'}
+  { value: '1', label: 'First item' },
+  { value: '2', label: 'Second item' },
+  { value: '3', label: 'Third item' }
 ]
 
 const treeData = [
@@ -40,7 +40,7 @@ const treeData = [
 ]
 
 export function FormPage() {
-  function renderForm({values}: FormRenderProps<Values>) {
+  function renderForm({ values }: FormRenderProps<Values>) {
     return (
       <div>
         <UI.FormInput name="input" />
@@ -50,7 +50,7 @@ export function FormPage() {
         <br />
 
         <UI.TreeSelect
-          style={{width: '100%'}}
+          style={{ width: '100%' }}
           name="treeSelect"
           treeData={treeData}
         />
@@ -74,7 +74,7 @@ export function FormPage() {
     )
   }
 
-  const {Form} = withTypes<Values>()
+  const { Form } = withTypes<Values>()
   return (
     <div>
       <Form onSubmit={() => {}} render={formProps => renderForm(formProps)} />

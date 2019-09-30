@@ -1,10 +1,10 @@
 import React from 'react'
-import {view} from 'react-easy-state'
+import { view } from 'react-easy-state'
 
 import * as UI from '@/ui'
 
-import {Category} from '../entity'
-import {categoryStore} from '../store'
+import { Category } from '../entity'
+import { categoryStore } from '../store'
 
 interface Props {
   classifierId: string
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const CategorySelect = view((props: Props) => {
-  const {classifierId, onChange, value} = props
+  const { classifierId, onChange, value } = props
   const clCategory = categoryStore.clCategoryMap[classifierId]
 
   const selectedRowKeys = value ? [value] : []
@@ -26,5 +26,5 @@ export const CategorySelect = view((props: Props) => {
     onChange(keys[0])
   }
 
-  return <div style={{maxHeight: '300px', overflow: 'auto'}} />
+  return <div style={{ maxHeight: '300px', overflow: 'auto' }} />
 })

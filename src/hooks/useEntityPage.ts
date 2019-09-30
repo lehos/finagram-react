@@ -1,9 +1,9 @@
-import {useState} from 'react'
+import { useState } from 'react'
 
-import {useModal} from './useModal'
+import { useModal } from './useModal'
 
 export function useEntityPage<T = null>() {
-  const {showModal, hideModal, isModalVisible} = useModal()
+  const { showModal, hideModal, isModalVisible } = useModal()
 
   const [id, setId] = useState<string | null>(null)
   const [obj, setObj] = useState<T | null>(null)
@@ -24,7 +24,7 @@ export function useEntityPage<T = null>() {
   }
 
   return {
-    entity: {id, edit, clear, obj, editObj},
+    entity: { id, edit, clear, obj, editObj },
     modal: {
       show: showModal,
       // hide: hideModal,

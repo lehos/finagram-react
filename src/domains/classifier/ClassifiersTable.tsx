@@ -1,10 +1,10 @@
 import React from 'react'
-import {Table, Icon} from 'antd'
-import {ColumnProps} from 'antd/lib/table'
-import {view} from 'react-easy-state'
+import { Table, Icon } from 'antd'
+import { ColumnProps } from 'antd/lib/table'
+import { view } from 'react-easy-state'
 
-import {Classifier} from '.'
-import {classifierStore} from './store'
+import { Classifier } from '.'
+import { classifierStore } from './store'
 
 const columns: ColumnProps<Classifier>[] = [
   {
@@ -36,8 +36,8 @@ type Props = {
 }
 
 export const ClassifiersTable = view((props: Props) => {
-  const {onRowClick} = props
-  const {classifierList} = classifierStore
+  const { onRowClick } = props
+  const { classifierList } = classifierStore
 
   if (classifierList.length === 0) {
     return <Icon type="loading" />

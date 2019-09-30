@@ -1,15 +1,15 @@
 import React from 'react'
-import {view} from 'react-easy-state'
-import {Table} from 'antd'
-import {ColumnProps} from 'antd/lib/table'
+import { view } from 'react-easy-state'
+import { Table } from 'antd'
+import { ColumnProps } from 'antd/lib/table'
 
-import {formatMoney} from '@/services/money'
-import {accountStore} from '@/domains/account'
-import {classifierStore} from '@/domains/classifier'
-import {categoryStore} from '@/domains/category'
+import { formatMoney } from '@/services/money'
+import { accountStore } from '@/domains/account'
+import { classifierStore } from '@/domains/classifier'
+import { categoryStore } from '@/domains/category'
 
-import {Transaction} from '../entity'
-import {transactionStore} from '../store'
+import { Transaction } from '../entity'
+import { transactionStore } from '../store'
 
 // decompose?
 function makeColumns() {
@@ -27,9 +27,9 @@ function makeColumns() {
         const res = formatMoney(val)
 
         return row.kind === 'expense' || row.kind === 'transfer' ? (
-          <span style={{color: 'red'}}>-{res}</span>
+          <span style={{ color: 'red' }}>-{res}</span>
         ) : row.kind === 'income' ? (
-          <span style={{color: 'green'}}>+{res}</span>
+          <span style={{ color: 'green' }}>+{res}</span>
         ) : (
           res
         )
@@ -87,7 +87,7 @@ interface Props {
 }
 
 export const TransactionTable = view((props: Props) => {
-  const {onRowClick} = props
+  const { onRowClick } = props
 
   return (
     <Table<Transaction>

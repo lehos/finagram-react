@@ -1,9 +1,9 @@
 import React from 'react'
-import {Table, Icon} from 'antd'
-import {ColumnProps} from 'antd/lib/table'
-import {view} from 'react-easy-state'
+import { Table, Icon } from 'antd'
+import { ColumnProps } from 'antd/lib/table'
+import { view } from 'react-easy-state'
 
-import {Currency, currencyStore} from '.'
+import { Currency, currencyStore } from '.'
 
 const columns: ColumnProps<Currency>[] = [
   {
@@ -23,8 +23,8 @@ type Props = {
 }
 
 export const CurrencyTable = view((props: Props) => {
-  const {onRowClick} = props
-  const {currencyList} = currencyStore
+  const { onRowClick } = props
+  const { currencyList } = currencyStore
 
   if (currencyList.length === 0) {
     return <Icon type="loading" />

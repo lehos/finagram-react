@@ -1,10 +1,10 @@
 import React from 'react'
 
 import * as UI from '@/ui'
-import {currencyStore} from '@/domains/currency'
-import {EntityForm} from '@/components'
+import { currencyStore } from '@/domains/currency'
+import { EntityForm } from '@/components'
 
-import {Account, accountStore} from '.'
+import { Account, accountStore } from '.'
 
 type Props = {
   onOk: () => any
@@ -26,9 +26,9 @@ function getInitialValues(accountId: string | null | undefined): Values {
   }
 
   const account = accountStore.accountsMap[accountId]
-  const {name, balance, currencyId} = account
+  const { name, balance, currencyId } = account
 
-  return {name, balance, currencyId}
+  return { name, balance, currencyId }
 }
 
 function validate(values: Partial<Values>) {
@@ -42,7 +42,7 @@ function validate(values: Partial<Values>) {
 }
 
 export function AccountForm(props: Props) {
-  const {accountId} = props
+  const { accountId } = props
 
   function onCreate(values: Values) {
     accountStore.create(values)
@@ -53,7 +53,7 @@ export function AccountForm(props: Props) {
   }
 
   function onUpdate(values: Values) {
-    accountStore.update({id: accountId!, ...values})
+    accountStore.update({ id: accountId!, ...values })
   }
 
   const currencyOptions = currencyStore.currencyList.map(el => ({

@@ -1,13 +1,13 @@
 import React from 'react'
-import {Table, Icon} from 'antd'
-import {ColumnProps} from 'antd/lib/table'
-import {view} from 'react-easy-state'
+import { Table, Icon } from 'antd'
+import { ColumnProps } from 'antd/lib/table'
+import { view } from 'react-easy-state'
 
-import {formatMoney} from '@/services/money'
+import { formatMoney } from '@/services/money'
 
-import {Account} from '.'
-import {accountStore} from './store'
-import {currencyStore} from '@/domains/currency'
+import { Account } from '.'
+import { accountStore } from './store'
+import { currencyStore } from '@/domains/currency'
 
 const columns: ColumnProps<Account>[] = [
   {
@@ -35,8 +35,8 @@ type Props = {
 }
 
 export const AccountsTable = view((props: Props) => {
-  const {onRowClick} = props
-  const {accountsList} = accountStore
+  const { onRowClick } = props
+  const { accountsList } = accountStore
 
   if (accountsList.length === 0) {
     return <Icon type="loading" />

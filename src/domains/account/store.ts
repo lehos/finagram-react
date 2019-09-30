@@ -1,9 +1,9 @@
-import {store} from 'react-easy-state'
+import { store } from 'react-easy-state'
 import nanoid from 'nanoid'
 
-import {arrayToMap} from '@/utils'
+import { arrayToMap } from '@/utils'
 
-import {Account} from './entity'
+import { Account } from './entity'
 import * as A from './api'
 
 export const accountStore = store({
@@ -11,31 +11,31 @@ export const accountStore = store({
 
   // todo (maybe) for perf it should be cached or moved to state
   get accountsList(): Account[] {
-    return Object.values(accountStore.accountsMap)
+    return Object.values(this.accountsMap)
   },
 
   init() {
-    return accountStore.getList()
+    return this.getList()
   },
 
   async getList() {
-    accountStore.accountsMap = arrayToMap(await A.getList())
+    this.accountsMap = arrayToMap(await A.getList())
   },
 
   async create(acc: Omit<Account, 'id'>) {
     const id = nanoid()
 
-    const newAcc = {id, ...acc}
+    const newAcc = { id, ...acc }
     await A.create(newAcc)
 
-    accountStore.accountsMap[id] = newAcc
+    this.accountsMap[id] = newAcc
   },
 
   async update(acc: Account) {
     await A.update(acc)
 
-    accountStore.accountsMap[acc.id] = {
-      ...accountStore.accountsMap[acc.id],
+    this.accountsMap[acc.id] = {
+      ...this.accountsMap[acc.id],
       ...acc
     }
   },
@@ -43,8 +43,9 @@ export const accountStore = store({
   async delete(id: string) {
     await A.remove(id)
 
+    // todo get rid of this dirty hack
     setTimeout(() => {
-      delete accountStore.accountsMap[id]
+      delete this.accountsMap[id]
     }, 0)
   }
 })

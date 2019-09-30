@@ -1,4 +1,4 @@
-import {sleep} from '@/utils'
+import { sleep } from '@/utils'
 
 function fakeReq<T>(arg: T, delay?: number): Promise<T> {
   return new Promise(async resolve => {

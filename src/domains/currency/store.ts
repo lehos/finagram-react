@@ -1,8 +1,8 @@
-import {store} from 'react-easy-state'
+import { store } from 'react-easy-state'
 
-import {Currency} from '.'
+import { Currency } from '.'
 import * as Api from './api'
-import {arrayToMap} from '@/utils'
+import { arrayToMap } from '@/utils'
 
 export const currencyStore = store({
   currencyList: [] as Currency[],

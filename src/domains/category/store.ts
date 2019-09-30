@@ -1,10 +1,10 @@
-import {store} from 'react-easy-state'
+import { store } from 'react-easy-state'
 import nanoid from 'nanoid'
 
 import * as U from '@/utils'
 
-import {Classifier} from '@/domains/classifier'
-import {transactionStore} from '@/domains/transaction'
+import { Classifier } from '@/domains/classifier'
+import { transactionStore } from '@/domains/transaction'
 
 import * as E from './entity'
 import * as A from './api'
@@ -55,7 +55,7 @@ function calcClCategoryMap(list: E.ClassifierCategory[]) {
 
 function calcCategoryMap(list: E.ClassifierCategory[]) {
   return list.reduce((acc, cur) => {
-    return {...acc, ...U.arrayToMapDeep(cur.children)}
+    return { ...acc, ...U.arrayToMapDeep(cur.children) }
   }, {})
 }
 
@@ -138,7 +138,7 @@ export const categoryStore = store({
 
   _move(category: E.Category, newId: string) {
     const oldParent = this.categoryMap[category.parentId!]
-    U.removeElem(oldParent.children!, {el: category})
+    U.removeElem(oldParent.children!, { el: category })
 
     if (oldParent.children!.length === 0) {
       delete oldParent.children

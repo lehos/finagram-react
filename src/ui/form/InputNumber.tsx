@@ -1,10 +1,10 @@
 import React from 'react'
-import {Field} from 'react-final-form'
-import {styled} from 'linaria/react'
-import {InputNumber as AInputNumber} from 'antd'
-import {InputNumberProps} from 'antd/lib/input-number'
+import { Field } from 'react-final-form'
+import { styled } from 'linaria/react'
+import { InputNumber as AInputNumber } from 'antd'
+import { InputNumberProps } from 'antd/lib/input-number'
 
-import {FormError} from './FormError'
+import { FormError } from './FormError'
 
 const FormInputWrapper = styled.div`
   position: relative;
@@ -18,11 +18,11 @@ interface Props extends InputNumberProps {
 }
 
 export function InputNumber(props: Props) {
-  const {name, format, parse, errorAbsolute, ...otherProps} = props
+  const { name, format, parse, errorAbsolute, ...otherProps } = props
 
   return (
     <Field name={name} format={format} parse={parse}>
-      {({input, meta: {error, submitError, touched}}) => {
+      {({ input, meta: { error, submitError, touched } }) => {
         const valid = !(touched && error) && !submitError
         const errorText = valid ? null : submitError || error
 

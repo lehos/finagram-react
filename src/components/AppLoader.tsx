@@ -1,6 +1,6 @@
 import React from 'react'
-import {Icon} from 'antd'
-import {styled} from 'linaria/react'
+import { Icon } from 'antd'
+import { styled } from 'linaria/react'
 
 const SAppLoader = styled.div`
   min-height: 100vh;
@@ -13,7 +13,7 @@ const SAppLoader = styled.div`
 export function AppLoader() {
   return (
     <SAppLoader>
-      <Icon type="loading" style={{fontSize: 50}} />
+      <Icon type="loading" style={{ fontSize: 50 }} />
       <br />
       <div>Loading your precious data...</div>
     </SAppLoader>

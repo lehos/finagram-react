@@ -1,5 +1,5 @@
-import React, {ReactNode} from 'react'
-import {styled} from 'linaria/react'
+import React, { ReactNode } from 'react'
+import { styled } from 'linaria/react'
 
 type Props = {
   wrap?: 'nowrap' | 'wrap' | 'wrap-reverse'
@@ -21,7 +21,7 @@ export const FlexWrap = styled.div<Props>`
 `
 
 export function Flex(props: Props) {
-  const {children, ...rest} = props
+  const { children, ...rest } = props
 
   return <FlexWrap {...rest}>{children}</FlexWrap>
 }

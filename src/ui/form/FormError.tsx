@@ -1,5 +1,5 @@
 import React from 'react'
-import {styled} from 'linaria/react'
+import { styled } from 'linaria/react'
 
 interface StyleProps {
   absolute?: boolean
@@ -18,6 +18,6 @@ interface Props {
 }
 
 export function FormError(props: Props) {
-  const {text, ...rest} = props
+  const { text, ...rest } = props
   return <Error {...rest}>{text}</Error>
 }

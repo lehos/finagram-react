@@ -1,8 +1,8 @@
 import React from 'react'
-import {Field} from 'react-final-form'
-import {TreeSelect as AntTreeSelect} from 'antd'
-import {TreeSelectProps} from 'antd/lib/tree-select'
-import {Tree} from '@/domains/entity'
+import { Field } from 'react-final-form'
+import { TreeSelect as AntTreeSelect } from 'antd'
+import { TreeSelectProps } from 'antd/lib/tree-select'
+import { Tree } from '@/domains/entity'
 
 type TreeData = {
   title: string
@@ -34,7 +34,7 @@ export function convertTreeToAntFormat(tree: Tree[], title?: string): TreeData[]
 }
 
 export function TreeSelect(props: Props) {
-  const {name, treeOptions, treeData, titleField, ...restProps} = props
+  const { name, treeOptions, treeData, titleField, ...restProps } = props
 
   const localTreeData = treeOptions
     ? convertTreeToAntFormat(treeOptions, titleField)
@@ -42,7 +42,7 @@ export function TreeSelect(props: Props) {
 
   return (
     <Field name={name}>
-      {({input}) => (
+      {({ input }) => (
         <AntTreeSelect {...input} treeData={localTreeData} {...restProps} />
       )}
     </Field>

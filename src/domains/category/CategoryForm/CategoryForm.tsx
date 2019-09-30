@@ -1,9 +1,9 @@
 import React from 'react'
 
 import * as UI from '@/ui'
-import {EntityForm} from '@/components'
+import { EntityForm } from '@/components'
 
-import {categoryStore, FormCategoryList} from '..'
+import { categoryStore, FormCategoryList } from '..'
 
 type Props = {
   onOk: () => any
@@ -31,7 +31,7 @@ function validate(values: Partial<Values>) {
 }
 
 export function CategoryForm(props: Props) {
-  const {categoryId, classifierId, parentId} = props
+  const { categoryId, classifierId, parentId } = props
   const category = categoryId ? categoryStore.categoryMap[categoryId] : null
   const isNew = !categoryId
 
@@ -58,7 +58,7 @@ export function CategoryForm(props: Props) {
   }
 
   function onUpdate(values: Values) {
-    return categoryStore.update({id: categoryId!, ...values})
+    return categoryStore.update({ id: categoryId!, ...values })
   }
 
   return (

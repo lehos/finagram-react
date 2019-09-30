@@ -1,10 +1,10 @@
 import React from 'react'
-import {view} from 'react-easy-state'
-import {Table} from 'antd'
-import {ColumnProps} from 'antd/lib/table'
+import { view } from 'react-easy-state'
+import { Table } from 'antd'
+import { ColumnProps } from 'antd/lib/table'
 
-import {Category} from '../entity'
-import {categoryStore} from '../store'
+import { Category } from '../entity'
+import { categoryStore } from '../store'
 import * as S from './CategoryList.styles'
 
 const columns: ColumnProps<Category>[] = [
@@ -28,7 +28,7 @@ interface Props {
 }
 
 export const CategoryList = view((props: Props) => {
-  const {classifierId, onChange, value} = props
+  const { classifierId, onChange, value } = props
   const clCategory = categoryStore.clCategoryMap[classifierId]
 
   const selectedRowKeys = value ? [value] : []
@@ -42,7 +42,7 @@ export const CategoryList = view((props: Props) => {
   }
 
   return (
-    <div style={{maxHeight: '300px', overflow: 'auto'}}>
+    <div style={{ maxHeight: '300px', overflow: 'auto' }}>
       <Table<Category>
         dataSource={clCategory.children}
         columns={columns}

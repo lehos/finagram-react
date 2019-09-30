@@ -1,4 +1,4 @@
-import {Classifier} from '.'
+import { Classifier } from '.'
 
 export const classifiersMock: Classifier[] = [
   {

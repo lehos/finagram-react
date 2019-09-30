@@ -1,20 +1,20 @@
-import {req} from '@/services/http'
+import { req } from '@/services/http'
 
-import {Classifier, ClassifierStub} from '.'
-import {classifiersMock} from './mocks'
+import { Classifier, ClassifierStub } from '.'
+import { classifiersMock } from './mocks'
 
 export function getList(): Promise<Classifier[]> {
-  return req({mock: classifiersMock})
+  return req({ mock: classifiersMock })
 }
 
 export function create(classifier: Classifier): Promise<null> {
-  return req({mock: null})
+  return req({ mock: null })
 }
 
 export function update(classifierStub: ClassifierStub): Promise<null> {
-  return req({mock: null})
+  return req({ mock: null })
 }
 
 export function deleteClassifier(id: string): Promise<null> {
-  return req({mock: null})
+  return req({ mock: null })
 }

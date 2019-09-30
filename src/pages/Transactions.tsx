@@ -1,12 +1,16 @@
 import React from 'react'
-import {Button, Modal} from 'antd'
+import { Button, Modal } from 'antd'
 
-import {TransactionTable, TransactionForm, Transaction} from '@/domains/transaction'
-import {PageHeader, Spacer} from '@/ui'
-import {useEntityPage} from '@/hooks'
+import {
+  TransactionTable,
+  TransactionForm,
+  Transaction
+} from '@/domains/transaction'
+import { PageHeader, Spacer } from '@/ui'
+import { useEntityPage } from '@/hooks'
 
 export function Transactions() {
-  const {entity, modal} = useEntityPage<Transaction>()
+  const { entity, modal } = useEntityPage<Transaction>()
 
   return (
     <div>

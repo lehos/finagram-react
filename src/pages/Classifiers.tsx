@@ -1,13 +1,13 @@
 import React from 'react'
-import {Button, Modal} from 'antd'
+import { Button, Modal } from 'antd'
 
-import {Spacer, PageHeader} from '@/ui'
-import {useEntityPage} from '@/hooks'
+import { Spacer, PageHeader } from '@/ui'
+import { useEntityPage } from '@/hooks'
 
-import {ClassifiersTable, ClassifierForm} from '@/domains/classifier'
+import { ClassifiersTable, ClassifierForm } from '@/domains/classifier'
 
 export function Classifiers() {
-  const {entity, modal} = useEntityPage()
+  const { entity, modal } = useEntityPage()
 
   return (
     <div>

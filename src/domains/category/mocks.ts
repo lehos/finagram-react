@@ -1,4 +1,4 @@
-import {ClassifierCategory} from './entity'
+import { ClassifierCategory } from './entity'
 
 export const clCategoryMock: ClassifierCategory[] = [
   {

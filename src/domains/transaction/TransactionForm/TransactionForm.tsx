@@ -1,11 +1,15 @@
 import React from 'react'
-import {FormSpy} from 'react-final-form'
+import { FormSpy } from 'react-final-form'
 
 import * as UI from '@/ui'
-import {transactionStore, Transaction, transactionKinds} from '@/domains/transaction'
-import {categoryStore} from '@/domains/category'
-import {classifierStore} from '@/domains/classifier'
-import {EntityForm} from '@/components'
+import {
+  transactionStore,
+  Transaction,
+  transactionKinds
+} from '@/domains/transaction'
+import { categoryStore } from '@/domains/category'
+import { classifierStore } from '@/domains/classifier'
+import { EntityForm } from '@/components'
 
 type Values = Omit<Transaction, 'id'> & {
   id?: string
@@ -19,7 +23,7 @@ type Props = {
 
 function getInitialValues(transaction: Transaction | null): Values {
   return transaction
-    ? {...transaction}
+    ? { ...transaction }
     : {
         sum: 0,
         date: '',
@@ -42,7 +46,7 @@ const transactionKindOptions = Object.entries(transactionKinds).map(el => ({
 }))
 
 export function TransactionForm(props: Props) {
-  const {transaction} = props
+  const { transaction } = props
 
   function onCreate() {}
   function onDelete() {}
@@ -76,8 +80,8 @@ export function TransactionForm(props: Props) {
             <UI.FormRow>
               <UI.FormLabel>Со счета</UI.FormLabel>
 
-              <FormSpy subscription={{values: true}}>
-                {({values}) => {
+              <FormSpy subscription={{ values: true }}>
+                {({ values }) => {
                   return values.kind === 'transfer' ? (
                     <>
                       <UI.FormInput name="accountId" />

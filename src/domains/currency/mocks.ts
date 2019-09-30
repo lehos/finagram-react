@@ -1,4 +1,4 @@
-import {Currency} from '.'
+import { Currency } from '.'
 
 export const currencyMocks: Currency[] = [
   {

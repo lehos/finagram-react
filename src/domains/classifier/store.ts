@@ -1,11 +1,11 @@
-import {store} from 'react-easy-state'
+import { store } from 'react-easy-state'
 import nanoid from 'nanoid'
 
-import {arrayToMap} from '@/utils'
+import { arrayToMap } from '@/utils'
 
-import {categoryStore} from '@/domains/category'
+import { categoryStore } from '@/domains/category'
 
-import {Classifier, ClassifierStub} from '.'
+import { Classifier, ClassifierStub } from '.'
 import * as A from './api'
 
 export const classifierStore = store({
@@ -24,7 +24,7 @@ export const classifierStore = store({
 
   async create(classifierStub: ClassifierStub) {
     const id = nanoid()
-    const {name, namePlural, split, useInTransfer} = classifierStub
+    const { name, namePlural, split, useInTransfer } = classifierStub
     const classifier = {
       id,
       name,
@@ -41,7 +41,7 @@ export const classifierStore = store({
     await categoryStore.createClCategory(classifier)
   },
 
-  async update(classifierStub: Required<ClassifierStub> & {id: string}) {
+  async update(classifierStub: Required<ClassifierStub> & { id: string }) {
     await A.update(classifierStub)
 
     const obj = classifierStore.classifierMap[classifierStub.id]
@@ -54,7 +54,7 @@ export const classifierStore = store({
   async delete(id: string) {
     await A.deleteClassifier(id)
 
-    const {classifierMap, classifierList} = classifierStore
+    const { classifierMap, classifierList } = classifierStore
 
     setTimeout(() => {
       delete classifierMap[id]

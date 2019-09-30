@@ -1,4 +1,4 @@
-import {ReactNode, useRef, useEffect} from 'react'
+import { ReactNode, useRef, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
 type Props = {

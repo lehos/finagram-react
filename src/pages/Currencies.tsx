@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {CurrencyTable} from '@/domains/currency'
+import { CurrencyTable } from '@/domains/currency'
 
 export function Currencies() {
   return (

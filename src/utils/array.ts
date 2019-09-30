@@ -1,10 +1,10 @@
-import {Tree} from '@/domains/entity'
+import { Tree } from '@/domains/entity'
 
-export function arrayToMap<T extends {[key: string]: any}>(
+export function arrayToMap<T extends { [key: string]: any }>(
   arr: T[],
   id: string = 'id'
 ): Record<string, T> {
-  return arr.reduce((acc: {[key: string]: T}, cur) => {
+  return arr.reduce((acc: { [key: string]: T }, cur) => {
     acc[cur[id]] = cur
     return acc
   }, {})
@@ -53,7 +53,7 @@ export function removeElemById<T extends Tree<T>>(arr: T[], id: string): boolean
  * mutates array
  */
 export function removeElem<T>(arr: T[], params: RemoveElemParams<T>): boolean {
-  const {el, clb} = params
+  const { el, clb } = params
 
   if (!el && !clb) {
     return false

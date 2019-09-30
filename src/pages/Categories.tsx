@@ -1,19 +1,19 @@
-import React, {useState} from 'react'
-import {RouteComponentProps} from 'react-router-dom'
-import {Button, Modal} from 'antd'
+import React, { useState } from 'react'
+import { RouteComponentProps } from 'react-router-dom'
+import { Button, Modal } from 'antd'
 
-import {Spacer, PageHeader} from '@/ui'
-import {useEntityPage} from '@/hooks'
+import { Spacer, PageHeader } from '@/ui'
+import { useEntityPage } from '@/hooks'
 
-import {CategoryTable, CategoryForm} from '@/domains/category'
-import {classifierStore} from '@/domains/classifier'
+import { CategoryTable, CategoryForm } from '@/domains/category'
+import { classifierStore } from '@/domains/classifier'
 
 type Params = {
   id: string
 }
 
 export function Categories(props: RouteComponentProps) {
-  const {entity, modal} = useEntityPage()
+  const { entity, modal } = useEntityPage()
 
   const [selectedId, setSelectedId] = useState<string | null>(null)
 

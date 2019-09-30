@@ -1,8 +1,8 @@
 import React from 'react'
 
-import {ClassifierStub, classifierStore} from '.'
+import { ClassifierStub, classifierStore } from '.'
 import * as UI from '@/ui'
-import {EntityForm} from '@/components'
+import { EntityForm } from '@/components'
 
 type Props = {
   onOk: () => any
@@ -20,13 +20,13 @@ type Values = ClassifierStub & {
 
 function getInitialValues(classifierId: string | null | undefined): Values {
   if (!classifierId) {
-    return {name: ''}
+    return { name: '' }
   }
 
   const classifier = classifierStore.classifierMap[classifierId]
-  const {name, namePlural, split, useInTransfer} = classifier
+  const { name, namePlural, split, useInTransfer } = classifier
 
-  return {name, namePlural, split, useInTransfer}
+  return { name, namePlural, split, useInTransfer }
 }
 
 function validate(values: Partial<Values>) {
@@ -40,7 +40,7 @@ function validate(values: Partial<Values>) {
 }
 
 export function ClassifierForm(props: Props) {
-  const {classifierId} = props
+  const { classifierId } = props
 
   function onCreate(values: Values) {
     classifierStore.create(values)

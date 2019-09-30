@@ -1,13 +1,13 @@
-import React, {useState} from 'react'
-import {Button, Modal} from 'antd'
+import React, { useState } from 'react'
+import { Button, Modal } from 'antd'
 
-import {Spacer, PageHeader} from '@/ui'
-import {useEntityPage} from '@/hooks'
+import { Spacer, PageHeader } from '@/ui'
+import { useEntityPage } from '@/hooks'
 
-import {AccountsTable, AccountForm} from '@/domains/account'
+import { AccountsTable, AccountForm } from '@/domains/account'
 
 export function Accounts() {
-  const {entity, modal} = useEntityPage()
+  const { entity, modal } = useEntityPage()
 
   return (
     <div>

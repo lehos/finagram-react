@@ -1,12 +1,12 @@
-import React, {ComponentType, useState} from 'react'
-import {view} from 'react-easy-state'
-import {Route, RouteComponentProps, RouteProps} from 'react-router-dom'
-import {Layout} from 'antd'
+import React, { ComponentType, useState } from 'react'
+import { view } from 'react-easy-state'
+import { Route, RouteComponentProps, RouteProps } from 'react-router-dom'
+import { Layout } from 'antd'
 
-import {AppLoader, Nav} from '@/components'
+import { AppLoader, Nav } from '@/components'
 
 import * as S from './PrivateLayout.styles'
-import {appStore} from '@/domains/common/appStore'
+import { appStore } from '@/domains/common/appStore'
 
 import './main.css'
 
@@ -14,7 +14,7 @@ interface Props extends RouteProps {
   component: ComponentType<RouteComponentProps>
 }
 
-export const PrivateLayout = view(({component: Component, ...rest}: Props) => {
+export const PrivateLayout = view(({ component: Component, ...rest }: Props) => {
   const [collapsed, setCollapsed] = useState(false)
 
   if (!appStore.isInitialized) {
@@ -30,13 +30,13 @@ export const PrivateLayout = view(({component: Component, ...rest}: Props) => {
     <Route
       {...rest}
       render={matchProps => (
-        <Layout style={{minHeight: '100vh'}}>
+        <Layout style={{ minHeight: '100vh' }}>
           <Layout.Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
             <S.Sidebar>
               <Nav />
             </S.Sidebar>
           </Layout.Sider>
-          <Layout style={{padding: '20px', background: '#fff'}}>
+          <Layout style={{ padding: '20px', background: '#fff' }}>
             <Component {...matchProps} />
           </Layout>
         </Layout>

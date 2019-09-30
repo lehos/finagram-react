@@ -1,9 +1,9 @@
-import {hot} from 'react-hot-loader/root'
+import { hot } from 'react-hot-loader/root'
 import React from 'react'
-import {Router, Switch} from 'react-router-dom'
+import { Router, Switch } from 'react-router-dom'
 
-import {history} from './services'
-import {PrivateLayout} from '@/layouts'
+import { history } from './services'
+import { PrivateLayout } from '@/layouts'
 
 import * as Pages from '@/pages'
 

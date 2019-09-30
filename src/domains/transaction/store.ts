@@ -1,9 +1,9 @@
-import {store} from 'react-easy-state'
+import { store } from 'react-easy-state'
 
 import * as T from './entity'
 import * as A from './api'
 
-import {removeElem} from '@/utils'
+import { removeElem } from '@/utils'
 
 export const transactionStore = store({
   transactionList: [] as T.Transaction[],
@@ -22,7 +22,7 @@ export const transactionStore = store({
 
     this.transactionList.forEach(el => {
       if (el.kind !== 'balance') {
-        removeElem(el.categories!, {clb: c => c.categoryId === categoryId})
+        removeElem(el.categories!, { clb: c => c.categoryId === categoryId })
       }
     })
   },

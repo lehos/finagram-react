@@ -1,7 +1,7 @@
 import React from 'react'
-import {Field} from 'react-final-form'
-import {Radio as AntRadio} from 'antd'
-import {RadioProps} from 'antd/lib/radio'
+import { Field } from 'react-final-form'
+import { Radio as AntRadio } from 'antd'
+import { RadioProps } from 'antd/lib/radio'
 
 interface Props extends RadioProps {
   name: string
@@ -11,11 +11,11 @@ interface Props extends RadioProps {
   }[]
 }
 export function Radio(props: Props) {
-  const {name, options, ...restProps} = props
+  const { name, options, ...restProps } = props
 
   return (
     <Field name={name} type="checkbox">
-      {({input}) => {
+      {({ input }) => {
         return (
           <AntRadio.Group {...input} {...restProps}>
             {options.map(el => (

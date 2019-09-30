@@ -1,5 +1,5 @@
-import React, {ReactNode} from 'react'
-import {styled} from 'linaria/react'
+import React, { ReactNode } from 'react'
+import { styled } from 'linaria/react'
 
 const Row = styled.div`
   margin-bottom: 20px;

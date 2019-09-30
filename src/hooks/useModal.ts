@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 
 export function useModal() {
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -11,5 +11,5 @@ export function useModal() {
     setIsModalVisible(false)
   }
 
-  return {isModalVisible, showModal, hideModal}
+  return { isModalVisible, showModal, hideModal }
 }

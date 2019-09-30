@@ -1,6 +1,6 @@
 import React from 'react'
-import {withTypes, FormSpy} from 'react-final-form'
-import {Button} from 'antd'
+import { withTypes, FormSpy } from 'react-final-form'
+import { Button } from 'antd'
 
 import * as UI from '@/ui'
 
@@ -9,7 +9,7 @@ type Props<T> = {
   onOk: () => any
   onCancel: () => any
 
-  validate: (values: T) => {[key in keyof T]?: string}
+  validate: (values: T) => { [key in keyof T]?: string }
   onDelete: (values: T) => void
   onCreate: (values: T) => void
   onUpdate: (values: T) => void
@@ -25,10 +25,10 @@ type BaseValues = {
 }
 
 export function EntityForm<T>(props: Props<T>) {
-  const {isNew, isDeleteBtnHidden} = props
+  const { isNew, isDeleteBtnHidden } = props
 
   async function onSubmit(values: T & BaseValues) {
-    const {action, ...rest} = values
+    const { action, ...rest } = values
     const restValues = rest as T
 
     if (action === 'delete') {
@@ -42,7 +42,7 @@ export function EntityForm<T>(props: Props<T>) {
     props.onOk()
   }
 
-  const {Form} = withTypes<T & BaseValues>()
+  const { Form } = withTypes<T & BaseValues>()
 
   return (
     <Form
@@ -50,7 +50,7 @@ export function EntityForm<T>(props: Props<T>) {
       validate={props.validate}
       onSubmit={onSubmit}
       subscription={{}}
-      render={({handleSubmit, form}) => (
+      render={({ handleSubmit, form }) => (
         <form
           onSubmit={async e => {
             await handleSubmit(e)
@@ -61,8 +61,8 @@ export function EntityForm<T>(props: Props<T>) {
 
           <UI.Spacer height={20} />
 
-          <FormSpy subscription={{values: true, submitting: true}}>
-            {({values, submitting}) => (
+          <FormSpy subscription={{ values: true, submitting: true }}>
+            {({ values, submitting }) => (
               <UI.Flex justifyContent="space-between">
                 <div>
                   {!isNew && !isDeleteBtnHidden && (
