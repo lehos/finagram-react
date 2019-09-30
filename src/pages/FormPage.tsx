@@ -1,13 +1,15 @@
 import React from 'react'
-import {DatePicker} from 'antd'
 import {FormRenderProps, withTypes} from 'react-final-form'
 
-import {FormInput, FormCheckbox, FormSelect} from '@/ui'
+import * as UI from '@/ui'
 
 interface Values {
   input: string
   checkbox: boolean
   select: string
+  radio: string
+  number: number
+  treeSelect: string
 }
 
 const options = [
@@ -16,14 +18,57 @@ const options = [
   {value: '3', label: 'Third item'}
 ]
 
+const treeData = [
+  {
+    title: 'Node1',
+    value: '0-0',
+    children: [
+      {
+        title: 'Child Node1',
+        value: '0-0-1'
+      },
+      {
+        title: 'Child Node2',
+        value: '0-0-2'
+      }
+    ]
+  },
+  {
+    title: 'Node2',
+    value: '0-1'
+  }
+]
+
 export function FormPage() {
   function renderForm({values}: FormRenderProps<Values>) {
     return (
       <div>
-        <FormInput name="input" />
-        <FormCheckbox name="checkbox">Привет</FormCheckbox>
-        <FormSelect name="select" options={options} />
+        <UI.FormInput name="input" />
+        <br />
 
+        <UI.FormSelect name="select" options={options} />
+        <br />
+
+        <UI.TreeSelect
+          style={{width: '100%'}}
+          name="treeSelect"
+          treeData={treeData}
+        />
+        <br />
+        <br />
+
+        <UI.FormCheckbox name="checkbox">Привет</UI.FormCheckbox>
+        <br />
+
+        <div>
+          <UI.Form.Radio name="radio" options={options} />
+        </div>
+        <br />
+        <UI.Form.DatePicker name="date" />
+        <br />
+        <UI.Form.InputNumber name="number" />
+
+        <br />
         <pre>{JSON.stringify(values, null, 2)}</pre>
       </div>
     )
@@ -32,14 +77,7 @@ export function FormPage() {
   const {Form} = withTypes<Values>()
   return (
     <div>
-      <DatePicker />
-
-      <Form
-        onSubmit={() => {}}
-        render={formProps => {
-          return renderForm(formProps)
-        }}
-      />
+      <Form onSubmit={() => {}} render={formProps => renderForm(formProps)} />
     </div>
   )
 }

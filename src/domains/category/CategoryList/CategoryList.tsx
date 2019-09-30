@@ -50,6 +50,7 @@ export const CategoryList = view((props: Props) => {
         rowKey="id"
         pagination={false}
         defaultExpandAllRows
+        showHeader={false}
         // @ts-ignore
         rowSelection={{
           type: 'radio',

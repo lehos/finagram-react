@@ -1,48 +1,39 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Button, Modal} from 'antd'
 
 import {TransactionTable, TransactionForm, Transaction} from '@/domains/transaction'
 import {PageHeader, Spacer} from '@/ui'
-import {useEntityPage, useModal} from '@/hooks'
+import {useEntityPage} from '@/hooks'
 
 export function Transactions() {
-  const {showModal, hideModal, isModalVisible} = useModal()
-
-  const {entity} = useEntityPage()
-  const [transaction, setTransaction] = useState<Transaction | null>(null)
-
-  function onRowClick(obj: Transaction) {
-    setTransaction(obj)
-    showModal()
-  }
+  const {entity, modal} = useEntityPage<Transaction>()
 
   return (
     <div>
       <PageHeader>
         <h1>Операции</h1>
         <Spacer width={20} />
-        <Button onClick={showModal} icon="plus">
+        <Button onClick={modal.show} icon="plus">
           Добавить
         </Button>
       </PageHeader>
 
       <Modal
-        title={`${entity.id ? 'Редактирование' : 'Добавление'} операции`}
-        visible={isModalVisible}
-        onCancel={hideModal}
+        title={`${entity.obj ? 'Редактирование' : 'Добавление'} операции`}
+        visible={modal.visible}
+        onCancel={modal.hide}
         footer={null}
         afterClose={entity.clear}
-        width={400}
         centered
       >
         <TransactionForm
-          onOk={hideModal}
-          onCancel={hideModal}
-          transaction={transaction}
+          onOk={modal.hide}
+          onCancel={modal.hide}
+          transaction={entity.obj}
         />
       </Modal>
 
-      <TransactionTable onRowClick={onRowClick} />
+      <TransactionTable onRowClick={entity.editObj} />
     </div>
   )
 }

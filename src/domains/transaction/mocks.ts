@@ -4,6 +4,7 @@ export const transactionMock: T.Transaction[] = [
   {
     id: 't1',
     accountId: 'ac1',
+    toAccountId: null,
     kind: 'expense',
     status: 'done',
     description: 'расход в рутовой категории "Статья"',
@@ -19,6 +20,7 @@ export const transactionMock: T.Transaction[] = [
   {
     id: 't2',
     accountId: 'ac2',
+    toAccountId: null,
     kind: 'expense',
     status: 'done',
     description: 'расход в конкретной категории "Статья"',
@@ -34,6 +36,7 @@ export const transactionMock: T.Transaction[] = [
   {
     id: 't22',
     accountId: 'ac2',
+    toAccountId: null,
     kind: 'expense',
     status: 'done',
     description: 'расход со статьей и агентом',
@@ -53,6 +56,7 @@ export const transactionMock: T.Transaction[] = [
   {
     id: 't3',
     accountId: 'ac2',
+    toAccountId: null,
     kind: 'expense',
     status: 'done',
     description: 'расход без категорий',
@@ -63,6 +67,7 @@ export const transactionMock: T.Transaction[] = [
   {
     id: 't4',
     accountId: 'ac3',
+    toAccountId: null,
     kind: 'income',
     status: 'done',
     description: 'приход с категорией',
@@ -83,7 +88,7 @@ export const transactionMock: T.Transaction[] = [
     description: 'перевод без агента',
     sum: 100000,
     date: '30.07.2019',
-    fromAccountId: 'ac2',
+    accountId: 'ac2',
     toAccountId: 'ac1',
     categories: []
   },
@@ -94,7 +99,7 @@ export const transactionMock: T.Transaction[] = [
     description: 'перевод с агентом',
     sum: 200000,
     date: '30.07.2019',
-    fromAccountId: 'ac2',
+    accountId: 'ac2',
     toAccountId: 'ac1',
     categories: [
       {
@@ -110,7 +115,7 @@ export const transactionMock: T.Transaction[] = [
     description: 'перевод с другого счета',
     sum: 200000,
     date: '01.08.2019',
-    fromAccountId: 'ac3',
+    accountId: 'ac3',
     toAccountId: 'ac2',
     categories: []
   }

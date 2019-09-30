@@ -1,6 +1,13 @@
 export type TransactionKind = 'income' | 'expense' | 'transfer' | 'balance'
 export type TransactionStatus = 'done' | 'blocked' | 'pending' | 'pendingAndRepeat'
 
+export const transactionKinds = {
+  income: 'Приход',
+  expense: 'Расход',
+  transfer: 'Перевод',
+  balance: 'Остаток'
+}
+
 // todo branded type
 // export interface DateString extends String {}
 export type DateString = string
@@ -13,6 +20,13 @@ interface TransactionBase {
   sum: MoneyInCents
   date: DateString
   description: string
+  accountId: string | null
+
+  // есть только в transfer
+  toAccountId: string | null
+
+  // есть во всех, кроме balance
+  categories: Category[] | null
 }
 
 type Category = {
@@ -20,33 +34,20 @@ type Category = {
   categoryId: string
 }
 
-interface TransactionDefault extends TransactionBase {
-  accountId: string | null
-
-  categories: Category[]
-}
-
-export interface TransactionIncome extends TransactionDefault {
+export interface TransactionIncome extends TransactionBase {
   kind: 'income'
 }
 
-export interface TransactionExpense extends TransactionDefault {
+export interface TransactionExpense extends TransactionBase {
   kind: 'expense'
 }
 
 export interface TransactionTransfer extends TransactionBase {
   kind: 'transfer'
-
-  // todo может быть это стоит назвать просто accountId?
-  fromAccountId: string | null
-  toAccountId: string | null
-
-  categories: Category[]
 }
 
 export interface TransactionBalance extends TransactionBase {
   kind: 'balance'
-  accountId: string | null
 }
 
 export type Transaction =

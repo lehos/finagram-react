@@ -79,12 +79,6 @@ export function EntityForm<T>(props: Props<T>) {
                 </div>
 
                 <div>
-                  <Button onClick={props.onCancel} disabled={submitting}>
-                    Отмена
-                  </Button>
-
-                  <UI.Spacer inline width={10} />
-
                   <Button
                     type="primary"
                     htmlType="submit"

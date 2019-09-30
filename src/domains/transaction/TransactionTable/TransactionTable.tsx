@@ -40,10 +40,7 @@ function makeColumns() {
       title: 'Счет',
       key: 'accountId',
       dataIndex: 'accountId',
-      render: (val, row) => {
-        const id = row.kind === 'transfer' ? row.fromAccountId : val
-        return accountStore.accountsMap[id!].name
-      }
+      render: val => accountStore.accountsMap[val].name
     }
   ]
 
@@ -57,7 +54,7 @@ function makeColumns() {
           return ''
         }
 
-        const category = row.categories.find(c => c.classifierId === classifier.id)
+        const category = row.categories!.find(c => c.classifierId === classifier.id)
 
         if (!category) {
           return ''

@@ -39,7 +39,6 @@ function NavComp(props: RouteComponentProps) {
         renderItem({to: `/category/${el.id}`, icon: 'tag', text: el.namePlural})
       )}
       {renderItem({to: '/classifiers', icon: 'tags', text: 'Классификаторы'})}
-      {renderItem({to: '/form', icon: 'none', text: 'Формы'})}
     </Menu>
   )
 }

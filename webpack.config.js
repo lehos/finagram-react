@@ -1,17 +1,18 @@
 const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const stylis = require('stylis');
+const stylis = require('stylis')
 const HtmlPlugin = require('html-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 const {NODE_ENV, BUNDLE_ANALYZER} = process.env
 const isProd = NODE_ENV === 'production'
 
 // don't vendor prefix linaria css output
-stylis.set({ prefix: false });
+stylis.set({prefix: false})
 
-const ASSET_PATH = process.env.ASSET_PATH || '/';
+const ASSET_PATH = process.env.ASSET_PATH || '/'
 
 module.exports = function exports() {
   const plugins = [
@@ -21,9 +22,18 @@ module.exports = function exports() {
     }),
 
     new webpack.DefinePlugin({
-      'process.env.ASSET_PATH': JSON.stringify(ASSET_PATH),
+      'process.env.ASSET_PATH': JSON.stringify(ASSET_PATH)
       // 'process.env.API_URL': JSON.stringify(API_URL)
-    })
+    }),
+
+    // To strip all locales except “en”
+    new MomentLocalesPlugin(),
+
+    // Or: To strip all locales except “en”, “es-us” and “ru”
+    // (“en” is built into Moment and can’t be removed)
+    // new MomentLocalesPlugin({
+    //   localesToKeep: ['es-us', 'ru'],
+    // }),
   ]
 
   if (BUNDLE_ANALYZER === 'localhost') {
@@ -38,10 +48,10 @@ module.exports = function exports() {
 
   const resolveAlias = {
     '@': path.resolve(__dirname, 'src')
-  };
+  }
 
   if (!isProd) {
-    resolveAlias['react-dom'] = '@hot-loader/react-dom';
+    resolveAlias['react-dom'] = '@hot-loader/react-dom'
   }
 
   return {
