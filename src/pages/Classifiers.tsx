@@ -4,10 +4,10 @@ import { Button, Modal } from 'antd'
 import { Spacer, PageHeader } from '@/ui'
 import { useEntityListPage } from '@/hooks'
 
-import { ClassifiersTable, ClassifierForm } from '@/domains/classifier'
+import { Classifier, ClassifiersTable, ClassifierForm } from '@/domains/classifier'
 
 export function Classifiers() {
-  const { entity, modal } = useEntityListPage()
+  const { entity, modal } = useEntityListPage<Classifier>()
 
   return (
     <div>
@@ -28,14 +28,10 @@ export function Classifiers() {
         width={400}
         centered
       >
-        <ClassifierForm
-          onOk={modal.hide}
-          onCancel={modal.hide}
-          classifierId={entity.id}
-        />
+        <ClassifierForm onOk={modal.hide} classifier={entity.obj} />
       </Modal>
 
-      <ClassifiersTable onRowClick={entity.edit} />
+      <ClassifiersTable onRowClick={entity.editObj} />
     </div>
   )
 }

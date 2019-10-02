@@ -1,32 +1,21 @@
 import React from 'react'
 
-import { ClassifierStub, classifierStore } from '.'
+import { Classifier, classifierStore } from '.'
 import * as UI from '@/ui'
 import { EntityForm } from '@/components'
+import { PartialBy } from '@/utils'
 
 type Props = {
   onOk: () => any
-  onCancel: () => any
-
-  // может быть сюда лучше прокидывать сам объект, а не его id
-  // тогда форма не будет ходить в стор
-  // с другой стороны, к такой форме легче будет прикрутить урл
-  classifierId?: string | null
+  classifier?: Classifier | null
 }
 
-type Values = ClassifierStub & {
-  action?: 'create' | 'delete' | 'update'
-}
+type Values = PartialBy<Classifier, 'id'>
 
-function getInitialValues(classifierId: string | null | undefined): Values {
-  if (!classifierId) {
-    return { name: '' }
-  }
-
-  const classifier = classifierStore.classifierMap[classifierId]
-  const { name, namePlural, split, useInTransfer } = classifier
-
-  return { name, namePlural, split, useInTransfer }
+function getInitialValues(classifier: Classifier | null | undefined): Values {
+  return (
+    classifier || { name: '', useInTransfer: false, namePlural: '', split: false }
+  )
 }
 
 function validate(values: Partial<Values>) {
@@ -40,34 +29,29 @@ function validate(values: Partial<Values>) {
 }
 
 export function ClassifierForm(props: Props) {
-  const { classifierId } = props
+  const { classifier } = props
 
   function onCreate(values: Values) {
-    classifierStore.create(values)
+    return classifierStore.create(values)
   }
 
   function onDelete() {
-    classifierStore.delete(classifierId!)
+    return classifierStore.delete(classifier!)
   }
 
   function onUpdate(values: Values) {
-    classifierStore.update({
-      id: classifierId!,
-      // todo тут что-то не то с типами
-      ...(values as Required<Values>)
-    })
+    return classifierStore.update({ ...values, id: classifier!.id })
   }
 
   return (
     <EntityForm<Values>
-      onCancel={props.onCancel}
-      onOk={props.onOk}
+      initialValues={getInitialValues(classifier)}
       validate={validate}
-      initialValues={getInitialValues(classifierId)}
-      isNew={!classifierId}
       onCreate={onCreate}
       onDelete={onDelete}
       onUpdate={onUpdate}
+      onOk={props.onOk}
+      isNew={!classifier}
       formInner={
         <>
           <UI.FormRow>
@@ -89,7 +73,7 @@ export function ClassifierForm(props: Props) {
           </UI.FormRow>
 
           <UI.FormRow>
-            <UI.FormCheckbox name="split" disabled={!!classifierId}>
+            <UI.FormCheckbox name="split" disabled={!!classifier}>
               Разделять по типу операции
             </UI.FormCheckbox>
           </UI.FormRow>

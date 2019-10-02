@@ -3,8 +3,7 @@ import { Table, Icon } from 'antd'
 import { ColumnProps } from 'antd/lib/table'
 import { view } from 'react-easy-state'
 
-import { Classifier } from '.'
-import { classifierStore } from './store'
+import { Classifier, classifierStore } from '.'
 
 const columns: ColumnProps<Classifier>[] = [
   {
@@ -32,7 +31,7 @@ const columns: ColumnProps<Classifier>[] = [
 ]
 
 type Props = {
-  onRowClick: (classifierId: string) => any
+  onRowClick: (classifier: Classifier) => any
 }
 
 export const ClassifiersTable = view((props: Props) => {
@@ -50,7 +49,7 @@ export const ClassifiersTable = view((props: Props) => {
       size="middle"
       rowKey="id"
       onRow={record => ({
-        onClick: () => onRowClick(record.id)
+        onClick: () => onRowClick(record)
       })}
       pagination={false}
     />
