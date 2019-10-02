@@ -48,7 +48,7 @@ export function AccountForm(props: Props) {
   }
 
   function onUpdate(values: Values) {
-    return accountStore.update({ ...values, id: account!.id })
+    return accountStore.update(values as Account)
   }
 
   // todo could be cached

@@ -9,7 +9,7 @@ import * as Api from './api'
 export const accountStore = store({
   accountsList: [] as Account[],
 
-  // computed
+  // _computed
   accountsMap: {} as Record<string, Account>,
 
   init() {
@@ -18,7 +18,7 @@ export const accountStore = store({
 
   async getList() {
     this.accountsList = await Api.getList()
-    this.compute()
+    this._compute()
   },
 
   async create(acc: Omit<Account, 'id'>) {
@@ -27,7 +27,7 @@ export const accountStore = store({
 
     await Api.create(newAcc)
     this.accountsList.push(newAcc)
-    this.compute()
+    this._compute()
   },
 
   async update(acc: Account) {
@@ -35,16 +35,16 @@ export const accountStore = store({
     this.accountsList = this.accountsList.map(el => {
       return el.id === acc.id ? acc : el
     })
-    this.compute()
+    this._compute()
   },
 
   async remove(acc: Account) {
     await Api.remove(acc.id)
     this.accountsList = removeElemImm(this.accountsList, acc)
-    this.compute()
+    this._compute()
   },
 
-  compute() {
+  _compute() {
     this.accountsMap = arrayToMap(this.accountsList)
   }
 })

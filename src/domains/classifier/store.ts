@@ -10,7 +10,7 @@ import * as A from './api'
 export const classifierStore = store({
   classifierList: [] as Classifier[],
 
-  // computed
+  // _computed
   classifierMap: {} as Record<string, Classifier>,
 
   init() {
@@ -19,7 +19,7 @@ export const classifierStore = store({
 
   async getList() {
     this.classifierList = await A.getList()
-    this.compute()
+    this._compute()
   },
 
   async create(cl: Omit<Classifier, 'id'>) {
@@ -33,7 +33,7 @@ export const classifierStore = store({
     await A.create(classifier)
 
     this.classifierList.push(classifier)
-    this.compute()
+    this._compute()
 
     await categoryStore.createClCategory(classifier)
   },
@@ -41,16 +41,16 @@ export const classifierStore = store({
   async update(cl: Classifier) {
     await A.update(cl)
     this.classifierList = this.classifierList.map(el => (el.id === cl.id ? cl : el))
-    this.compute()
+    this._compute()
   },
 
   async delete(cl: Classifier) {
     await A.deleteClassifier(cl.id)
     this.classifierList = removeElemImm(this.classifierList, cl)
-    this.compute()
+    this._compute()
   },
 
-  compute() {
+  _compute() {
     this.classifierMap = arrayToMap(this.classifierList)
   }
 })

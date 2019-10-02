@@ -40,7 +40,7 @@ export function ClassifierForm(props: Props) {
   }
 
   function onUpdate(values: Values) {
-    return classifierStore.update({ ...values, id: classifier!.id })
+    return classifierStore.update(values as Classifier)
   }
 
   return (
