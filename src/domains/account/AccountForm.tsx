@@ -40,15 +40,15 @@ export function AccountForm(props: Props) {
   const { account } = props
 
   function onCreate(values: Values) {
-    accountStore.create(values)
+    return accountStore.create(values)
   }
 
   function onDelete() {
-    accountStore.remove(account!)
+    return accountStore.remove(account!)
   }
 
   function onUpdate(values: Values) {
-    accountStore.update({ ...values, id: account!.id })
+    return accountStore.update({ ...values, id: account!.id })
   }
 
   // todo could be cached
