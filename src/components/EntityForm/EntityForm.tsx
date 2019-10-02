@@ -1,5 +1,5 @@
 import React from 'react'
-import { withTypes, FormSpy } from 'react-final-form'
+import { withTypes, Field } from 'react-final-form'
 import { Button } from 'antd'
 
 import * as UI from '@/ui'
@@ -7,7 +7,6 @@ import * as UI from '@/ui'
 type Props<T> = {
   isNew?: boolean
   onOk: () => any
-  onCancel: () => any
 
   validate: (values: T) => { [key in keyof T]?: string }
   onDelete: (values: T) => void
@@ -16,12 +15,13 @@ type Props<T> = {
   initialValues: T
 
   isDeleteBtnHidden?: boolean
+  formInner: React.ReactNode
 
-  formInner: JSX.Element | JSX.Element[]
+  onCancel?: () => any
 }
 
 type BaseValues = {
-  action?: 'create' | 'delete' | 'update'
+  action?: 'create' | 'update' | 'remove'
 }
 
 export function EntityForm<T>(props: Props<T>) {
@@ -31,7 +31,7 @@ export function EntityForm<T>(props: Props<T>) {
     const { action, ...rest } = values
     const restValues = rest as T
 
-    if (action === 'delete') {
+    if (action === 'remove') {
       await props.onDelete(restValues)
     } else if (action === 'create') {
       await props.onCreate(restValues)
@@ -49,8 +49,8 @@ export function EntityForm<T>(props: Props<T>) {
       initialValues={props.initialValues}
       validate={props.validate}
       onSubmit={onSubmit}
-      subscription={{}}
-      render={({ handleSubmit, form }) => (
+      subscription={{ submitting: true }}
+      render={({ handleSubmit, form, submitting }) => (
         <form
           onSubmit={async e => {
             await handleSubmit(e)
@@ -61,17 +61,20 @@ export function EntityForm<T>(props: Props<T>) {
 
           <UI.Spacer height={20} />
 
-          <FormSpy subscription={{ values: true, submitting: true }}>
-            {({ values, submitting }) => (
+          <Field name="action" subscription={{ value: true }}>
+            {({ input: { value } }) => (
               <UI.Flex justifyContent="space-between">
                 <div>
                   {!isNew && !isDeleteBtnHidden && (
                     <Button
                       disabled={submitting}
                       type="danger"
-                      htmlType="submit"
-                      loading={values.action === 'delete' && submitting}
-                      onClick={() => form.change('action', 'delete')}
+                      htmlType="button"
+                      loading={value === 'remove' && submitting}
+                      onClick={() => {
+                        form.change('action', 'remove')
+                        handleSubmit()
+                      }}
                     >
                       Удалить
                     </Button>
@@ -83,17 +86,17 @@ export function EntityForm<T>(props: Props<T>) {
                     type="primary"
                     htmlType="submit"
                     disabled={submitting}
-                    loading={values.action !== 'delete' && submitting}
-                    onClick={() =>
+                    loading={value !== 'remove' && submitting}
+                    onClick={() => {
                       form.change('action', isNew ? 'create' : 'update')
-                    }
+                    }}
                   >
                     Сохранить
                   </Button>
                 </div>
               </UI.Flex>
             )}
-          </FormSpy>
+          </Field>
         </form>
       )}
     />

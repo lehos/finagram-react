@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { useModal } from './useModal'
 
-export function useEntityPage<T = null>() {
+export function useEntityListPage<T = null>() {
   const { showModal, hideModal, isModalVisible } = useModal()
 
   const [id, setId] = useState<string | null>(null)

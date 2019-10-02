@@ -4,10 +4,9 @@ import { ColumnProps } from 'antd/lib/table'
 import { view } from 'react-easy-state'
 
 import { formatMoney } from '@/services/money'
-
-import { Account } from '.'
-import { accountStore } from './store'
 import { currencyStore } from '@/domains/currency'
+
+import { Account, accountStore } from '.'
 
 const columns: ColumnProps<Account>[] = [
   {
@@ -31,7 +30,7 @@ const columns: ColumnProps<Account>[] = [
 ]
 
 type Props = {
-  onRowClick: (accountId: string) => any
+  onRowClick: (account: Account) => any
 }
 
 export const AccountsTable = view((props: Props) => {
@@ -49,7 +48,7 @@ export const AccountsTable = view((props: Props) => {
       size="middle"
       rowKey="id"
       onRow={record => ({
-        onClick: e => onRowClick(record.id)
+        onClick: _ => onRowClick(record)
       })}
       pagination={false}
     />

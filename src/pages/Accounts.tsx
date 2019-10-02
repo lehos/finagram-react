@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button, Modal } from 'antd'
 
 import { Spacer, PageHeader } from '@/ui'
-import { useEntityPage } from '@/hooks'
-
-import { AccountsTable, AccountForm } from '@/domains/account'
+import { useEntityListPage } from '@/hooks'
+import { AccountsTable, AccountForm, Account } from '@/domains/account'
 
 export function Accounts() {
-  const { entity, modal } = useEntityPage()
+  const { entity, modal } = useEntityListPage<Account>()
 
   return (
     <div>
@@ -28,10 +27,10 @@ export function Accounts() {
         width={400}
         centered
       >
-        <AccountForm onOk={modal.hide} onCancel={modal.hide} accountId={entity.id} />
+        <AccountForm onOk={modal.hide} account={entity.obj} />
       </Modal>
 
-      <AccountsTable onRowClick={entity.edit} />
+      <AccountsTable onRowClick={entity.editObj} />
     </div>
   )
 }

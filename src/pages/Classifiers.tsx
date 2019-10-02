@@ -2,12 +2,12 @@ import React from 'react'
 import { Button, Modal } from 'antd'
 
 import { Spacer, PageHeader } from '@/ui'
-import { useEntityPage } from '@/hooks'
+import { useEntityListPage } from '@/hooks'
 
 import { ClassifiersTable, ClassifierForm } from '@/domains/classifier'
 
 export function Classifiers() {
-  const { entity, modal } = useEntityPage()
+  const { entity, modal } = useEntityListPage()
 
   return (
     <div>

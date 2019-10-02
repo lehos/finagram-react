@@ -74,8 +74,15 @@ type RemoveElemParams<T> = {
   clb?: (el: T) => boolean
 }
 
-export function removeElemImm<T>(arr: T[], params: RemoveElemParams<T>): T[] {
-  const res = [...arr]
-  const isRemoved = removeElem(res, params)
-  return isRemoved ? res : arr
+export function removeElemImm<T>(arr: T[], pr: T | ((el: T) => boolean)): T[] {
+  // todo fix ts
+  // @ts-ignore
+  const index = typeof pr === 'function' ? arr.findIndex(pr) : arr.indexOf(pr)
+  const result = [...arr]
+
+  if (index !== -1) {
+    result.splice(index, 1)
+  }
+
+  return result
 }

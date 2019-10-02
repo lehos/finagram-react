@@ -1,51 +1,50 @@
 import { store } from 'react-easy-state'
 import nanoid from 'nanoid'
 
-import { arrayToMap } from '@/utils'
+import { arrayToMap, removeElemImm } from '@/utils'
 
 import { Account } from './entity'
-import * as A from './api'
+import * as Api from './api'
 
 export const accountStore = store({
-  accountsMap: {} as Record<string, Account>,
+  accountsList: [] as Account[],
 
-  // todo (maybe) for perf it should be cached or moved to state
-  get accountsList(): Account[] {
-    return Object.values(this.accountsMap)
-  },
+  // computed
+  accountsMap: {} as Record<string, Account>,
 
   init() {
     return this.getList()
   },
 
   async getList() {
-    this.accountsMap = arrayToMap(await A.getList())
+    this.accountsList = await Api.getList()
+    this.compute()
   },
 
   async create(acc: Omit<Account, 'id'>) {
     const id = nanoid()
-
     const newAcc = { id, ...acc }
-    await A.create(newAcc)
 
-    this.accountsMap[id] = newAcc
+    await Api.create(newAcc)
+    this.accountsList.push(newAcc)
+    this.compute()
   },
 
   async update(acc: Account) {
-    await A.update(acc)
-
-    this.accountsMap[acc.id] = {
-      ...this.accountsMap[acc.id],
-      ...acc
-    }
+    await Api.update(acc)
+    this.accountsList = this.accountsList.map(el => {
+      return el.id === acc.id ? acc : el
+    })
+    this.compute()
   },
 
-  async delete(id: string) {
-    await A.remove(id)
+  async remove(acc: Account) {
+    await Api.remove(acc.id)
+    this.accountsList = removeElemImm(this.accountsList, acc)
+    this.compute()
+  },
 
-    // todo get rid of this dirty hack
-    setTimeout(() => {
-      delete this.accountsMap[id]
-    }, 0)
+  compute() {
+    this.accountsMap = arrayToMap(this.accountsList)
   }
 })

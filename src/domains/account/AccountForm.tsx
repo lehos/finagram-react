@@ -3,32 +3,25 @@ import React from 'react'
 import * as UI from '@/ui'
 import { currencyStore } from '@/domains/currency'
 import { EntityForm } from '@/components'
+import { PartialBy } from '@/utils/types'
 
 import { Account, accountStore } from '.'
 
 type Props = {
   onOk: () => any
-  onCancel: () => any
-  accountId?: string | null
+  account?: Account | null
 }
 
-type Values = Omit<Account, 'id'> & {
-  action?: 'delete' | 'update' | 'create'
-}
+type Values = PartialBy<Account, 'id'>
 
-function getInitialValues(accountId: string | null | undefined): Values {
-  if (!accountId) {
-    return {
+function getInitialValues(account: Account | undefined | null): Values {
+  return (
+    account || {
       name: '',
       currencyId: currencyStore.currencyList[0].id,
       balance: 0
     }
-  }
-
-  const account = accountStore.accountsMap[accountId]
-  const { name, balance, currencyId } = account
-
-  return { name, balance, currencyId }
+  )
 }
 
 function validate(values: Partial<Values>) {
@@ -41,21 +34,24 @@ function validate(values: Partial<Values>) {
   return errors
 }
 
+// todo normalize balance
+
 export function AccountForm(props: Props) {
-  const { accountId } = props
+  const { account } = props
 
   function onCreate(values: Values) {
     accountStore.create(values)
   }
 
   function onDelete() {
-    accountStore.delete(accountId!)
+    accountStore.remove(account!)
   }
 
   function onUpdate(values: Values) {
-    accountStore.update({ id: accountId!, ...values })
+    accountStore.update({ ...values, id: account!.id })
   }
 
+  // todo could be cached
   const currencyOptions = currencyStore.currencyList.map(el => ({
     value: el.id,
     label: el.name
@@ -63,14 +59,13 @@ export function AccountForm(props: Props) {
 
   return (
     <EntityForm<Values>
-      onCancel={props.onCancel}
-      onOk={props.onOk}
+      initialValues={getInitialValues(account)}
       validate={validate}
-      initialValues={getInitialValues(accountId)}
-      isNew={!accountId}
       onCreate={onCreate}
       onDelete={onDelete}
       onUpdate={onUpdate}
+      onOk={props.onOk}
+      isNew={!account}
       formInner={
         <>
           <UI.FormRow>

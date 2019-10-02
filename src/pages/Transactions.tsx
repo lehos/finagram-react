@@ -7,10 +7,10 @@ import {
   Transaction
 } from '@/domains/transaction'
 import { PageHeader, Spacer } from '@/ui'
-import { useEntityPage } from '@/hooks'
+import { useEntityListPage } from '@/hooks'
 
 export function Transactions() {
-  const { entity, modal } = useEntityPage<Transaction>()
+  const { entity, modal } = useEntityListPage<Transaction>()
 
   return (
     <div>

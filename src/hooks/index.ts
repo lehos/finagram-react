@@ -1,3 +1,3 @@
 export * from './useModal'
-export * from './useEntityPage'
+export * from './useEntityListPage'
 export * from './useOnUnmount'
