@@ -1,9 +1,10 @@
 import React from 'react'
 
-import { Classifier, classifierStore } from '.'
-import * as UI from '@/ui'
 import { EntityForm } from '@/components'
 import { PartialBy } from '@/utils'
+import * as UI from '@/ui'
+
+import { Classifier, classifierStore } from '.'
 
 type Props = {
   onOk: () => any
@@ -36,7 +37,7 @@ export function ClassifierForm(props: Props) {
   }
 
   function onDelete() {
-    return classifierStore.delete(classifier!)
+    return classifierStore.remove(classifier!)
   }
 
   function onUpdate(values: Values) {

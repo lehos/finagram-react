@@ -17,10 +17,3 @@ export interface Classifier {
   // использовать в переводах
   useInTransfer: boolean
 }
-
-export type ClassifierStub = {
-  name: string
-  namePlural?: string
-  split?: boolean
-  useInTransfer?: boolean
-}

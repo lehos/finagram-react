@@ -5,12 +5,12 @@ import { arrayToMap, removeElemImm } from '@/utils'
 import { categoryStore } from '@/domains/category'
 
 import { Classifier } from '.'
-import * as A from './api'
+import * as Api from './api'
 
 export const classifierStore = store({
   classifierList: [] as Classifier[],
 
-  // _computed
+  // computed
   classifierMap: {} as Record<string, Classifier>,
 
   init() {
@@ -18,7 +18,7 @@ export const classifierStore = store({
   },
 
   async getList() {
-    this.classifierList = await A.getList()
+    this.classifierList = await Api.getList()
     this._compute()
   },
 
@@ -30,7 +30,7 @@ export const classifierStore = store({
       namePlural: cl.namePlural || cl.name
     }
 
-    await A.create(classifier)
+    await Api.create(classifier)
 
     this.classifierList.push(classifier)
     this._compute()
@@ -39,13 +39,13 @@ export const classifierStore = store({
   },
 
   async update(cl: Classifier) {
-    await A.update(cl)
+    await Api.update(cl)
     this.classifierList = this.classifierList.map(el => (el.id === cl.id ? cl : el))
     this._compute()
   },
 
-  async delete(cl: Classifier) {
-    await A.deleteClassifier(cl.id)
+  async remove(cl: Classifier) {
+    await Api.remove(cl.id)
     this.classifierList = removeElemImm(this.classifierList, cl)
     this._compute()
   },
