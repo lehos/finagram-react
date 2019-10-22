@@ -1,30 +1,36 @@
 import React from 'react'
 import { view } from 'react-easy-state'
 
-import * as UI from '@/ui'
+import * as Ui from '@/ui'
 
 import { Category } from '../entity'
 import { categoryStore } from '../store'
 
 interface Props {
   classifierId: string
-  onChange: (val: string | undefined) => void
-  value: string
+  name: string
 }
 
 export const CategorySelect = view((props: Props) => {
-  const { classifierId, onChange, value } = props
+  const { classifierId, name } = props
   const clCategory = categoryStore.clCategoryMap[classifierId]
 
-  const selectedRowKeys = value ? [value] : []
+  // function selectRow(record: Category) {
+  //   onChange(record.id)
+  // }
+  //
+  // function onSelectedRowKeysChange(keys: string[]) {
+  //   onChange(keys[0])
+  // }
 
-  function selectRow(record: Category) {
-    onChange(record.id)
-  }
-
-  function onSelectedRowKeysChange(keys: string[]) {
-    onChange(keys[0])
-  }
-
-  return <div style={{ maxHeight: '300px', overflow: 'auto' }} />
+  return (
+    <div style={{ maxHeight: '300px', overflow: 'auto' }}>
+      <Ui.FormTreeSelect
+        treeDefaultExpandAll
+        titleField="name"
+        name={name}
+        treeOptions={clCategory.children}
+      />
+    </div>
+  )
 })

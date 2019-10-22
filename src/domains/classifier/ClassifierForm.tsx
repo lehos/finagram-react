@@ -2,7 +2,7 @@ import React from 'react'
 
 import { EntityForm } from '@/components'
 import { PartialBy } from '@/utils'
-import * as UI from '@/ui'
+import * as Ui from '@/ui'
 
 import { Classifier, classifierStore } from '.'
 
@@ -55,35 +55,35 @@ export function ClassifierForm(props: Props) {
       isNew={!classifier}
       formInner={
         <>
-          <UI.FormRow>
-            <UI.FormLabel>Название в единственном числе</UI.FormLabel>
-            <UI.FormInput
+          <Ui.Form.Row>
+            <Ui.Form.Label>Название в единственном числе</Ui.Form.Label>
+            <Ui.FormInput
               name="name"
               placeholder="Название в единственном числе"
               autoComplete="off"
             />
-          </UI.FormRow>
+          </Ui.Form.Row>
 
-          <UI.FormRow>
-            <UI.FormLabel>Название во множественном числе</UI.FormLabel>
-            <UI.FormInput
+          <Ui.Form.Row>
+            <Ui.Form.Label>Название во множественном числе</Ui.Form.Label>
+            <Ui.FormInput
               name="namePlural"
               placeholder="Название во множественном числе"
               autoComplete="off"
             />
-          </UI.FormRow>
+          </Ui.Form.Row>
 
-          <UI.FormRow>
-            <UI.FormCheckbox name="split" disabled={!!classifier}>
+          <Ui.Form.Row>
+            <Ui.FormCheckbox name="split" disabled={!!classifier}>
               Разделять по типу операции
-            </UI.FormCheckbox>
-          </UI.FormRow>
+            </Ui.FormCheckbox>
+          </Ui.Form.Row>
 
-          <UI.FormRow>
-            <UI.FormCheckbox name="useInTransfer">
+          <Ui.Form.Row>
+            <Ui.FormCheckbox name="useInTransfer">
               Использовать в переводах
-            </UI.FormCheckbox>
-          </UI.FormRow>
+            </Ui.FormCheckbox>
+          </Ui.Form.Row>
         </>
       }
     />

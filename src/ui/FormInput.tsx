@@ -4,7 +4,7 @@ import { styled } from 'linaria/react'
 import { Input } from 'antd'
 import { InputProps } from 'antd/lib/input'
 
-import { FormError } from './FormError'
+import { Error } from './Form.styles'
 
 const FormInputWrapper = styled.div`
   position: relative;
@@ -29,7 +29,7 @@ export function FormInput(props: Props) {
         return (
           <FormInputWrapper>
             <Input {...input} {...otherProps} />
-            {errorText && <FormError text={errorText} absolute={errorAbsolute} />}
+            {errorText && <Error absolute={errorAbsolute}>{errorText}</Error>}
           </FormInputWrapper>
         )
       }}

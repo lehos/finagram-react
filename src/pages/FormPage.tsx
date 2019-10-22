@@ -1,7 +1,9 @@
+// todo move to storybook
+
 import React from 'react'
 import { FormRenderProps, withTypes } from 'react-final-form'
 
-import * as UI from '@/ui'
+import * as Ui from '@/ui'
 
 interface Values {
   input: string
@@ -43,30 +45,31 @@ export function FormPage() {
   function renderForm({ values }: FormRenderProps<Values>) {
     return (
       <div>
-        <UI.FormInput name="input" />
+        <Ui.FormInput name="input" />
         <br />
 
-        <UI.FormSelect name="select" options={options} />
+        <Ui.FormSelect name="select" options={options} />
         <br />
 
-        <UI.TreeSelect
+        <Ui.TreeSelect
           style={{ width: '100%' }}
-          name="treeSelect"
           treeData={treeData}
+          value="123"
+          onChange={() => {}}
         />
         <br />
         <br />
 
-        <UI.FormCheckbox name="checkbox">Привет</UI.FormCheckbox>
+        <Ui.FormCheckbox name="checkbox">Привет</Ui.FormCheckbox>
         <br />
 
         <div>
-          <UI.Form.Radio name="radio" options={options} />
+          <Ui.FormRadio name="radio" options={options} />
         </div>
         <br />
-        <UI.Form.DatePicker name="date" />
+        <Ui.FormDatePicker name="date" />
         <br />
-        <UI.Form.InputNumber name="number" />
+        <Ui.FormInputNumber name="number" />
 
         <br />
         <pre>{JSON.stringify(values, null, 2)}</pre>

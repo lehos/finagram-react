@@ -2,7 +2,7 @@ import React from 'react'
 import { withTypes, Field } from 'react-final-form'
 import { Button } from 'antd'
 
-import * as UI from '@/ui'
+import * as Ui from '@/ui'
 
 type Props<T> = {
   isNew?: boolean
@@ -59,11 +59,11 @@ export function EntityForm<T>(props: Props<T>) {
         >
           {props.formInner}
 
-          <UI.Spacer height={20} />
+          <Ui.Spacer height={20} />
 
           <Field name="action" subscription={{ value: true }}>
             {({ input: { value } }) => (
-              <UI.Flex justifyContent="space-between">
+              <Ui.Flex justifyContent="space-between">
                 <div>
                   {!isNew && !isDeleteBtnHidden && (
                     <Button
@@ -94,7 +94,7 @@ export function EntityForm<T>(props: Props<T>) {
                     Сохранить
                   </Button>
                 </div>
-              </UI.Flex>
+              </Ui.Flex>
             )}
           </Field>
         </form>

@@ -10,7 +10,7 @@ interface Props extends RadioProps {
     label: string
   }[]
 }
-export function Radio(props: Props) {
+export function FormRadio(props: Props) {
   const { name, options, ...restProps } = props
 
   return (

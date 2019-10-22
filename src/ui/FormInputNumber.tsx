@@ -4,7 +4,7 @@ import { styled } from 'linaria/react'
 import { InputNumber as AInputNumber } from 'antd'
 import { InputNumberProps } from 'antd/lib/input-number'
 
-import { FormError } from './FormError'
+import { Form } from '@/ui'
 
 const FormInputWrapper = styled.div`
   position: relative;
@@ -17,7 +17,7 @@ interface Props extends InputNumberProps {
   parse?: (value: any, name: string) => any
 }
 
-export function InputNumber(props: Props) {
+export function FormInputNumber(props: Props) {
   const { name, format, parse, errorAbsolute, ...otherProps } = props
 
   return (
@@ -29,7 +29,9 @@ export function InputNumber(props: Props) {
         return (
           <FormInputWrapper>
             <AInputNumber {...input} {...otherProps} />
-            {errorText && <FormError text={errorText} absolute={errorAbsolute} />}
+            {errorText && (
+              <Form.Error absolute={errorAbsolute}>{errorText}</Form.Error>
+            )}
           </FormInputWrapper>
         )
       }}

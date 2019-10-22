@@ -1,7 +1,7 @@
 import React from 'react'
 import { Field } from 'react-final-form'
 import { styled } from 'linaria/react'
-import { DatePicker as AntDatePicker } from 'antd'
+import { DatePicker } from 'antd'
 import { PickerProps } from 'antd/lib/date-picker/interface'
 import moment from 'moment'
 
@@ -14,7 +14,7 @@ interface Props extends PickerProps {
   format?: string
 }
 
-export function DatePicker(props: Props) {
+export function FormDatePicker(props: Props) {
   const { name, format = 'DD.MM.YYYY', ...otherProps } = props
 
   return (
@@ -24,7 +24,7 @@ export function DatePicker(props: Props) {
 
         return (
           <FormInputWrapper>
-            <AntDatePicker
+            <DatePicker
               value={val}
               onChange={(momentVal, dateStringVal) => onChange(dateStringVal)}
               {...otherInput}

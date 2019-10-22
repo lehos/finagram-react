@@ -1,6 +1,6 @@
 import React from 'react'
 
-import * as UI from '@/ui'
+import * as Ui from '@/ui'
 import { EntityForm } from '@/components'
 
 import { categoryStore, FormCategoryList } from '..'
@@ -74,26 +74,26 @@ export function CategoryForm(props: Props) {
       isDeleteBtnHidden={!(category && category.parentId)}
       formInner={
         <>
-          <UI.FormRow>
-            <UI.FormLabel>Название</UI.FormLabel>
-            <UI.FormInput name="name" placeholder="Название" autoComplete="off" />
-          </UI.FormRow>
+          <Ui.Form.Row>
+            <Ui.Form.Label>Название</Ui.Form.Label>
+            <Ui.FormInput name="name" placeholder="Название" autoComplete="off" />
+          </Ui.Form.Row>
 
-          <UI.FormRow>
-            <UI.FormLabel>Примечание</UI.FormLabel>
-            <UI.FormInput
+          <Ui.Form.Row>
+            <Ui.Form.Label>Примечание</Ui.Form.Label>
+            <Ui.FormInput
               name="description"
               placeholder="Примечание"
               autoComplete="off"
             />
-          </UI.FormRow>
+          </Ui.Form.Row>
 
           {(isNew || (category && category.parentId)) && (
-            <UI.FormRow>
-              <UI.FormLabel>Родитель</UI.FormLabel>
+            <Ui.Form.Row>
+              <Ui.Form.Label>Родитель</Ui.Form.Label>
 
               <FormCategoryList classifierId={classifierId} name="parentId" />
-            </UI.FormRow>
+            </Ui.Form.Row>
           )}
         </>
       }

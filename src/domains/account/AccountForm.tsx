@@ -1,6 +1,6 @@
 import React from 'react'
 
-import * as UI from '@/ui'
+import * as Ui from '@/ui'
 import { currencyStore } from '@/domains/currency'
 import { EntityForm } from '@/components'
 import { PartialBy } from '@/utils/types'
@@ -68,20 +68,20 @@ export function AccountForm(props: Props) {
       isNew={!account}
       formInner={
         <>
-          <UI.FormRow>
-            <UI.FormLabel>Название</UI.FormLabel>
-            <UI.FormInput name="name" placeholder="Название" autoComplete="off" />
-          </UI.FormRow>
+          <Ui.Form.Row>
+            <Ui.Form.Label>Название</Ui.Form.Label>
+            <Ui.FormInput name="name" placeholder="Название" autoComplete="off" />
+          </Ui.Form.Row>
 
-          <UI.FormRow>
-            <UI.FormLabel>Валюта</UI.FormLabel>
-            <UI.FormSelect name="currencyId" options={currencyOptions} />
-          </UI.FormRow>
+          <Ui.Form.Row>
+            <Ui.Form.Label>Валюта</Ui.Form.Label>
+            <Ui.FormSelect name="currencyId" options={currencyOptions} />
+          </Ui.Form.Row>
 
-          <UI.FormRow>
-            <UI.FormLabel>Начальный баланс</UI.FormLabel>
-            <UI.FormInput name="balance" placeholder="Валюта" autoComplete="off" />
-          </UI.FormRow>
+          <Ui.Form.Row>
+            <Ui.Form.Label>Начальный баланс</Ui.Form.Label>
+            <Ui.FormInput name="balance" placeholder="Валюта" autoComplete="off" />
+          </Ui.Form.Row>
         </>
       }
     />

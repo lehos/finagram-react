@@ -7,6 +7,7 @@ import { CheckboxProps } from 'antd/lib/checkbox'
 interface Props extends CheckboxProps {
   name: string
 }
+
 export function FormCheckbox(props: Props) {
   const { name, ...restProps } = props
 

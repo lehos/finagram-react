@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { Field } from 'react-final-form'
 import { styled } from 'linaria/react'
 import { Select } from 'antd'
 import { SelectProps } from 'antd/lib/select'
 
-import { FormError } from './FormError'
+import { Error } from './Form.styles'
 
 const { Option } = Select
 
@@ -41,7 +41,7 @@ export function FormSelect(props: Props) {
                 </Option>
               ))}
             </Select>
-            {errorText && <FormError text={errorText} />}
+            {errorText && <Error>{errorText}</Error>}
           </FormSelectWrapper>
         )
       }}

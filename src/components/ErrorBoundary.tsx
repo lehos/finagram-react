@@ -7,7 +7,7 @@ export class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
   }
 
   static getDerivedStateFromError(error: any) {
-    // Update state so the next render will show the fallback UI.
+    // Update state so the next render will show the fallback Ui.
     return { hasError: true }
   }
 
@@ -18,7 +18,7 @@ export class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
 
   render() {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
+      // You can render any custom fallback Ui
       return <h1>Упс, что-то пошло не так</h1>
     }
 

@@ -1,15 +1,15 @@
 import React from 'react'
 import { FormSpy } from 'react-final-form'
 
-import * as UI from '@/ui'
 import {
-  transactionStore,
   Transaction,
+  transactionStore,
   transactionKinds
 } from '@/domains/transaction'
-import { categoryStore } from '@/domains/category'
+import { CategorySelect } from '@/domains/category'
 import { classifierStore } from '@/domains/classifier'
 import { EntityForm } from '@/components'
+import * as Ui from '@/ui'
 
 type Values = Omit<Transaction, 'id'> & {
   id?: string
@@ -55,83 +55,81 @@ export function TransactionForm(props: Props) {
   }
 
   return (
-    <>
-      <EntityForm<Values>
-        onCancel={props.onCancel}
-        onOk={props.onOk}
-        validate={validate}
-        initialValues={getInitialValues(transaction)}
-        isNew={!transaction}
-        onCreate={onCreate}
-        onDelete={onDelete}
-        onUpdate={onUpdate}
-        formInner={
-          <>
-            <UI.FormRow>
-              <UI.FormLabel>Тип операции</UI.FormLabel>
-              <UI.Form.Radio name="kind" options={transactionKindOptions} />
-            </UI.FormRow>
+    <EntityForm<Values>
+      initialValues={getInitialValues(transaction)}
+      onCancel={props.onCancel}
+      onOk={props.onOk}
+      isNew={!transaction}
+      validate={validate}
+      onCreate={onCreate}
+      onDelete={onDelete}
+      onUpdate={onUpdate}
+      formInner={
+        <>
+          <Ui.Form.Row>
+            <Ui.Form.Label>Тип операции</Ui.Form.Label>
+            <Ui.FormRadio name="kind" options={transactionKindOptions} />
+          </Ui.Form.Row>
 
-            <UI.FormRow>
-              <UI.FormLabel>Дата</UI.FormLabel>
-              <UI.Form.DatePicker name="date" />
-            </UI.FormRow>
+          <Ui.Form.Row>
+            <Ui.Form.Label>Дата</Ui.Form.Label>
+            <Ui.FormDatePicker name="date" />
+          </Ui.Form.Row>
 
-            <UI.FormRow>
-              <UI.FormLabel>Со счета</UI.FormLabel>
+          <Ui.Form.Row>
+            <Ui.Form.Label>Со счета</Ui.Form.Label>
 
-              <FormSpy subscription={{ values: true }}>
-                {({ values }) => {
-                  return values.kind === 'transfer' ? (
-                    <>
-                      <UI.FormInput name="accountId" />
-                      <UI.FormInput name="toAccountId" />
-                    </>
-                  ) : (
-                    <UI.FormInput name="accountId" />
-                  )
-                }}
-              </FormSpy>
-            </UI.FormRow>
-            <UI.FormRow>
-              <UI.FormLabel>Категории</UI.FormLabel>
+            <FormSpy subscription={{ values: true }}>
+              {({ values }) => {
+                return values.kind === 'transfer' ? (
+                  <>
+                    <Ui.FormInput name="accountId" />
+                    <Ui.FormInput name="toAccountId" />
+                  </>
+                ) : (
+                  <Ui.FormInput name="accountId" />
+                )
+              }}
+            </FormSpy>
+          </Ui.Form.Row>
 
-              {classifierStore.classifierList.map(cl => (
-                <div>
-                  {cl.name}
-                  <UI.Form.TreeSelect
-                    treeDefaultExpandAll
-                    titleField="name"
-                    name={`categories[${cl.id}`}
-                    key={cl.id}
-                    treeOptions={categoryStore.clCategoryMap[cl.id].children}
-                  />
-                </div>
-              ))}
-            </UI.FormRow>
+          <Ui.Form.Row>
+            <Ui.Form.Label>Категории</Ui.Form.Label>
 
-            <UI.FormRow>
-              <UI.FormLabel>Сумма</UI.FormLabel>
-              <UI.FormInput
-                name="sum"
-                placeholder="Сумма"
-                autoComplete="off"
-                format={(v: number) => v / 100}
-                parse={(v: number) => v * 100}
-              />
-            </UI.FormRow>
+            {classifierStore.classifierList.map(cl => (
+              <Ui.Flex>
+                {cl.name}
+                <Ui.Spacer width={30} />
+                <CategorySelect
+                  classifierId={cl.id}
+                  key={cl.id}
+                  name={`categories[${cl.id}`}
+                />
+              </Ui.Flex>
+            ))}
+          </Ui.Form.Row>
 
-            <UI.FormRow>
-              <UI.FormLabel>Примечание</UI.FormLabel>
-              <UI.FormInput
-                name="description"
-                placeholder="Примечание"
-                autoComplete="off"
-              />
-            </UI.FormRow>
-          </>
-        }
-      />
-    </>
+          <Ui.Form.Row>
+            <Ui.Form.Label>Сумма</Ui.Form.Label>
+            <Ui.FormInput
+              name="sum"
+              placeholder="Сумма"
+              autoComplete="off"
+              format={(v: number) => v / 100}
+              parse={(v: number) => v * 100}
+            />
+          </Ui.Form.Row>
+
+          <Ui.Form.Row>
+            <Ui.Form.Label>Примечание</Ui.Form.Label>
+            <Ui.FormInput
+              name="description"
+              placeholder="Примечание"
+              autoComplete="off"
+            />
+          </Ui.Form.Row>
+        </>
+      }
+    />
   )
 }
