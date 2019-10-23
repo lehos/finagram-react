@@ -24,12 +24,13 @@ export const CategorySelect = view((props: Props) => {
   // }
 
   return (
-    <div style={{ maxHeight: '300px', overflow: 'auto' }}>
+    <div style={{ flexGrow: 1 }}>
       <Ui.FormTreeSelect
         treeDefaultExpandAll
         titleField="name"
         name={name}
         treeOptions={clCategory.children}
+        style={{ width: '100%' }}
       />
     </div>
   )

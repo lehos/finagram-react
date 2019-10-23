@@ -1,6 +1,5 @@
 import React from 'react'
 import { Form } from 'react-final-form'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { storiesOf } from '@storybook/react'
 
 import { FormTreeSelect, TreeSelect } from '.'

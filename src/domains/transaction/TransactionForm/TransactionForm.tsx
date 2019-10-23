@@ -10,6 +10,7 @@ import { CategorySelect } from '@/domains/category'
 import { classifierStore } from '@/domains/classifier'
 import { EntityForm } from '@/components'
 import * as Ui from '@/ui'
+import { accountStore } from '@/domains/account'
 
 type Values = Omit<Transaction, 'id'> & {
   id?: string
@@ -54,6 +55,12 @@ export function TransactionForm(props: Props) {
     transactionStore.update(transaction!, values)
   }
 
+  // todo could be cached
+  const accountOptions = accountStore.accountsList.map(el => ({
+    value: el.id,
+    label: el.name
+  }))
+
   return (
     <EntityForm<Values>
       initialValues={getInitialValues(transaction)}
@@ -83,30 +90,15 @@ export function TransactionForm(props: Props) {
               {({ values }) => {
                 return values.kind === 'transfer' ? (
                   <>
+                    todo
                     <Ui.FormInput name="accountId" />
                     <Ui.FormInput name="toAccountId" />
                   </>
                 ) : (
-                  <Ui.FormInput name="accountId" />
+                  <Ui.FormSelect name="accountId" options={accountOptions} />
                 )
               }}
             </FormSpy>
-          </Ui.Form.Row>
-
-          <Ui.Form.Row>
-            <Ui.Form.Label>Категории</Ui.Form.Label>
-
-            {classifierStore.classifierList.map(cl => (
-              <Ui.Flex>
-                {cl.name}
-                <Ui.Spacer width={30} />
-                <CategorySelect
-                  classifierId={cl.id}
-                  key={cl.id}
-                  name={`categories[${cl.id}`}
-                />
-              </Ui.Flex>
-            ))}
           </Ui.Form.Row>
 
           <Ui.Form.Row>
@@ -118,6 +110,21 @@ export function TransactionForm(props: Props) {
               format={(v: number) => v / 100}
               parse={(v: number) => v * 100}
             />
+          </Ui.Form.Row>
+
+          <Ui.Form.Row>
+            <Ui.Form.Label>Категории</Ui.Form.Label>
+
+            {classifierStore.classifierList.map((cl, index) => (
+              <Ui.Form.Row key={cl.id}>
+                <Ui.Form.Label>{cl.name}</Ui.Form.Label>
+                <CategorySelect
+                  classifierId={cl.id}
+                  key={cl.id}
+                  name={`categories[${index}]categoryId`}
+                />
+              </Ui.Form.Row>
+            ))}
           </Ui.Form.Row>
 
           <Ui.Form.Row>
