@@ -15,7 +15,7 @@
     "bundle-analyzer": "cross-env NODE_ENV=production BUNDLE_ANALYZER=localhost webpack",
     "up": "yarn upgrade-interactive",
     "predeploy": "cross-env HISTORY_HASH=true ASSET_PATH=/finagram-react/ yarn build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build --remote github",
     "test": "jest",
     "ui": "start-storybook -p 9001"
   },

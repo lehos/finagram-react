@@ -41,11 +41,6 @@ function validate(values: Values) {
   return {}
 }
 
-const transactionKindOptions = Object.entries(transactionKinds).map(el => ({
-  value: el[0],
-  label: el[1]
-}))
-
 export function TransactionForm(props: Props) {
   const { transaction } = props
 
@@ -54,6 +49,11 @@ export function TransactionForm(props: Props) {
   function onUpdate(values: Values) {
     transactionStore.update(transaction!, values)
   }
+
+  const transactionKindOptions = Object.entries(transactionKinds).map(el => ({
+    value: el[0],
+    label: el[1]
+  }))
 
   // todo could be cached
   const accountOptions = accountStore.accountsList.map(el => ({
