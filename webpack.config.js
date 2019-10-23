@@ -3,31 +3,31 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const stylis = require('stylis')
 const HtmlPlugin = require('html-webpack-plugin')
-const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
-const {NODE_ENV, BUNDLE_ANALYZER} = process.env
+const { NODE_ENV, BUNDLE_ANALYZER, ASSET_PATH = '/', HISTORY_HASH } = process.env
 const isProd = NODE_ENV === 'production'
 
 // don't vendor prefix linaria css output
-stylis.set({prefix: false})
-
-const ASSET_PATH = process.env.ASSET_PATH || '/'
+stylis.set({ prefix: false })
 
 module.exports = function exports() {
   const plugins = [
-    new HtmlPlugin({template: './src/static/index.html'}),
+    new HtmlPlugin({ template: './src/static/index.html' }),
     new MiniCssExtractPlugin({
-      filename: 'styles.css'
+      filename: 'styles.[hash].css',
+      hashDigestLength: 6
     }),
 
     new webpack.DefinePlugin({
-      'process.env.ASSET_PATH': JSON.stringify(ASSET_PATH)
+      'process.env.ASSET_PATH': JSON.stringify(ASSET_PATH),
+      'process.env.HISTORY_HASH': !!HISTORY_HASH
       // 'process.env.API_URL': JSON.stringify(API_URL)
     }),
 
     // To strip all locales except “en”
-    new MomentLocalesPlugin(),
+    new MomentLocalesPlugin()
 
     // Or: To strip all locales except “en”, “es-us” and “ru”
     // (“en” is built into Moment and can’t be removed)
@@ -60,7 +60,8 @@ module.exports = function exports() {
     output: {
       path: path.resolve(__dirname, 'build'),
       publicPath: ASSET_PATH,
-      filename: 'bundle.js'
+      filename: 'bundle.[hash].js',
+      hashDigestLength: 6
     },
     resolve: {
       alias: resolveAlias,
@@ -73,11 +74,11 @@ module.exports = function exports() {
           use: [
             {
               loader: MiniCssExtractPlugin.loader,
-              options: {hmr: !isProd}
+              options: { hmr: !isProd }
             },
             {
               loader: 'css-loader',
-              options: {sourceMap: !isProd}
+              options: { sourceMap: !isProd }
             }
           ]
         },
@@ -85,8 +86,8 @@ module.exports = function exports() {
           test: /\.tsx?$/,
           include: path.resolve(__dirname, 'src'),
           use: [
-            {loader: 'babel-loader'},
-            {loader: 'linaria/loader', options: {sourceMap: !isProd}}
+            { loader: 'babel-loader' },
+            { loader: 'linaria/loader', options: { sourceMap: !isProd } }
           ]
         },
         {
