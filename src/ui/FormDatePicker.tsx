@@ -1,6 +1,6 @@
 import React from 'react'
 import { Field } from 'react-final-form'
-import { styled } from 'linaria/react'
+import styled from '@emotion/styled'
 import { DatePicker } from 'antd'
 import { PickerProps } from 'antd/lib/date-picker/interface'
 import moment from 'moment'

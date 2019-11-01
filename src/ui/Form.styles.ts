@@ -1,4 +1,4 @@
-import { styled } from 'linaria/react'
+import styled from '@emotion/styled'
 
 export const Row = styled.div`
   margin-bottom: 20px;

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Field } from 'react-final-form'
-import { styled } from 'linaria/react'
+import styled from '@emotion/styled'
 import { InputNumber as AInputNumber } from 'antd'
 import { InputNumberProps } from 'antd/lib/input-number'
 

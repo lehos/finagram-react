@@ -1,8 +1,8 @@
 import React from 'react'
 import { Field } from 'react-final-form'
-import { styled } from 'linaria/react'
 import { Input } from 'antd'
 import { InputProps } from 'antd/lib/input'
+import styled from '@emotion/styled'
 
 import { Error } from './Form.styles'
 

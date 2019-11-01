@@ -1,6 +1,6 @@
 import React from 'react'
 import { Icon } from 'antd'
-import { styled } from 'linaria/react'
+import styled from '@emotion/styled'
 
 const SAppLoader = styled.div`
   min-height: 100vh;

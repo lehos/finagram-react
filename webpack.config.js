@@ -1,16 +1,12 @@
 const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const stylis = require('stylis')
 const HtmlPlugin = require('html-webpack-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
 const { NODE_ENV, BUNDLE_ANALYZER, ASSET_PATH = '/', HISTORY_HASH } = process.env
 const isProd = NODE_ENV === 'production'
-
-// don't vendor prefix linaria css output
-stylis.set({ prefix: false })
 
 module.exports = function exports() {
   const plugins = [
@@ -85,10 +81,7 @@ module.exports = function exports() {
         {
           test: /\.tsx?$/,
           include: path.resolve(__dirname, 'src'),
-          use: [
-            { loader: 'babel-loader' },
-            { loader: 'linaria/loader', options: { sourceMap: !isProd } }
-          ]
+          use: [{ loader: 'babel-loader' }]
         },
         {
           test: /\.(woff2|jpg|png)$/,
