@@ -16,3 +16,20 @@ export const classifiersMock: Classifier[] = [
     useInTransfer: true
   }
 ]
+
+export const classifiers: Record<string, Classifier> = {
+  expense: {
+    id: 'expense',
+    name: 'Статья',
+    namePlural: 'Статьи',
+    split: true,
+    useInTransfer: false
+  },
+  agent: {
+    id: 'agents',
+    name: 'Агент',
+    namePlural: 'Агенты',
+    split: false,
+    useInTransfer: true
+  }
+}

@@ -1,31 +1,17 @@
-interface ClassifierCategory {
-  classifierId: string
-  id: string
-}
-
 type CategoryType = 'income' | 'expense' | 'transfer' | 'default'
 
-interface RootCategory {
+export interface RootCategory {
   id: string
-  clCategoryId: string
+  kind: 'root'
   type: CategoryType
+  name: string
   description: string
 }
 
-interface Category {
+export interface Category {
   id: string
+  kind: 'common'
   parentId: string
+  name: string
   description: string
-}
-
-interface ClassifierCategoryTree extends ClassifierCategory {
-  children: RootCategoryTree[]
-}
-
-interface RootCategoryTree extends RootCategory {
-  children: CategoryTree[]
-}
-
-interface CategoryTree extends Category {
-  children?: CategoryTree[]
 }
