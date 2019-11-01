@@ -1,50 +1,46 @@
 import { store } from 'react-easy-state'
 import nanoid from 'nanoid'
 
-import { arrayToMap, removeElemImm } from '@/utils'
-
 import { Account } from './entity'
 import * as Api from './api'
 
 export const accountStore = store({
-  accountsList: [] as Account[],
-
-  // _computed
   accountsMap: {} as Record<string, Account>,
 
+  // computed
+  accountsList: [] as Account[],
+
   init() {
-    return this.getList()
+    return this.search()
   },
 
-  async getList() {
-    this.accountsList = await Api.getList()
+  async search() {
+    this.accountsMap = await Api.search()
     this._compute()
   },
 
-  async create(acc: Omit<Account, 'id'>) {
+  async create(stub: Omit<Account, 'id'>) {
     const id = nanoid()
-    const newAcc = { id, ...acc }
+    const newAccount = { id, ...stub }
 
-    await Api.create(newAcc)
-    this.accountsList.push(newAcc)
+    await Api.create(newAccount)
+    this.accountsMap[id] = newAccount
     this._compute()
   },
 
-  async update(acc: Account) {
-    await Api.update(acc)
-    this.accountsList = this.accountsList.map(el => {
-      return el.id === acc.id ? acc : el
-    })
+  async update(account: Account) {
+    await Api.update(account)
+    this.accountsMap[account.id] = account
     this._compute()
   },
 
-  async remove(acc: Account) {
-    await Api.remove(acc.id)
-    this.accountsList = removeElemImm(this.accountsList, acc)
+  async remove(account: Account) {
+    await Api.remove(account.id)
+    delete this.accountsMap[account.id]
     this._compute()
   },
 
   _compute() {
-    this.accountsMap = arrayToMap(this.accountsList)
+    this.accountsList = Object.values(this.accountsMap)
   }
 })

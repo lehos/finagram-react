@@ -1,10 +1,10 @@
 import { req } from '@/services/http'
 
 import { Account } from '.'
-import { accountsMock } from './mocks'
+import * as M from './mocks'
 
-export function getList(): Promise<Account[]> {
-  return req({ mock: accountsMock })
+export function search(): Promise<Record<string, Account>> {
+  return req({ mock: M.accounts })
 }
 
 export function create(acc: Account): Promise<null> {
