@@ -1,6 +1,5 @@
 import React from 'react'
-import { view } from 'react-easy-state'
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Menu, Icon } from 'antd'
 
 import { classifierStore } from '@/domains/classifier'
@@ -22,11 +21,12 @@ function renderItem(props: MenuItemProps) {
   )
 }
 
-function NavComp(props: RouteComponentProps) {
+export function Nav() {
+  const location = useLocation()
   return (
     <Menu
       style={{ height: '100%', userSelect: 'none' }}
-      defaultSelectedKeys={[props.location.pathname]}
+      defaultSelectedKeys={[location.pathname]}
       defaultOpenKeys={['/classifiers']}
       mode="inline"
       theme="dark"
@@ -42,5 +42,3 @@ function NavComp(props: RouteComponentProps) {
     </Menu>
   )
 }
-
-export const Nav = withRouter(view(NavComp))
