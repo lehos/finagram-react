@@ -15,7 +15,12 @@ type Values = PartialBy<Classifier, 'id'>
 
 function getInitialValues(classifier: Classifier | null | undefined): Values {
   return (
-    classifier || { name: '', useInTransfer: false, namePlural: '', split: false }
+    classifier || {
+      name: '',
+      useInTransfer: false,
+      namePlural: '',
+      splitable: false
+    }
   )
 }
 
@@ -74,7 +79,7 @@ export function ClassifierForm(props: Props) {
           </Ui.Form.Row>
 
           <Ui.Form.Row>
-            <Ui.FormCheckbox name="split" disabled={!!classifier}>
+            <Ui.FormCheckbox name="splitable" disabled={!!classifier}>
               Разделять по типу операции
             </Ui.FormCheckbox>
           </Ui.Form.Row>

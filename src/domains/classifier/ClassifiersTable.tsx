@@ -18,8 +18,8 @@ const columns: ColumnProps<Classifier>[] = [
   },
   {
     title: 'Разделять по типу операции',
-    dataIndex: 'split',
-    key: 'split',
+    dataIndex: 'splitable',
+    key: 'splitable',
     render: val => val && '✓'
   },
   {

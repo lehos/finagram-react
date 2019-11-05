@@ -33,7 +33,7 @@ function makeClCategory(classifier: Classifier): E.ClassifierCategory {
 
   const name = classifier.namePlural
 
-  if (!classifier.split) {
+  if (!classifier.splitable) {
     category.children.push(makeRootCategory(name))
   } else {
     category.children.push(

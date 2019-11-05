@@ -5,14 +5,14 @@ export const classifiersMock: Classifier[] = [
     id: 'expense',
     name: 'Статья',
     namePlural: 'Статьи',
-    split: true,
+    splitable: true,
     useInTransfer: false
   },
   {
     id: 'agents',
     name: 'Агент',
     namePlural: 'Агенты',
-    split: false,
+    splitable: false,
     useInTransfer: true
   }
 ]
@@ -22,14 +22,14 @@ export const classifiers: Record<string, Classifier> = {
     id: 'expense',
     name: 'Статья',
     namePlural: 'Статьи',
-    split: true,
+    splitable: true,
     useInTransfer: false
   },
   agent: {
     id: 'agents',
     name: 'Агент',
     namePlural: 'Агенты',
-    split: false,
+    splitable: false,
     useInTransfer: true
   }
 }

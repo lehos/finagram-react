@@ -12,7 +12,7 @@ export interface Classifier {
   // разделять по типу операции
   // true - два дерева, одно – приходы, другое – расходы
   // false - одно дерево
-  split: boolean
+  splitable: boolean
 
   // использовать в переводах
   useInTransfer: boolean
