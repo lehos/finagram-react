@@ -1,10 +1,11 @@
 import { req } from '@/services/http'
+import { Dict } from '@/utils'
 
 import { Classifier } from '.'
-import { classifiersMock } from './mocks'
+import * as M from './mocks'
 
-export function getList(): Promise<Classifier[]> {
-  return req({ mock: classifiersMock })
+export function search(): Promise<Dict<Classifier>> {
+  return req({ mock: M.classifiers })
 }
 
 export function create(cl: Classifier): Promise<null> {

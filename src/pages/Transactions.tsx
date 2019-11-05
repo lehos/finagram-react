@@ -26,8 +26,8 @@ export function Transactions() {
         title={`${entity.obj ? 'Редактирование' : 'Добавление'} операции`}
         visible={modal.isVisible}
         onClose={modal.hide}
-        destroyOnClose
         width={500}
+        afterVisibleChange={v => !v && entity.clear()}
       >
         <TransactionForm
           onOk={modal.hide}

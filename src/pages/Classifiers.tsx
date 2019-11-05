@@ -24,7 +24,7 @@ export function Classifiers() {
         visible={modal.isVisible}
         onClose={modal.hide}
         width={400}
-        destroyOnClose
+        afterVisibleChange={v => !v && entity.clear()}
       >
         <ClassifierForm onOk={modal.hide} classifier={entity.obj} />
       </Drawer>

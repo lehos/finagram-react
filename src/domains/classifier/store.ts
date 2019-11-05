@@ -1,24 +1,23 @@
 import { store } from 'react-easy-state'
 import nanoid from 'nanoid'
 
-import { arrayToMap, removeElemImm } from '@/utils'
 import { categoryStore } from '@/domains/category'
 
 import { Classifier } from '.'
 import * as Api from './api'
 
 export const classifierStore = store({
-  classifierList: [] as Classifier[],
-
-  // computed
   classifierMap: {} as Record<string, Classifier>,
 
+  // computed
+  classifierList: [] as Classifier[],
+
   init() {
-    return this.getList()
+    return this.search()
   },
 
-  async getList() {
-    this.classifierList = await Api.getList()
+  async search() {
+    this.classifierMap = await Api.search()
     this._compute()
   },
 
@@ -32,7 +31,7 @@ export const classifierStore = store({
 
     await Api.create(classifier)
 
-    this.classifierList.push(classifier)
+    this.classifierMap[id] = classifier
     this._compute()
 
     await categoryStore.createClCategory(classifier)
@@ -40,17 +39,17 @@ export const classifierStore = store({
 
   async update(cl: Classifier) {
     await Api.update(cl)
-    this.classifierList = this.classifierList.map(el => (el.id === cl.id ? cl : el))
+    this.classifierMap[cl.id] = cl
     this._compute()
   },
 
   async remove(cl: Classifier) {
     await Api.remove(cl.id)
-    this.classifierList = removeElemImm(this.classifierList, cl)
+    delete this.classifierMap[cl.id]
     this._compute()
   },
 
   _compute() {
-    this.classifierMap = arrayToMap(this.classifierList)
+    this.classifierList = Object.values(this.classifierMap)
   }
 })

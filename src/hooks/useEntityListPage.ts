@@ -18,8 +18,12 @@ export function useEntityListPage<T = null>() {
     show()
   }
 
+  function clear() {
+    setObj(null)
+  }
+
   return {
-    entity: { obj, edit, id, editById },
+    entity: { obj, edit, id, editById, clear },
     modal: { show, hide, isVisible }
   }
 }

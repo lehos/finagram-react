@@ -21,10 +21,10 @@ export function Accounts() {
       <Drawer
         title={`${entity.obj ? 'Редактирование' : 'Создание'} счета`}
         visible={modal.isVisible}
-        destroyOnClose
         closable
         width={400}
         onClose={modal.hide}
+        afterVisibleChange={v => !v && entity.clear()}
       >
         <AccountForm onOk={modal.hide} account={entity.obj} />
       </Drawer>

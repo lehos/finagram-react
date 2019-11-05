@@ -38,8 +38,8 @@ export function Categories(props: RouteComponentProps) {
         title={`${classifier.name}: ${entity.id ? 'редактирование' : 'добавление'}`}
         visible={modal.isVisible}
         onClose={modal.hide}
-        destroyOnClose
         width={500}
+        afterVisibleChange={v => !v && entity.clear()}
       >
         <CategoryForm
           onOk={modal.hide}
