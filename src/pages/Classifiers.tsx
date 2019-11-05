@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Modal } from 'antd'
+import { Button, Drawer } from 'antd'
 
 import { Spacer, PageHeader } from '@/ui'
 import { useEntityListPage } from '@/hooks'
@@ -19,19 +19,17 @@ export function Classifiers() {
         </Button>
       </PageHeader>
 
-      <Modal
-        title={`${entity.id ? 'Редактирование' : 'Создание'} классификатора`}
-        visible={modal.visible}
-        onCancel={modal.hide}
-        footer={null}
-        afterClose={entity.clear}
+      <Drawer
+        title={`${entity.obj ? 'Редактирование' : 'Создание'} классификатора`}
+        visible={modal.isVisible}
+        onClose={modal.hide}
         width={400}
-        centered
+        destroyOnClose
       >
         <ClassifierForm onOk={modal.hide} classifier={entity.obj} />
-      </Modal>
+      </Drawer>
 
-      <ClassifiersTable onRowClick={entity.editObj} />
+      <ClassifiersTable onRowClick={entity.edit} />
     </div>
   )
 }

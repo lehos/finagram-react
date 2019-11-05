@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Modal } from 'antd'
+import { Button, Drawer } from 'antd'
 
 import { Spacer, PageHeader } from '@/ui'
 import { useEntityListPage } from '@/hooks'
@@ -18,19 +18,18 @@ export function Accounts() {
         </Button>
       </PageHeader>
 
-      <Modal
-        title={`${entity.id ? 'Редактирование' : 'Создание'} счета`}
-        visible={modal.visible}
-        onCancel={modal.hide}
-        footer={null}
-        afterClose={entity.clear}
+      <Drawer
+        title={`${entity.obj ? 'Редактирование' : 'Создание'} счета`}
+        visible={modal.isVisible}
+        destroyOnClose
+        closable
         width={400}
-        centered
+        onClose={modal.hide}
       >
         <AccountForm onOk={modal.hide} account={entity.obj} />
-      </Modal>
+      </Drawer>
 
-      <AccountsTable onRowClick={entity.editObj} />
+      <AccountsTable onRowClick={entity.edit} />
     </div>
   )
 }

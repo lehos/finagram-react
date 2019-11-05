@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import { Button, Modal } from 'antd'
+import { Button, Drawer } from 'antd'
 
 import { Spacer, PageHeader } from '@/ui'
 import { useEntityListPage } from '@/hooks'
@@ -34,13 +34,12 @@ export function Categories(props: RouteComponentProps) {
         </Button>
       </PageHeader>
 
-      <Modal
+      <Drawer
         title={`${classifier.name}: ${entity.id ? 'редактирование' : 'добавление'}`}
-        visible={modal.visible}
-        onCancel={modal.hide}
-        footer={null}
-        afterClose={entity.clear}
-        centered
+        visible={modal.isVisible}
+        onClose={modal.hide}
+        destroyOnClose
+        width={500}
       >
         <CategoryForm
           onOk={modal.hide}
@@ -49,12 +48,12 @@ export function Categories(props: RouteComponentProps) {
           classifierId={classifier.id}
           parentId={selectedId}
         />
-      </Modal>
+      </Drawer>
 
       <CategoryTable
         classifierId={params.id}
         onRowSelect={setSelectedId}
-        onRowClick={entity.edit}
+        onRowClick={entity.editById}
       />
     </div>
   )

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Modal } from 'antd'
+import { Button, Drawer } from 'antd'
 
 import {
   TransactionTable,
@@ -22,22 +22,21 @@ export function Transactions() {
         </Button>
       </PageHeader>
 
-      <Modal
+      <Drawer
         title={`${entity.obj ? 'Редактирование' : 'Добавление'} операции`}
-        visible={modal.visible}
-        onCancel={modal.hide}
-        footer={null}
-        afterClose={entity.clear}
-        centered
+        visible={modal.isVisible}
+        onClose={modal.hide}
+        destroyOnClose
+        width={500}
       >
         <TransactionForm
           onOk={modal.hide}
           onCancel={modal.hide}
           transaction={entity.obj}
         />
-      </Modal>
+      </Drawer>
 
-      <TransactionTable onRowClick={entity.editObj} />
+      <TransactionTable onRowClick={entity.edit} />
     </div>
   )
 }

@@ -1,15 +1,15 @@
 import { useState } from 'react'
 
 export function useModal() {
-  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
 
-  function showModal() {
-    setIsModalVisible(true)
+  function show() {
+    setIsVisible(true)
   }
 
-  function hideModal() {
-    setIsModalVisible(false)
+  function hide() {
+    setIsVisible(false)
   }
 
-  return { isModalVisible, showModal, hideModal }
+  return { isVisible, show, hide }
 }

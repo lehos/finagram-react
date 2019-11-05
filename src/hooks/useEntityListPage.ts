@@ -3,36 +3,23 @@ import { useState } from 'react'
 import { useModal } from './useModal'
 
 export function useEntityListPage<T = null>() {
-  const { showModal, hideModal, isModalVisible } = useModal()
+  const { show, hide, isVisible } = useModal()
 
   const [id, setId] = useState<string | null>(null)
   const [obj, setObj] = useState<T | null>(null)
 
-  function edit(pid: string) {
+  function editById(pid: string) {
     setId(pid)
-    showModal()
+    show()
   }
 
-  function editObj(objParam: T) {
+  function edit(objParam: T) {
     setObj(objParam)
-    showModal()
-  }
-
-  function clear() {
-    setId(null)
-    setObj(null)
+    show()
   }
 
   return {
-    entity: { id, edit, clear, obj, editObj },
-    modal: {
-      show: showModal,
-      // hide: hideModal,
-      hide: () => {
-        clear()
-        hideModal()
-      },
-      visible: isModalVisible
-    }
+    entity: { obj, edit, id, editById },
+    modal: { show, hide, isVisible }
   }
 }
