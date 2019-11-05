@@ -1,5 +1,5 @@
 export interface Currency {
-  id: string // RUB, USD
+  id: string // rub, usd
   name: string // US Dollar
-  symbol: string // $
+  short: string // RUB, EUR
 }

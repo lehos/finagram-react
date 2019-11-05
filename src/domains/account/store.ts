@@ -8,6 +8,7 @@ export const accountStore = store({
   accountsMap: {} as Record<string, Account>,
 
   // computed
+  // computing should be lazy
   accountsList: [] as Account[],
 
   init() {

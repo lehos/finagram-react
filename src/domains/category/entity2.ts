@@ -1,16 +1,17 @@
+// надо переосмыслить
 type CategoryType = 'income' | 'expense' | 'transfer' | 'default'
 
 export interface RootCategory {
-  id: string
   kind: 'root'
+  id: string
   type: CategoryType
   name: string
   description: string
 }
 
 export interface Category {
-  id: string
   kind: 'common'
+  id: string
   parentId: string
   name: string
   description: string

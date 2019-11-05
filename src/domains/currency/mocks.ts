@@ -1,19 +1,19 @@
 import { Currency } from '.'
 
-export const currencyMocks: Currency[] = [
-  {
+export const currencies: Record<string, Currency> = {
+  rub: {
     id: 'rub',
     name: 'Рубль',
-    symbol: 'RUB'
+    short: 'RUB'
   },
-  {
+  usd: {
     id: 'usd',
     name: 'US Dollar',
-    symbol: 'USD'
+    short: 'USD'
   },
-  {
+  eur: {
     id: 'eur',
     name: 'Euro',
-    symbol: 'EUR'
+    short: 'EUR'
   }
-]
+}

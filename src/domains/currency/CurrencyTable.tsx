@@ -13,8 +13,8 @@ const columns: ColumnProps<Currency>[] = [
   },
   {
     title: 'Символ',
-    dataIndex: 'symbol',
-    key: 'symbol'
+    dataIndex: 'short',
+    key: 'short'
   }
 ]
 
