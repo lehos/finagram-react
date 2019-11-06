@@ -3,7 +3,7 @@ import { view } from 'react-easy-state'
 import { Route, RouteComponentProps, RouteProps } from 'react-router-dom'
 import { Layout } from 'antd'
 
-import { AppLoader, Nav } from '@/components'
+import { AppLoader, ErrorBoundary, Nav } from '@/components'
 
 import * as S from './PrivateLayout.styles'
 import { appStore } from '@/domains/common/appStore'
@@ -37,7 +37,9 @@ export const PrivateLayout = view(({ component: Component, ...rest }: Props) => 
             </S.Sidebar>
           </Layout.Sider>
           <Layout style={{ padding: '20px', background: '#fff' }}>
-            <Component {...matchProps} />
+            <ErrorBoundary>
+              <Component {...matchProps} />
+            </ErrorBoundary>
           </Layout>
         </Layout>
       )}

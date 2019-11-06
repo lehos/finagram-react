@@ -1,31 +1,29 @@
 import React, { useState } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Button, Drawer } from 'antd'
 
 import { Spacer, PageHeader } from '@/ui'
 import { useEntityListPage } from '@/hooks'
-
+import { ErrorBoundary } from '@/components'
 import { CategoryTable, CategoryForm } from '@/domains/category'
 import { classifierStore } from '@/domains/classifier'
 
-type Params = {
+type RouteParams = {
   id: string
 }
 
-export function Categories(props: RouteComponentProps) {
+export function Categories() {
+  const { id } = useParams<RouteParams>()
   const { entity, modal } = useEntityListPage()
-
   const [selectedId, setSelectedId] = useState<string | null>(null)
-
-  const params = props.match.params as Params
-  const classifier = classifierStore.classifierMap[params.id]
+  const classifier = classifierStore.get(id)
 
   if (!classifier) {
-    return <>Категория не найдена</>
+    return <>Классификатор не найден</>
   }
 
   return (
-    <div>
+    <ErrorBoundary>
       <PageHeader>
         <h1>{classifier.namePlural}</h1>
         <Spacer width={20} />
@@ -35,7 +33,7 @@ export function Categories(props: RouteComponentProps) {
       </PageHeader>
 
       <Drawer
-        title={`${classifier.name}: ${entity.id ? 'редактирование' : 'добавление'}`}
+        title={`${classifier.name}: ${entity.obj ? 'редактирование' : 'добавление'}`}
         visible={modal.isVisible}
         onClose={modal.hide}
         width={500}
@@ -44,17 +42,19 @@ export function Categories(props: RouteComponentProps) {
         <CategoryForm
           onOk={modal.hide}
           onCancel={modal.hide}
-          categoryId={entity.id}
+          category={entity.obj}
           classifierId={classifier.id}
           parentId={selectedId}
         />
       </Drawer>
 
       <CategoryTable
-        classifierId={params.id}
+        classifierId={id}
         onRowSelect={setSelectedId}
-        onRowClick={entity.editById}
+        // todo
+        // @ts-ignore
+        onRowClick={entity.edit}
       />
-    </div>
+    </ErrorBoundary>
   )
 }

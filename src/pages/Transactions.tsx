@@ -8,12 +8,13 @@ import {
 } from '@/domains/transaction'
 import { PageHeader, Spacer } from '@/ui'
 import { useEntityListPage } from '@/hooks'
+import { ErrorBoundary } from '@/components'
 
 export function Transactions() {
   const { entity, modal } = useEntityListPage<Transaction>()
 
   return (
-    <div>
+    <ErrorBoundary>
       <PageHeader>
         <h1>Операции</h1>
         <Spacer width={20} />
@@ -37,6 +38,6 @@ export function Transactions() {
       </Drawer>
 
       <TransactionTable onRowClick={entity.edit} />
-    </div>
+    </ErrorBoundary>
   )
 }

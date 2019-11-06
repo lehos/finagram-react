@@ -29,7 +29,7 @@ interface Props {
 
 export const CategoryList = view((props: Props) => {
   const { classifierId, onChange, value } = props
-  const clCategory = categoryStore.clCategoryMap[classifierId]
+  const categoryTree = categoryStore.getCategoryTree(classifierId)
 
   const selectedRowKeys = value ? [value] : []
 
@@ -44,13 +44,14 @@ export const CategoryList = view((props: Props) => {
   return (
     <div style={{ maxHeight: '300px', overflow: 'auto' }}>
       <Table<Category>
-        dataSource={clCategory.children}
+        dataSource={categoryTree}
         columns={columns}
         size="small"
         rowKey="id"
         pagination={false}
         defaultExpandAllRows
         showHeader={false}
+        // todo
         // @ts-ignore
         rowSelection={{
           type: 'radio',

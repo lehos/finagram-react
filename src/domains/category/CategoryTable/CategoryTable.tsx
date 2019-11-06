@@ -13,7 +13,7 @@ const columns: ColumnProps<Category>[] = [
     key: 'name'
   },
   {
-    title: 'Описание',
+    title: 'Примечание',
     dataIndex: 'description',
     key: 'description'
   }
@@ -21,29 +21,29 @@ const columns: ColumnProps<Category>[] = [
 
 interface Props {
   classifierId: string
-  onRowClick?: (id: string) => any
-  onRowSelect?: (key: string) => any
+  onRowClick?: (category: Category) => void
+  onRowSelect?: (key: string) => void
   size?: 'small' | 'middle'
 }
 
 export const CategoryTable = view((props: Props) => {
   const { classifierId, size = 'middle', onRowSelect, onRowClick } = props
-  const clCategory = categoryStore.clCategoryMap[classifierId]
+  const categoryTree = categoryStore.getCategoryTree(classifierId)
 
-  if (!clCategory) {
+  if (!categoryTree) {
     return <>Нет данных</>
   }
 
   return (
     <Table<Category>
-      dataSource={clCategory.children}
+      dataSource={categoryTree}
       columns={columns}
       size={size}
       rowKey="id"
       pagination={false}
       defaultExpandAllRows
       onRow={record => ({
-        onClick: e => onRowClick && onRowClick(record.id)
+        onClick: e => onRowClick && onRowClick(record)
       })}
       rowSelection={{
         type: 'checkbox',

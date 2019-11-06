@@ -49,6 +49,10 @@ export const classifierStore = store({
     this._compute()
   },
 
+  get(id: string) {
+    return this.classifierMap[id]
+  },
+
   _compute() {
     this.classifierList = Object.values(this.classifierMap)
   }

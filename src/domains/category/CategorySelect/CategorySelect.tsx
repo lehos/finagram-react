@@ -13,7 +13,7 @@ interface Props {
 
 export const CategorySelect = view((props: Props) => {
   const { classifierId, name } = props
-  const clCategory = categoryStore.clCategoryMap[classifierId]
+  const clCategory = categoryStore.getCategoryTree(classifierId)
 
   // function selectRow(record: Category) {
   //   onChange(record.id)
@@ -29,7 +29,7 @@ export const CategorySelect = view((props: Props) => {
         treeDefaultExpandAll
         titleField="name"
         name={name}
-        treeOptions={clCategory.children}
+        treeOptions={clCategory}
         style={{ width: '100%' }}
       />
     </div>

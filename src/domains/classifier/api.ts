@@ -1,5 +1,5 @@
 import { req } from '@/services/http'
-import { Dict } from '@/utils'
+import { Dict } from '@/domains/entity'
 
 import { Classifier } from '.'
 import * as M from './mocks'

@@ -14,7 +14,7 @@ type Props<T> = {
   onUpdate: (values: T) => void
   initialValues: T
 
-  isDeleteBtnHidden?: boolean
+  isDeletable?: boolean
   formInner: React.ReactNode
 
   onCancel?: () => any
@@ -25,7 +25,7 @@ type BaseValues = {
 }
 
 export function EntityForm<T>(props: Props<T>) {
-  const { isNew, isDeleteBtnHidden } = props
+  const { isNew, isDeletable } = props
 
   async function onSubmit(values: T & BaseValues) {
     const { action, ...rest } = values
@@ -65,7 +65,7 @@ export function EntityForm<T>(props: Props<T>) {
             {({ input: { value } }) => (
               <Ui.Flex justifyContent="space-between">
                 <div>
-                  {!isNew && !isDeleteBtnHidden && (
+                  {!isNew && !isDeletable && (
                     <Button
                       disabled={submitting}
                       type="danger"

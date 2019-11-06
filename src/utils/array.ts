@@ -1,4 +1,9 @@
-import { Tree } from '@/domains/entity'
+// todo remove this file
+
+type Tree<T extends Tree = { id: string; children?: Tree[] }> = {
+  id: string
+  children?: T[]
+}
 
 export function arrayToMap<T extends { [key: string]: any }>(
   arr: T[],

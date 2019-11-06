@@ -9,7 +9,7 @@ type TreeData = {
   children?: TreeData[]
 }
 
-export function convertTreeToAntFormat(tree: Tree[], title?: string): TreeData[] {
+export function convertTreeToAntFormat(tree: Tree, title?: string): TreeData[] {
   return tree.map(el => {
     const res: TreeData = {
       // @ts-ignore
@@ -27,7 +27,7 @@ export function convertTreeToAntFormat(tree: Tree[], title?: string): TreeData[]
 
 export interface Props extends TreeSelectProps<any> {
   treeData?: TreeData[]
-  treeOptions?: Tree[]
+  treeOptions?: Tree
   titleField?: string
   value: string
   onChange: (val: string) => void

@@ -11,7 +11,7 @@ import { categoryStore } from '@/domains/category'
 import { Transaction } from '../entity'
 import { transactionStore } from '../store'
 
-// decompose?
+// todo decompose
 function makeColumns() {
   const columns: ColumnProps<Transaction>[] = [
     {
@@ -60,7 +60,9 @@ function makeColumns() {
           return ''
         }
 
-        return category && categoryStore.categoryMap[category.categoryId].name
+        console.log(category)
+
+        return categoryStore.get(classifier.id, category.categoryId).name
       }
     })
   })

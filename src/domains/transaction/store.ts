@@ -3,7 +3,7 @@ import { store } from 'react-easy-state'
 import * as T from './entity'
 import * as A from './api'
 
-import { removeElem } from '@/utils'
+import { removeElem } from '@/utils/array'
 
 export const transactionStore = store({
   transactionList: [] as T.Transaction[],

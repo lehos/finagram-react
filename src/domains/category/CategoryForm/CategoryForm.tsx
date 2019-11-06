@@ -2,23 +2,21 @@ import React from 'react'
 
 import * as Ui from '@/ui'
 import { EntityForm } from '@/components'
+import { PartialBy } from '@/utils'
 
 import { categoryStore, FormCategoryList } from '..'
+import { Category } from '../entity'
 
 type Props = {
   onOk: () => any
   onCancel: () => any
 
-  categoryId?: string | null
   classifierId: string
   parentId: string | null
+  category: Category | null
 }
 
-type Values = {
-  name: string
-  description: string
-  parentId: string | null
-}
+type Values = PartialBy<Category, 'id'>
 
 function validate(values: Partial<Values>) {
   const errors = {} as Record<keyof Values, string>
@@ -31,34 +29,31 @@ function validate(values: Partial<Values>) {
 }
 
 export function CategoryForm(props: Props) {
-  const { categoryId, classifierId, parentId } = props
-  const category = categoryId ? categoryStore.categoryMap[categoryId] : null
-  const isNew = !categoryId
+  const { category, classifierId, parentId } = props
+  const isNew = !category
 
   function getInitialValues(): Values {
-    return category
-      ? {
-          name: category.name,
-          description: category.description,
-          parentId: parentId || category.parentId
-        }
-      : {
-          name: '',
-          description: '',
-          parentId: categoryStore.clCategoryMap[classifierId].children[0].id
-        }
+    return (
+      category || {
+        name: '',
+        description: '',
+        parentId: parentId || '123', // todo
+        classifierId,
+        type: 'default'
+      }
+    )
   }
 
-  function onCreate(values: Values) {
+  function create(values: Values) {
     categoryStore.create(values)
   }
 
-  function onDelete() {
-    categoryStore.deleteCategory(categoryId!, classifierId)
+  function remove() {
+    categoryStore.remove(category!)
   }
 
-  function onUpdate(values: Values) {
-    return categoryStore.update({ id: categoryId!, ...values })
+  function update(values: Values) {
+    return categoryStore.update({ ...values, id: values.id! })
   }
 
   return (
@@ -68,10 +63,10 @@ export function CategoryForm(props: Props) {
       validate={validate}
       initialValues={getInitialValues()}
       isNew={isNew}
-      onCreate={onCreate}
-      onDelete={onDelete}
-      onUpdate={onUpdate}
-      isDeleteBtnHidden={!(category && category.parentId)}
+      onCreate={create}
+      onDelete={remove}
+      onUpdate={update}
+      isDeletable={!(category && category.parentId)}
       formInner={
         <>
           <Ui.Form.Row>

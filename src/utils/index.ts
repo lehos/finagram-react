@@ -1,3 +1,3 @@
 export * from './utils'
-export * from './array'
 export * from './types'
+export * from './tree'

@@ -28,25 +28,13 @@ const treeData = [
 const treeOptions = [
   {
     id: '1',
-    children: [
-      {
-        id: '1-1'
-      },
-      {
-        id: '1-2'
-      }
-    ]
+    parentId: null,
+    children: [{ id: '1-1', parentId: '1' }, { id: '1-2', parentId: '1' }]
   },
   {
     id: '2',
-    children: [
-      {
-        id: '2-1'
-      },
-      {
-        id: '2-2'
-      }
-    ]
+    parentId: null,
+    children: [{ id: '2-1', parentId: '2' }, { id: '2-2', parentId: '2' }]
   }
 ]
 
