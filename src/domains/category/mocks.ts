@@ -73,7 +73,7 @@ export const clCategoryMap: Dict<ClassifierCategory> = {
     }
   },
 
-  agents: {
+  agent: {
     roots: {
       ag_m: true,
       ag_f: true
@@ -81,7 +81,7 @@ export const clCategoryMap: Dict<ClassifierCategory> = {
     categories: {
       ag_m: {
         id: 'ag_m',
-        classifierId: 'agents',
+        classifierId: 'agent',
         parentId: null,
         type: 'default',
         name: 'Вася',
@@ -89,7 +89,7 @@ export const clCategoryMap: Dict<ClassifierCategory> = {
       },
       ag_f: {
         id: 'ag_f',
-        classifierId: 'agents',
+        classifierId: 'agent',
         parentId: null,
         type: 'default',
         name: 'Лена',

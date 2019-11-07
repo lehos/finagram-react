@@ -8,8 +8,8 @@ export const classifiers: Record<string, Classifier> = {
     splitable: true,
     useInTransfer: false
   },
-  agents: {
-    id: 'agents',
+  agent: {
+    id: 'agent',
     name: 'Агент',
     namePlural: 'Агенты',
     splitable: false,

@@ -48,7 +48,7 @@ export const transactionMock: T.Transaction[] = [
         categoryId: '133'
       },
       {
-        classifierId: 'agents',
+        classifierId: 'agent',
         categoryId: 'wife'
       }
     ]
@@ -103,7 +103,7 @@ export const transactionMock: T.Transaction[] = [
     toAccountId: 'ac1',
     categories: [
       {
-        classifierId: 'agents',
+        classifierId: 'agent',
         categoryId: 'wife'
       }
     ]

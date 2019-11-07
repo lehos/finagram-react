@@ -83,6 +83,14 @@ export const categoryStore = store({
     this._compute()
   },
 
+  get(classifierId: string, categoryId: string) {
+    return this.clCategoryMap[classifierId].categories[categoryId]
+  },
+
+  getCategoryTree(classifierId: string) {
+    return this.categoryTreeMap[classifierId]
+  },
+
   async update(category: E.Category) {
     await A.update(category)
 
@@ -91,21 +99,29 @@ export const categoryStore = store({
     this._compute()
   },
 
-  async remove({ classifierId, id, parentId }: E.Category) {
-    if (parentId === null) {
-      delete this.clCategoryMap[classifierId].roots[id]
-    }
-
-    delete this.clCategoryMap[classifierId].categories[id]
+  // todo запретить удаление корневых разделенных категорий
+  // todo очищать удаленные категории в операциях
+  async remove(category: E.Category) {
+    this._removeItem(category)
     this._compute()
   },
 
-  get(classifierId: string, categoryId: string) {
-    return this.clCategoryMap[classifierId].categories[categoryId]
+  _removeItem(category: E.Category) {
+    const { classifierId, id, parentId } = category
+    if (parentId === null) {
+      delete this.clCategoryMap[classifierId].roots[id]
+    }
+    delete this.clCategoryMap[classifierId].categories[id]
+    this._removeSubTree(category)
   },
 
-  getCategoryTree(classifierId: string) {
-    return this.categoryTreeMap[classifierId]
+  _removeSubTree(category: E.Category) {
+    const { classifierId, id } = category
+    Object.values(this.clCategoryMap[classifierId].categories)
+      .filter(el => el.parentId === id)
+      .forEach(el => {
+        this._removeItem(el)
+      })
   },
 
   _compute() {
