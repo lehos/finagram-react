@@ -1,122 +1,104 @@
 import * as T from './entity'
+import { Dict } from '@/domains/entity'
 
-export const transactionMock: T.Transaction[] = [
-  {
+export const transactions: Dict<T.Transaction> = {
+  t1: {
     id: 't1',
     accountId: 'ac1',
-    toAccountId: null,
-    kind: 'expense',
+    type: 'expense',
     status: 'done',
     description: 'расход в рутовой категории "Статья"',
     sum: 20000,
     date: '29.07.2019',
-    categories: [
-      {
-        classifierId: 'expense',
-        categoryId: '13'
-      }
-    ]
+    categories: {
+      expense: 'exp_exp'
+    },
+    targetAccountId: null
   },
-  {
+  t2: {
     id: 't2',
     accountId: 'ac2',
-    toAccountId: null,
-    kind: 'expense',
+    type: 'expense',
     status: 'done',
     description: 'расход в конкретной категории "Статья"',
     sum: 35000,
     date: '30.07.2019',
-    categories: [
-      {
-        classifierId: 'expense',
-        categoryId: '131'
-      }
-    ]
+    categories: {
+      expense: 'exp_exp_1'
+    },
+    targetAccountId: null
   },
-  {
+  t22: {
     id: 't22',
     accountId: 'ac2',
-    toAccountId: null,
-    kind: 'expense',
+    type: 'expense',
     status: 'done',
     description: 'расход со статьей и агентом',
     sum: 200000,
     date: '30.07.2019',
-    categories: [
-      {
-        classifierId: 'expense',
-        categoryId: '133'
-      },
-      {
-        classifierId: 'agent',
-        categoryId: 'wife'
-      }
-    ]
+    categories: {
+      expense: 'exp_exp_2',
+      agent: 'ag_f'
+    },
+    targetAccountId: null
   },
-  {
+  t3: {
     id: 't3',
     accountId: 'ac2',
-    toAccountId: null,
-    kind: 'expense',
+    type: 'expense',
     status: 'done',
     description: 'расход без категорий',
     sum: 50000,
     date: '30.07.2019',
-    categories: []
+    categories: {},
+    targetAccountId: null
   },
-  {
+  t4: {
     id: 't4',
     accountId: 'ac3',
-    toAccountId: null,
-    kind: 'income',
+    type: 'income',
     status: 'done',
     description: 'приход с категорией',
     sum: 500000,
     date: '30.07.2019',
-
-    categories: [
-      {
-        classifierId: 'expense',
-        categoryId: '121'
-      }
-    ]
+    categories: {
+      expense: 'exp_inc_1'
+    },
+    targetAccountId: null
   },
-  {
+  t5: {
     id: 't5',
-    kind: 'transfer',
+    type: 'transfer',
     status: 'done',
     description: 'перевод без агента',
     sum: 100000,
     date: '30.07.2019',
     accountId: 'ac2',
-    toAccountId: 'ac1',
-    categories: []
+    targetAccountId: 'ac1',
+    categories: {}
   },
-  {
+  t6: {
     id: 't6',
-    kind: 'transfer',
+    type: 'transfer',
     status: 'done',
     description: 'перевод с агентом',
     sum: 200000,
     date: '30.07.2019',
     accountId: 'ac2',
-    toAccountId: 'ac1',
-    categories: [
-      {
-        classifierId: 'agent',
-        categoryId: 'wife'
-      }
-    ]
+    targetAccountId: 'ac1',
+    categories: {
+      agent: 'ag_f'
+    }
   },
-  {
+  t7: {
     id: 't7',
-    kind: 'transfer',
+    type: 'transfer',
     status: 'done',
     description: 'перевод с другого счета',
     sum: 200000,
     date: '01.08.2019',
     accountId: 'ac3',
-    toAccountId: 'ac2',
-    categories: []
+    targetAccountId: 'ac2',
+    categories: {}
   }
-]
+}

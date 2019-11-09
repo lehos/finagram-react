@@ -1,12 +1,16 @@
 import { req } from '@/services/http'
+import { Dict } from '@/domains/entity'
 
-import { transactionMock } from './mocks'
+import * as M from './mocks'
 import { Transaction } from './entity'
 
-export async function getList(): Promise<Transaction[]> {
-  return req({ mock: transactionMock })
+export async function search(): Promise<Dict<Transaction>> {
+  return req({ mock: M.transactions })
 }
 
-export async function clearCategory(categoryId: string): Promise<null> {
+export async function clearCategory(
+  classifierId: string,
+  categoryId: string
+): Promise<null> {
   return req({ mock: null })
 }

@@ -6,4 +6,4 @@ export type TreeItem = {
 
 export type Tree<T extends TreeItem = TreeItem> = T[]
 
-export type Dict<T> = Record<string, T>
+export type Dict<T, K extends string = string> = Record<K, T>

@@ -4,13 +4,13 @@ import { FormSpy } from 'react-final-form'
 import {
   Transaction,
   transactionStore,
-  transactionKinds
+  transactionTypes
 } from '@/domains/transaction'
 import { CategorySelect } from '@/domains/category'
 import { classifierStore } from '@/domains/classifier'
+import { accountStore } from '@/domains/account'
 import { EntityForm } from '@/components'
 import * as Ui from '@/ui'
-import { accountStore } from '@/domains/account'
 
 type Values = Omit<Transaction, 'id'> & {
   id?: string
@@ -23,18 +23,18 @@ type Props = {
 }
 
 function getInitialValues(transaction: Transaction | null): Values {
-  return transaction
-    ? { ...transaction }
-    : {
-        sum: 0,
-        date: '',
-        description: '',
-        kind: 'expense',
-        accountId: '',
-        toAccountId: null,
-        categories: null,
-        status: 'done'
-      }
+  return (
+    transaction || {
+      sum: 0,
+      date: '',
+      description: '',
+      type: 'expense',
+      accountId: '',
+      categories: {},
+      status: 'done',
+      targetAccountId: null
+    }
+  )
 }
 
 function validate(values: Values) {
@@ -47,10 +47,10 @@ export function TransactionForm(props: Props) {
   function onCreate() {}
   function onDelete() {}
   function onUpdate(values: Values) {
-    transactionStore.update(transaction!, values)
+    transactionStore.update({ ...values, id: values.id! })
   }
 
-  const transactionKindOptions = Object.entries(transactionKinds).map(el => ({
+  const transactionKindOptions = Object.entries(transactionTypes).map(el => ({
     value: el[0],
     label: el[1]
   }))
@@ -75,7 +75,7 @@ export function TransactionForm(props: Props) {
         <>
           <Ui.Form.Row>
             <Ui.Form.Label>Тип операции</Ui.Form.Label>
-            <Ui.FormRadio name="kind" options={transactionKindOptions} />
+            <Ui.FormRadio name="type" options={transactionKindOptions} />
           </Ui.Form.Row>
 
           <Ui.Form.Row>
@@ -121,7 +121,7 @@ export function TransactionForm(props: Props) {
                 <CategorySelect
                   classifierId={cl.id}
                   key={cl.id}
-                  name={`categories[${index}]categoryId`}
+                  name={`categories.${cl.id}`}
                 />
               </Ui.Form.Row>
             ))}

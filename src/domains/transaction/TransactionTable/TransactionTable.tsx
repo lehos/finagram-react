@@ -26,9 +26,9 @@ function makeColumns() {
       render: (val, row) => {
         const res = formatMoney(val)
 
-        return row.kind === 'expense' || row.kind === 'transfer' ? (
+        return row.type === 'expense' || row.type === 'transfer' ? (
           <span style={{ color: 'red' }}>-{res}</span>
-        ) : row.kind === 'income' ? (
+        ) : row.type === 'income' ? (
           <span style={{ color: 'green' }}>+{res}</span>
         ) : (
           res
@@ -49,20 +49,14 @@ function makeColumns() {
       title: classifier.name,
       key: classifier.id,
       dataIndex: 'categories',
-      render: (_, row) => {
-        if (row.kind === 'balance') {
+      render: (_, transaction) => {
+        if (transaction.type === 'balance') {
           return ''
         }
 
-        const category = row.categories!.find(c => c.classifierId === classifier.id)
+        const categoryId = transaction.categories![classifier.id]
 
-        if (!category) {
-          return ''
-        }
-
-        console.log(category)
-
-        return categoryStore.get(classifier.id, category.categoryId).name
+        return categoryId ? categoryStore.get(classifier.id, categoryId).name : ''
       }
     })
   })
@@ -70,9 +64,9 @@ function makeColumns() {
   columns.push(
     {
       title: 'Корреспондент',
-      dataIndex: 'toAccountId',
-      key: 'toAccountId',
-      render: val => val && accountStore.accountsMap[val].name
+      dataIndex: 'targetAccountId',
+      key: 'targetAccountId',
+      render: val => val && accountStore.get(val).name
     },
     {
       title: 'Описание',

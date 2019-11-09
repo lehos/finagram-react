@@ -92,7 +92,7 @@ export const clCategoryMap: Dict<ClassifierCategory> = {
         classifierId: 'agent',
         parentId: null,
         type: 'default',
-        name: 'Лена',
+        name: 'Аня',
         description: ''
       }
     }

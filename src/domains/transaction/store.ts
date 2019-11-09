@@ -1,35 +1,42 @@
 import { store } from 'react-easy-state'
 
+import { Dict } from '@/domains/entity'
+
 import * as T from './entity'
 import * as A from './api'
 
-import { removeElem } from '@/utils/array'
-
 export const transactionStore = store({
+  transactionMap: {} as Dict<T.Transaction>,
   transactionList: [] as T.Transaction[],
 
-  async init() {
-    this.transactionList = await A.getList()
+  init() {
+    return this.search()
   },
 
-  async update(transaction: T.Transaction, values: Partial<T.Transaction>) {
-    Object.assign(transaction, values)
-    this._upList()
+  async search() {
+    this.transactionMap = await A.search()
+    this._compute()
   },
 
-  async clearCategory(categoryId: string) {
-    await A.clearCategory(categoryId)
+  async update(transaction: T.Transaction) {
+    await A.search()
+    this.transactionMap[transaction.id] = transaction
+    this._compute()
+  },
 
-    this.transactionList.forEach(el => {
-      if (el.kind !== 'balance') {
-        removeElem(el.categories!, { clb: c => c.categoryId === categoryId })
+  async clearCategory(classifierId: string, categoryId: string) {
+    await A.clearCategory(classifierId, categoryId)
+
+    Object.values(this.transactionMap).forEach(el => {
+      if (el.type !== 'balance' && el.categories![classifierId]) {
+        delete el.categories![classifierId]
       }
     })
+
+    this._compute()
   },
 
-  // todo get rid of this hack.
-  //  should pass cloned array to ant table
-  _upList() {
-    this.transactionList = [...this.transactionList]
+  _compute() {
+    this.transactionList = Object.values(this.transactionMap)
   }
 })

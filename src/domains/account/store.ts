@@ -20,6 +20,10 @@ export const accountStore = store({
     this._compute()
   },
 
+  get(id: string) {
+    return this.accountsMap[id]
+  },
+
   async create(stub: Omit<Account, 'id'>) {
     const id = nanoid()
     const newAccount = { id, ...stub }
